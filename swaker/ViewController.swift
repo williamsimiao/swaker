@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Parse
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let user = PFUser.logInWithUsername("andreanmasiro@live.com", password: "1234")
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
