@@ -118,17 +118,14 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
+				45E824D51B66B5D500F0F404 /* DAO */,
+				45E824D41B66B55F00F0F404 /* Entities */,
 				3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */,
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
 				3DB058E21B62B0D800DEC2CB /* Images.xcassets */,
 				3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */,
 				3DB058D91B62B0D800DEC2CB /* Supporting Files */,
-				4C1111A81B66AE6500163A05 /* User.swift */,
-				4C1111AA1B66AFE400163A05 /* Audio.swift */,
-				4C1111AC1B66B08200163A05 /* Alarm.swift */,
-				4C1111AE1B66B18400163A05 /* AudioAttempt.swift */,
-				4C1111B01B66B19000163A05 /* AudioSaved.swift */,
 			);
 			path = swaker;
 			sourceTree = "<group>";
@@ -156,6 +153,25 @@
 				3DB058F01B62B0D800DEC2CB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		45E824D41B66B55F00F0F404 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				4C1111A81B66AE6500163A05 /* User.swift */,
+				4C1111AA1B66AFE400163A05 /* Audio.swift */,
+				4C1111AC1B66B08200163A05 /* Alarm.swift */,
+				4C1111AE1B66B18400163A05 /* AudioAttempt.swift */,
+				4C1111B01B66B19000163A05 /* AudioSaved.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		45E824D51B66B5D500F0F404 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DAO;
 			sourceTree = "<group>";
 		};
 		4CC5F1011B62B5AF00ADEC8B /* Frameworks */ = {
