@@ -13,6 +13,7 @@
 		3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E21B62B0D800DEC2CB /* Images.xcassets */; };
 		3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */; };
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
+		45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E824D61B66B72100F0F404 /* UserDAO.swift */; };
 		4C1111A91B66AE6500163A05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111A81B66AE6500163A05 /* User.swift */; };
 		4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AA1B66AFE400163A05 /* Audio.swift */; };
 		4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AC1B66B08200163A05 /* Alarm.swift */; };
@@ -51,6 +52,7 @@
 		3DB058EB1B62B0D800DEC2CB /* swakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058F01B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
+		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		4C1111A81B66AE6500163A05 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C1111AA1B66AFE400163A05 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		4C1111AC1B66B08200163A05 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		45E824D51B66B5D500F0F404 /* DAO */ = {
 			isa = PBXGroup;
 			children = (
+				45E824D61B66B72100F0F404 /* UserDAO.swift */,
 			);
 			name = DAO;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
+				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,

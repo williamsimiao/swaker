@@ -17,6 +17,13 @@ class User: NSObject {
     var submissionDate:NSDate?
     var friends:Array<User>?
     
+    
+    
+    init(username:String!, password:String!) {
+        self.username = username
+        self.password = password
+    }
+    
     init(username:String!, password:String!, email:String!, name:String!, photo:NSData?) {
         self.username = username
         self.password = password
@@ -24,4 +31,5 @@ class User: NSObject {
         self.name = name
         self.photo = photo
     }
+    
 }
