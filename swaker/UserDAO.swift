@@ -14,11 +14,11 @@ class UserDAO: NSObject {
     var currentUser:User?
     
     
-    /*
+    /******************************************************************************
         Função de login do usuario
-        Parâmetros: Usuário com user name e senha
+        Parâmetros: Usuário com username e senha
         retorno: Usuário com dados ou nil
-    */
+    ******************************************************************************/
     func login(user:User!) -> User? {
         if PFUser.currentUser() == nil {
             var error:NSError?
@@ -38,14 +38,54 @@ class UserDAO: NSObject {
     }
     
     
-    /*
-    Função de cadastro
-    Parâmetros:
-    retorno: 
-    */
+    
+    /******************************************************************************
+        Função de cadastro
+        Parâmetros: Usuario com username, password e email
+        retorno: true = cadastrou ou false = não cadastrou
+    ******************************************************************************/
+    func signup(user:User!) -> Bool{
+        
+        var userDAO = PFUser()
+        userDAO.username = user.username
+        userDAO.password = user.password
+        userDAO.email = user.email
+        
+        var sucess = Bool()
+        
+        userDAO.signUpInBackgroundWithBlock{
+            (succeded: Bool, error:NSError?) -> Void in
+            sucess = succeded
+  
+        }
+        return sucess
+    }
+    
+    /******************************************************************************
+        Função de logout
+        Parâmetros: void
+        retorno: void
+    ******************************************************************************/
+    func logout(){
+        PFUser.logOut()
+    }
+    
+    
+    /******************************************************************************
+        Função de excluir usuario
+        Parâmetros:
+        retorno:
+    ******************************************************************************/
+    
+    
+    /******************************************************************************
+        Função de alterar dados
+        Parâmetros:
+        retorno:
+    ******************************************************************************/
     
     
     
     
-   
+
 }
