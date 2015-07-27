@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Alarm: NSObject {
+class Alarm: NSObject, NSCoding {
     var audioId:String!
     var alarmDescription:String!
     var fireDate:NSDate!
@@ -19,5 +19,19 @@ class Alarm: NSObject {
         self.alarmDescription = alarmDescription
         self.fireDate = fireDate
         self.setterId = setterId
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        audioId = aDecoder.decodeObjectForKey("audioId") as! String
+        alarmDescription = aDecoder.decodeObjectForKey("alarmDescription") as! String
+        fireDate = aDecoder.decodeObjectForKey("fireDate") as! NSDate
+        setterId = aDecoder.decodeObjectForKey("setterId") as! String
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(audioId, forKey: "audioId")
+        aCoder.encodeObject(alarmDescription, forKey: "alarmDescription")
+        aCoder.encodeObject(fireDate, forKey: "fireDate")
+        aCoder.encodeObject(setterId, forKey: "setterId")
     }
 }

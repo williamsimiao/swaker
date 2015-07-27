@@ -13,7 +13,6 @@ class UserDAO: NSObject {
     
     var currentUser:User?
     
-    
     /*
         Função de login do usuario
         Parâmetros: Usuário com user name e senha
