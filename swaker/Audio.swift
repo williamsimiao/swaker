@@ -12,10 +12,12 @@ class Audio: NSObject {
     var audio:NSData!
     var audioDescription:String?
     var senderId:String!
+    var audioId:String!
     
-    init(audio:NSData!, audioDescription:String?, senderId:String!) {
+    init(audio:NSData!, audioDescription:String?, senderId:String!, audioId:String!) {
         self.audio = audio
         self.audioDescription = audioDescription
         self.senderId = senderId
+        self.audioId = audioId
     }
 }

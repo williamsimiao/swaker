@@ -12,8 +12,8 @@ class AudioSaved: Audio {
     
     var receiverId:String!
     
-    init(receiverId:String!, audio:NSData!, audioDescription:String?, senderId:String!) {
-        super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
+    init(receiverId:String!, audio:NSData!, audioDescription:String?, senderId:String!, audioId:String!) {
+        super.init(audio: audio, audioDescription: audioDescription, senderId: senderId, audioId: audioId)
         self.receiverId = receiverId
     }
 }

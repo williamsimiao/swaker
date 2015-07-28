@@ -11,8 +11,8 @@ import UIKit
 class AudioAttempt: Audio {
     var alarmId:String?
     
-    init(alarmId:String!, audio:NSData!, audioDescription:String?, senderId:String!) {
-        super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
+    init(alarmId:String!, audio:NSData!, audioDescription:String?, senderId:String!, audioId:String!) {
+        super.init(audio: audio, audioDescription: audioDescription, senderId: senderId, audioId: audioId)
         self.alarmId = alarmId
     }
 }
