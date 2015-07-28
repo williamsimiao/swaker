@@ -26,9 +26,14 @@ class ViewController: UIViewController {
         let soundFileURL = NSURL(fileURLWithPath: soundFilePath)
         let data = NSData(contentsOfURL: soundFileURL!)
         var lala = AudioAttempt(alarmId: "teste1", audio: data, audioDescription: "minha record", senderId: "william")
-        
 
-        test.addAudioAttempt(lala)
+        let muitodoido = test.addAudioAttempt(lala) as PFObject
+        println("audioId:\(lala.audioId)")
+        
+        sleep(20)
+        
+        test.deleteAudioAttempt(muitodoido)
+
         // Do any additional setup after loading the view, typically from a nib.
 
     }

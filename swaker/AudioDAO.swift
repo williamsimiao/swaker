@@ -57,7 +57,7 @@ class AudioDAO: NSObject {
         Adiciona um novo audioAttempt ao banco
         Parametro: Classe AudioAttempt
     */
-    func addAudioAttempt(anAudio:AudioAttempt)  {
+    func addAudioAttempt(anAudio:AudioAttempt) -> PFObject {
         let PFAttempt = PFObject(className: "AudioAttempt")
         PFAttempt.setObject(anAudio.alarmId!, forKey: "alarmId")
         
@@ -68,6 +68,21 @@ class AudioDAO: NSObject {
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
         PFAttempt.saveInBackground()
         //adicione um bloco para alterar o nome do audio para o PFobject.objectId
+        return PFAttempt
+    }
+    
+    func deleteAudioAttempt(audioObject: PFObject) {
+        
+        PFObject(withoutDataWithClassName: "AudioAttempt", objectId: audioObject.objectId).deleteEventually()
+    
+    }
+    
+    func deleteAudioSaved(audioObject: PFObject) {
+        
+        var error:NSError?
+
+        PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId).deleteEventually()
+        
     }
     
 }
