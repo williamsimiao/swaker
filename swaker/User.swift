@@ -9,6 +9,7 @@
 import UIKit
 
 class User: NSObject {
+    var objectId:String!
     var username:String!
     var password:String!
     var email:String!
@@ -24,7 +25,8 @@ class User: NSObject {
         self.password = password
     }
     
-    init(username:String!, password:String!, email:String!, name:String!, photo:NSData?) {
+    init(objectId:String!, username:String!, password:String!, email:String!, name:String!, photo:NSData?) {
+        self.objectId = objectId
         self.username = username
         self.password = password
         self.email = email

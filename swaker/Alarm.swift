@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class Alarm: NSObject, NSCoding {
     var audioId:String!
@@ -33,5 +34,12 @@ class Alarm: NSObject, NSCoding {
         aCoder.encodeObject(alarmDescription, forKey: "alarmDescription")
         aCoder.encodeObject(fireDate, forKey: "fireDate")
         aCoder.encodeObject(setterId, forKey: "setterId")
+    }
+    
+    init(PFAlarm:PFObject) {
+        self.audioId = PFAlarm["audioId"] as! String
+        self.alarmDescription = PFAlarm["alarmDescription"] as! String
+        self.fireDate = PFAlarm["fireDate"] as! NSDate
+        self.setterId = PFAlarm["setterId"] as! String
     }
 }

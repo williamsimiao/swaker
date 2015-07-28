@@ -32,14 +32,14 @@ class UserDAO: NSObject {
             PFUser.logInWithUsernameInBackground(user.username, password: user.password){
                 (userR:PFUser?, error: NSError?) -> Void in
                 if userR != nil {
-                    self.currentUser = User(username: user.username, password: user.password, email: userR!.email, name: userR!.objectForKey("name") as! String, photo: userR!.objectForKey("photo") as? NSData)
+                    self.currentUser = User(objectId: userR!.objectId,username: user.username, password: user.password, email: userR!.email, name: userR!.objectForKey("name") as! String, photo: userR!.objectForKey("photo") as? NSData)
                 } else { //Log in falhou
                     
                 }
             }
         } else {
             let aUser = PFUser.currentUser()!
-            currentUser = User(username: aUser.username!, password: aUser.password!, email: aUser.email!, name: aUser.objectForKey("name") as! String, photo: aUser.objectForKey("photo") as? NSData)
+            currentUser = User(objectId: aUser.objectId, username: aUser.username!, password: aUser.password!, email: aUser.email!, name: aUser.objectForKey("name") as! String, photo: aUser.objectForKey("photo") as? NSData)
         }
         return currentUser!
     }

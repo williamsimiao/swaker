@@ -13,7 +13,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        PFObject(className: "test", dictionary: ["ue" : Array(arrayLiteral: "a", "b")]).save()
+        AlarmDAO.sharedInstance().loadUserAlarms()
+        AlarmDAO.sharedInstance().addAlarm(Alarm(audioId: "aid", alarmDescription: "adesc", fireDate: NSDate(), setterId: PFUser.currentUser()?.objectId))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
