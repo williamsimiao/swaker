@@ -13,9 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        PFUser.logInWithUsername("andreanmasiro@live.com", password: "1234")
-        let aa = AlarmDAO.sharedInstance()
-        aa.loadUserAlarms()
+        PFObject(className: "test", dictionary: ["ue" : Array(arrayLiteral: "a", "b")]).save()
         // Do any additional setup after loading the view, typically from a nib.
     }
 

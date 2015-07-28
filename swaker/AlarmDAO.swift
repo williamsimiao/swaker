@@ -27,6 +27,7 @@ class AlarmDAO: NSObject {
     
     let user = PFUser.currentUser()!
     var userAlarms = [Alarm]()
+    var friendsAlarms = [Alarm]()
     
     static func sharedInstance() -> AlarmDAO {
         if instance == nil {
