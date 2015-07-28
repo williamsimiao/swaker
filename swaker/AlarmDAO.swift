@@ -99,6 +99,7 @@ class AlarmDAO: NSObject {
                     }
                 }
             })
+            return true
         }
         return false
     }
@@ -108,9 +109,9 @@ class AlarmDAO: NSObject {
         Parâmetro: objectId deste alarme
         Retorno: sucesso ou não da operação
     ***************************************************************************/
-    func deleteAlarm(objectId:String!) -> Bool {
-        if Alarm.deleteAlarm(objectId) {
-            PFObject(withoutDataWithClassName:"Alarm", objectId:objectId).deleteEventually()
+    func deleteAlarm(alarm:Alarm!) -> Bool {
+        if Alarm.deleteAlarm(alarm) {
+            PFObject(withoutDataWithClassName:"Alarm", objectId:alarm.objectId).deleteEventually()
             return true
         }
         return false

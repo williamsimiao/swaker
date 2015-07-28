@@ -81,9 +81,9 @@ class Alarm: NSObject, NSCoding {
         Parametro: o objectId do alarme
         Retorno: Sucesso ou não da operação.
     ***************************************************************************/
-    static func deleteAlarm(objectId:String!) -> Bool {
+    static func deleteAlarm(alarm:Alarm!) -> Bool {
         var error:NSError?
-        let path = DAO.alarmsPath.stringByAppendingPathComponent("\(objectId).alf")
+        let path = DAO.alarmsPath.stringByAppendingPathComponent("\(alarm.objectId).alf")
         let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         if !success {
             println(error?.localizedDescription)
