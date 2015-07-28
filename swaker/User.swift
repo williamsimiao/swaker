@@ -9,6 +9,7 @@
 import UIKit
 
 class User: NSObject {
+    var objectId:String!
     var username:String!
     var password:String!
     var email:String!
