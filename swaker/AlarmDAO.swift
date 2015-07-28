@@ -13,8 +13,11 @@ class AlarmDAO: NSObject {
     
     static var instance:AlarmDAO?
     
+    /***************************************************************************
+        didSet: Verifica se a pasta existe e, caso ela não exista, cria-a.
+    ***************************************************************************/
     var alarmsPath:String! {
-        didSet { // Verifica se a pasta existe e, caso não exista, cria-a.
+        didSet {
             if !NSFileManager.defaultManager().fileExistsAtPath(self.alarmsPath) {
                 var error:NSError?
                 NSFileManager.defaultManager().createDirectoryAtPath(self.alarmsPath, withIntermediateDirectories: false, attributes: nil, error: &error)
@@ -63,15 +66,14 @@ class AlarmDAO: NSObject {
     ***************************************************************************/
     func loadFriendsAlarms() {
         let bigQuery = PFQuery(className: "Alarm")
-        if let user = UserDAO.sharedInstance().currentUser {
-            if user.friends != nil {
-                for friend in user.friends! {
-                    let query = bigQuery.whereKey("setterId", equalTo: friend.objectId)
-                    let alarms = query.findObjects() as? Array<PFObject>
-                    if alarms != nil {
-                        for alarm in alarms! {
-                            friendsAlarms.append(Alarm(PFAlarm: alarm))
-                        }
+        let user = UserDAO.sharedInstance().currentUser!
+        if user.friends != nil {
+            for friend in user.friends! {
+                let query = bigQuery.whereKey("setterId", equalTo: friend.objectId)
+                let alarms = query.findObjects() as? Array<PFObject>
+                if alarms != nil {
+                    for alarm in alarms! {
+                        friendsAlarms.append(Alarm(PFAlarm: alarm))
                     }
                 }
             }
@@ -88,11 +90,12 @@ class AlarmDAO: NSObject {
         let PFAlarm = alarm.toPFObject()
 
         if (PFAlarm.save()) {
-            let predicate = NSPredicate(format: "fireDate = %@ and setterId = %@", argumentArray: [alarm.fireDate, alarm.setterId])
+            let predicate = NSPredicate(format: "fireDate = \(alarm.fireDate) and setterId = \(alarm.setterId)", argumentArray:nil)
             let query = PFQuery(className: "Alarm", predicate: predicate)
             let objects = query.findObjects() as! Array<PFObject>
             alarm.objectId = objects.first!.objectId
-            NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(alarmsPath.stringByAppendingPathComponent(alarm.objectId! + ".alf"), atomically: true)
+            let path = alarmsPath.stringByAppendingPathComponent("\(alarm.objectId!).alf")
+            NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(path, atomically: true)
         }
     }
     
@@ -104,7 +107,8 @@ class AlarmDAO: NSObject {
     func deleteAlarm(objectId:String!) -> Bool {
         PFObject(withoutDataWithClassName: "Alarm", objectId: objectId).deleteEventually()
         var error:NSError?
-        let success = NSFileManager.defaultManager().removeItemAtPath(alarmsPath.stringByAppendingPathComponent("\(objectId).alf"), error: &error)
+        let path = alarmsPath.stringByAppendingPathComponent("\(objectId).alf")
+        let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         if !success {
             println(error?.localizedDescription)
         }
