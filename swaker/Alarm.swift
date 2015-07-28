@@ -10,6 +10,14 @@ import UIKit
 import Parse
 
 class Alarm: NSObject, NSCoding {
+    
+    static let DAO = AlarmDAO.sharedInstance()
+    static var key = 0
+    
+    static func primaryKey() -> Int {
+        return ++key
+    }
+    
     var objectId:String!
     var audioId:String! {
         didSet {
@@ -53,7 +61,34 @@ class Alarm: NSObject, NSCoding {
     
     func toPFObject() -> PFObject {
         let object = PFObject(className: "Alarm", dictionary: ["audioId":audioId, "description":alarmDescription, "fireDate":fireDate, "setterId":setterId])
-        object.objectId = objectId
+//        object.objectId = objectId
         return object
+    }
+    
+    /***************************************************************************
+        Função que salva localmente o alarme
+        Parametro: Void
+        Retorno: Sucesso ou não da operação.
+    ***************************************************************************/
+    func save() -> Bool {
+        self.objectId = String(Alarm.primaryKey())
+        let path = Alarm.DAO.alarmsPath.stringByAppendingPathComponent("\(self.objectId).alf")
+        return NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
+    }
+    
+    /***************************************************************************
+        Função que remove o alarme localmente
+        Parametro: o objectId do alarme
+        Retorno: Sucesso ou não da operação.
+    ***************************************************************************/
+    static func deleteAlarm(objectId:String!) -> Bool {
+        var error:NSError?
+        let path = DAO.alarmsPath.stringByAppendingPathComponent("\(objectId).alf")
+        let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
+        if !success {
+            println(error?.localizedDescription)
+            return false
+        }
+        return true
     }
 }

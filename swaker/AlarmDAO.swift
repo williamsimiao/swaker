@@ -11,8 +11,7 @@ import Parse
 
 class AlarmDAO: NSObject {
     
-    static var instance:AlarmDAO?
-    
+
     /***************************************************************************
         didSet: Verifica se a pasta existe e, caso ela não exista, cria-a.
     ***************************************************************************/
@@ -27,9 +26,9 @@ class AlarmDAO: NSObject {
             }
         }
     }
-    
     var userAlarms = [Alarm]()
     var friendsAlarms = [Alarm]()
+    static var instance:AlarmDAO?
     
     static func sharedInstance() -> AlarmDAO {
         if instance == nil {
@@ -40,6 +39,7 @@ class AlarmDAO: NSObject {
         }
         return instance!
     }
+    
     /***************************************************************************
         Função que carrega todos os alarmes para o usuário logado.
         Devolve um array de alarmes para a propriedade self.userAlarms
@@ -82,36 +82,37 @@ class AlarmDAO: NSObject {
     
     /***************************************************************************
         Função que adiciona um novo alarme
-        Parâmetro: Void
+        Parâmetro: o alarme a ser salvo:Alarm
         Retorno: Void
     ***************************************************************************/
-    func addAlarm(alarm:Alarm) {
-        var alarmId:String!
-        let PFAlarm = alarm.toPFObject()
-
-        if (PFAlarm.save()) {
-            let predicate = NSPredicate(format: "fireDate = \(alarm.fireDate) and setterId = \(alarm.setterId)", argumentArray:nil)
-            let query = PFQuery(className: "Alarm", predicate: predicate)
-            let objects = query.findObjects() as! Array<PFObject>
-            alarm.objectId = objects.first!.objectId
-            let path = alarmsPath.stringByAppendingPathComponent("\(alarm.objectId!).alf")
-            NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(path, atomically: true)
+    func addAlarm(alarm:Alarm) -> Bool {
+        if alarm.save() {
+            let PFAlarm = alarm.toPFObject()
+            PFAlarm.saveEventually({ (success, error) -> Void in
+                let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.alarmsPath)
+                while let alarmId:String = enumerator?.nextObject() as? String {
+                    if alarmId == (alarm.objectId + ".alf") {
+                        let path = self.alarmsPath.stringByAppendingPathComponent(alarm.objectId) + ".alf"
+                        let toPath = self.alarmsPath.stringByAppendingPathComponent(PFAlarm.objectId!) + ".alf"
+                        var error:NSError?
+                        NSFileManager.defaultManager().moveItemAtPath(path, toPath: toPath, error: &error)
+                    }
+                }
+            })
         }
+        return false
     }
     
     /***************************************************************************
-    Função que remove um alarme tanto do Parse quanto localmente
-    Parâmetro: objectId deste alarme
-    Retorno: sucesso ou não da operação
+        Função que remove um alarme tanto do Parse quanto localmente
+        Parâmetro: objectId deste alarme
+        Retorno: sucesso ou não da operação
     ***************************************************************************/
     func deleteAlarm(objectId:String!) -> Bool {
-        PFObject(withoutDataWithClassName: "Alarm", objectId: objectId).deleteEventually()
-        var error:NSError?
-        let path = alarmsPath.stringByAppendingPathComponent("\(objectId).alf")
-        let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
-        if !success {
-            println(error?.localizedDescription)
+        if Alarm.deleteAlarm(objectId) {
+            PFObject(withoutDataWithClassName:"Alarm", objectId:objectId).deleteEventually()
+            return true
         }
-        return success
+        return false
     }
 }
