@@ -10,7 +10,12 @@ import UIKit
 import Parse
 
 class Alarm: NSObject, NSCoding {
-    var audioId:String!
+    var objectId:String!
+    var audioId:String! {
+        didSet {
+            self.toPFObject().save()
+        }
+    }
     var alarmDescription:String!
     var fireDate:NSDate!
     var setterId:String!
@@ -23,6 +28,7 @@ class Alarm: NSObject, NSCoding {
     }
     
     required init(coder aDecoder: NSCoder) {
+        objectId = aDecoder.decodeObjectForKey("objectId") as? String
         audioId = aDecoder.decodeObjectForKey("audioId") as! String
         alarmDescription = aDecoder.decodeObjectForKey("alarmDescription") as! String
         fireDate = aDecoder.decodeObjectForKey("fireDate") as! NSDate
@@ -30,6 +36,7 @@ class Alarm: NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(objectId, forKey: "objectId")
         aCoder.encodeObject(audioId, forKey: "audioId")
         aCoder.encodeObject(alarmDescription, forKey: "alarmDescription")
         aCoder.encodeObject(fireDate, forKey: "fireDate")
@@ -37,9 +44,16 @@ class Alarm: NSObject, NSCoding {
     }
     
     init(PFAlarm:PFObject) {
+        self.objectId = PFAlarm.objectId
         self.audioId = PFAlarm["audioId"] as! String
-        self.alarmDescription = PFAlarm["alarmDescription"] as! String
+        self.alarmDescription = PFAlarm["description"] as! String
         self.fireDate = PFAlarm["fireDate"] as! NSDate
         self.setterId = PFAlarm["setterId"] as! String
+    }
+    
+    func toPFObject() -> PFObject {
+        let object = PFObject(className: "Alarm", dictionary: ["audioId":audioId, "description":alarmDescription, "fireDate":fireDate, "setterId":setterId])
+        object.objectId = objectId
+        return object
     }
 }

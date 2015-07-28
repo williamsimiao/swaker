@@ -78,6 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerForRemoteNotificationTypes(types)
         }
         
+        UserDAO.sharedInstance().login(User(username: "xaxa", password: "bobo"))
+        
         return true
     }
     

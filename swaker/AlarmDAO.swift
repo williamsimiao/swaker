@@ -25,7 +25,6 @@ class AlarmDAO: NSObject {
         }
     }
     
-    let user = PFUser.currentUser()!
     var userAlarms = [Alarm]()
     var friendsAlarms = [Alarm]()
     
@@ -65,12 +64,14 @@ class AlarmDAO: NSObject {
     func loadFriendsAlarms() {
         let bigQuery = PFQuery(className: "Alarm")
         if let user = UserDAO.sharedInstance().currentUser {
-            for friend in user.friends! {
-                let query = bigQuery.whereKey("setterId", equalTo: friend.objectId)
-                let alarms = query.findObjects() as? Array<PFObject>
-                if alarms != nil {
-                    for alarm in alarms! {
-                        friendsAlarms.append(Alarm(PFAlarm: alarm))
+            if user.friends != nil {
+                for friend in user.friends! {
+                    let query = bigQuery.whereKey("setterId", equalTo: friend.objectId)
+                    let alarms = query.findObjects() as? Array<PFObject>
+                    if alarms != nil {
+                        for alarm in alarms! {
+                            friendsAlarms.append(Alarm(PFAlarm: alarm))
+                        }
                     }
                 }
             }
@@ -84,16 +85,29 @@ class AlarmDAO: NSObject {
     ***************************************************************************/
     func addAlarm(alarm:Alarm) {
         var alarmId:String!
-        let PFAlarm = PFObject(className: "Alarm")
-        PFAlarm.setObject(alarm.fireDate, forKey: "fireDate")
-        PFAlarm.setObject(alarm.audioId, forKey: "audioId")
-        PFAlarm.setObject(alarm.setterId, forKey: "setterId")
-        PFAlarm.setObject(alarm.alarmDescription, forKey: "description")
+        let PFAlarm = alarm.toPFObject()
+
         if (PFAlarm.save()) {
             let predicate = NSPredicate(format: "fireDate = %@ and setterId = %@", argumentArray: [alarm.fireDate, alarm.setterId])
             let query = PFQuery(className: "Alarm", predicate: predicate)
             let objects = query.findObjects() as! Array<PFObject>
-            NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(alarmsPath.stringByAppendingPathComponent(objects.first!.objectId! + ".alf"), atomically: true)
+            alarm.objectId = objects.first!.objectId
+            NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(alarmsPath.stringByAppendingPathComponent(alarm.objectId! + ".alf"), atomically: true)
         }
+    }
+    
+    /***************************************************************************
+    Função que remove um alarme tanto do Parse quanto localmente
+    Parâmetro: objectId deste alarme
+    Retorno: sucesso ou não da operação
+    ***************************************************************************/
+    func deleteAlarm(objectId:String!) -> Bool {
+        PFObject(withoutDataWithClassName: "Alarm", objectId: objectId).deleteEventually()
+        var error:NSError?
+        let success = NSFileManager.defaultManager().removeItemAtPath(alarmsPath.stringByAppendingPathComponent("\(objectId).alf"), error: &error)
+        if !success {
+            println(error?.localizedDescription)
+        }
+        return success
     }
 }

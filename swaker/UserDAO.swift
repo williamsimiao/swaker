@@ -39,7 +39,7 @@ class UserDAO: NSObject {
             }
         } else {
             let aUser = PFUser.currentUser()!
-            currentUser = User(objectId: aUser.objectId, username: aUser.username!, password: aUser.password!, email: aUser.email!, name: aUser.objectForKey("name") as! String, photo: aUser.objectForKey("photo") as? NSData)
+            currentUser = User(objectId: aUser.objectId, username: aUser.username!, password: aUser.password, email: aUser.email!, name: aUser.objectForKey("name") as! String, photo: aUser.objectForKey("photo") as? NSData)
         }
         return currentUser!
     }

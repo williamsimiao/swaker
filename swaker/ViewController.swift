@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         AlarmDAO.sharedInstance().loadUserAlarms()
-        AlarmDAO.sharedInstance().addAlarm(Alarm(audioId: "aid", alarmDescription: "adesc", fireDate: NSDate(), setterId: PFUser.currentUser()?.objectId))
+        AlarmDAO.sharedInstance().deleteAlarm("NlkzvTPoMX")
         // Do any additional setup after loading the view, typically from a nib.
     }
 
