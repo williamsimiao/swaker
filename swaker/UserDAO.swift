@@ -12,7 +12,14 @@ import Parse
 class UserDAO: NSObject {
     
     var currentUser:User?
+    static var instance:UserDAO?
     
+    static func sharedInstance() -> UserDAO {
+        if instance == nil {
+            instance = UserDAO()
+        }
+        return instance!
+    }
     
     /******************************************************************************
         Função de login do usuario
