@@ -19,6 +19,7 @@
 		4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AC1B66B08200163A05 /* Alarm.swift */; };
 		4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AE1B66B18400163A05 /* AudioAttempt.swift */; };
 		4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111B01B66B19000163A05 /* AudioSaved.swift */; };
+		4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111B21B66C32200163A05 /* AlarmDAO.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -58,6 +59,7 @@
 		4C1111AC1B66B08200163A05 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		4C1111AE1B66B18400163A05 /* AudioAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioAttempt.swift; sourceTree = "<group>"; };
 		4C1111B01B66B19000163A05 /* AudioSaved.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSaved.swift; sourceTree = "<group>"; };
+		4C1111B21B66C32200163A05 /* AlarmDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmDAO.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				45E824D61B66B72100F0F404 /* UserDAO.swift */,
+				4C1111B21B66C32200163A05 /* AlarmDAO.swift */,
 			);
 			name = DAO;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
+				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

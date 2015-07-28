@@ -13,17 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let user = PFUser.logInWithUsername("andreanmasiro@live.com", password: "1234")
-        let query = PFQuery(className: "Alarm")
-//        let objs = query.findObjects() as? Array<PFObject>
-        query.findObjectsInBackgroundWithBlock { (let array, let error) -> Void in
-            if let array = array {
-                for obj in array {
-                    println(obj.objectId)
-                }
-            }
-        }
-        
+        PFObject(className: "test", dictionary: ["ue" : Array(arrayLiteral: "a", "b")]).save()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
