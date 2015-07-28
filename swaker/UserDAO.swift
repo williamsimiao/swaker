@@ -34,6 +34,7 @@ class UserDAO: NSObject {
                 (userR:PFUser?, error: NSError?) -> Void in
                 
                 if userR != nil {
+                    
                     self.currentUser = User(username: user.username,
                                             password: user.password,
                                                email: userR!.email,

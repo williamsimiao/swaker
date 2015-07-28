@@ -25,7 +25,16 @@ class User: NSObject {
         self.password = password
     }
     
-    init(username:String!, password:String!, email:String!, name:String!, photo:NSData?) {
+    init(objectId:String!, username:String!, password:String?, email:String!, name:String!, photo:NSData?) {
+        self.objectId = objectId
+        self.username = username
+        self.password = password
+        self.email = email
+        self.name = name
+        self.photo = photo
+    }
+    
+    init(username:String!, password:String?, email:String!, name:String!, photo:NSData?) {
         self.username = username
         self.password = password
         self.email = email
