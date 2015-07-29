@@ -16,11 +16,9 @@ class Audio: NSObject {
     
     init(audio:NSData!, audioDescription:String?, senderId:String!) {
         
-        
         self.audio = audio
         self.audioDescription = audioDescription
         self.senderId = senderId
-        
         
     }
     
@@ -35,8 +33,6 @@ class Audio: NSObject {
         return audioSufix!
     }
     
-
-
     /*
         Checa se existe um driretorio 'directoryPath' na pasta documents, caso nao exista cria
     */

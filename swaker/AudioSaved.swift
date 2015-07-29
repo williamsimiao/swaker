@@ -31,8 +31,6 @@ class AudioSaved: Audio {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.receiverId = receiverId
         self.audioId = audioId
-        
-        
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -45,46 +43,22 @@ class AudioSaved: Audio {
     }
     
     /*
-        Salva o audio localmente da pasta de enviados
+        Salva o audio localmente da pasta Library
     */
-    func SaveAudioInToSent() -> Bool {
+    func SaveAudioInToLibrary() -> Bool {
         
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(checkDirectory("SentAudios").stringByAppendingPathComponent(self.audioId + ".auf"), atomically: true)
         return success
     }
-
-    /*
-        Salva audio localmente na pasta de recebidos
-    */
-    func SaveAudioInToReceived() -> Bool {
-        
-        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(checkDirectory("Received").stringByAppendingPathComponent(self.audioId + ".auf"), atomically: true)
-        return success
-    }
     
     /*
-    Detela audio da pasta Sent
+        Detela audio da pasta Library
     */
-    func deleteAudioLocalySent() -> Bool {
+    func deleteAudioLocaly() -> Bool {
         
         var error:NSError?
         
-        let pasta = checkDirectory("SentAudios")
-        let path = pasta.stringByAppendingPathComponent("\(self.audioId).auf")
-        let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
-        
-        if !success {
-            println(error?.localizedDescription)
-        }
-        return success
-    }
-
-    
-    func deleteAudioLocalyReceived() -> Bool {
-        
-        var error:NSError?
-        
-        let pasta = checkDirectory("ReceivedAudios")
+        let pasta = checkDirectory("AudioLibrary")
         let path = pasta.stringByAppendingPathComponent("\(self.audioId).auf")
         let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         

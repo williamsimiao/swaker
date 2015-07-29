@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         let muitodoido = test.addAudioAttempt(lala) as PFObject
         println("audioId:\(lala.audioId)")
         
-        sleep(20)
+        println("oi")
         
         test.deleteAudioAttempt(muitodoido)
 

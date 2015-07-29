@@ -29,24 +29,4 @@ class AudioAttempt: Audio {
         
         return saved
     }
-    
-//    required init(coder aDecoder: NSCoder) {
-//        let alarmId = aDecoder.decodeObjectForKey("alarmId") as! String
-//        let audio = aDecoder.decodeObjectForKey("audio") as! NSData
-//        let audioDescription = aDecoder.decodeObjectForKey("audioDescription") as! String
-//        let senderId = aDecoder.decodeObjectForKey("senderId") as! String
-//        super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
-//        self.alarmId = alarmId
-//    }
-//    
-//    func encodeWithCoder(aCoder: NSCoder) {
-//        aCoder.encodeObject(alarmId, forKey: "alarmId")
-//        aCoder.encodeObject(audio, forKey: "audio")
-//        aCoder.encodeObject(audioDescription, forKey: "audioDescription")
-//        aCoder.encodeObject(senderId, forKey: "senderId")
-//    }
-    
-         
-    
-
 }
