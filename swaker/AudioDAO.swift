@@ -29,12 +29,13 @@ class AudioDAO: NSObject {
     Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
     */
     func loadSavedAudios() {
+        audioSavedArray = [AudioSaved]()
         
         let AudioQuery = PFQuery(className: "AudioSaved")
         let ArrayPFobjectsSaved = AudioQuery.whereKey("receiverId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!
         
-        for anPFobject in ArrayPFobjectsSaved {
-            var anAudio = AudioSaved(receiverId: anPFobject["receiverId"] as! String, audio: anPFobject["audio"] as! NSData, audioDescription: anPFobject["description"] as? String, senderId: anPFobject["senderId"] as! String)
+        for aPFobject in ArrayPFobjectsSaved {
+            var anAudio = AudioSaved(receiverId: aPFobject["receiverId"] as! String, audio: aPFobject["audio"] as! NSData, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
             audioSavedArray?.append(anAudio)
         }
     }
@@ -44,6 +45,7 @@ class AudioDAO: NSObject {
         Parametro: ID do alarme
     */
     func loadAudiosFromAlarm(alarmId: String) {
+        
         
         let AudioQuery = PFQuery(className: "AudioAttempt")
         let ArrayPFobjectsAttempt = AudioQuery.whereKey("AlarmId", equalTo: alarmId).findObjects()!
@@ -57,16 +59,34 @@ class AudioDAO: NSObject {
         Adiciona um novo audioAttempt ao banco
         Parametro: Classe AudioAttempt
     */
-    func addAudioAttempt(anAudio:AudioAttempt) -> PFObject {
+    func addAudioAttempt(anAudio:AudioAttempt) -> PFObject? {
         let PFAttempt = PFObject(className: "AudioAttempt")
         PFAttempt.setObject(anAudio.alarmId!, forKey: "alarmId")
         
-        let file = PFFile(name: anAudio.audioId, data: anAudio.audio)
+        let file = PFFile(name: anAudio.audioName, data: anAudio.audio)
         
         PFAttempt.setObject(file, forKey: "audio")
         PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
-        PFAttempt.saveInBackground()
+        if PFAttempt.save() {
+            return PFAttempt
+        }
+        return nil
+        //adicione um bloco para alterar o nome do audio para o PFobject.objectId
+
+    }
+    
+    func addAudioSaved(anAudio:AudioSaved) -> PFObject {
+        let PFAttempt = PFObject(className: "AudioSaved")
+        PFAttempt.setObject(anAudio.receiverId!, forKey: "alarmId")
+        
+        let file = PFFile(name: anAudio.audioName, data: anAudio.audio)
+        
+        PFAttempt.setObject(file, forKey: "audio")
+        PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
+        PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
+        PFAttempt.save()
+        
         //adicione um bloco para alterar o nome do audio para o PFobject.objectId
         return PFAttempt
     }

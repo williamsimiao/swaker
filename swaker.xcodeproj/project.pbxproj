@@ -165,8 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				4C1111A81B66AE6500163A05 /* User.swift */,
-				4C1111AA1B66AFE400163A05 /* Audio.swift */,
 				4C1111AC1B66B08200163A05 /* Alarm.swift */,
+				4C1111AA1B66AFE400163A05 /* Audio.swift */,
 				4C1111AE1B66B18400163A05 /* AudioAttempt.swift */,
 				4C1111B01B66B19000163A05 /* AudioSaved.swift */,
 			);

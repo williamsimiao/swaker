@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFUser.enableAutomaticUser()
         
+        //UserDAO.sharedInstance().login(User(username: "xaxa", password: "bobo"))
+        
         let defaultACL = PFACL();
         
         // If you would like all objects to be private by default, remove this line.
@@ -78,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerForRemoteNotificationTypes(types)
         }
         
-        UserDAO.sharedInstance().login(User(username: "xaxa", password: "bobo"))
         
         return true
     }

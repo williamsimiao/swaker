@@ -28,8 +28,11 @@ class UserDAO: NSObject {
         Retorno   : Usuário com dados ou nil
     ****************************************************************************************************/
     func login(user:User!) -> User? {
+        
         if PFUser.currentUser() == nil {
             var error:NSError?
+            
+            
             PFUser.logInWithUsernameInBackground(user.username, password: user.password){
                 (userR:PFUser?, error: NSError?) -> Void in
                 
