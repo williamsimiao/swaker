@@ -14,11 +14,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let query = PFQuery(className: "Alarm")
-        let alarms = query.findObjects()!
-        for alarm in alarms {
-            AlarmDAO.sharedInstance().deleteAlarm(Alarm(PFAlarm: alarm as! PFObject))
-        }
     }
 
     override func didReceiveMemoryWarning() {
