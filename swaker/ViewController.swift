@@ -14,11 +14,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let query = PFQuery(className: "Alarm")
-        let alarms = query.findObjects()!
-        for alarm in alarms {
-            AlarmDAO.sharedInstance().deleteAlarm(Alarm(PFAlarm: alarm as! PFObject))
-        }
+        var test = AudioDAO.sharedInstance()
+        let dirPaths =
+        NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
+            .UserDomainMask, true)
+        let docsDir = dirPaths[0] as! String
+        
+        let soundFilePath = docsDir.stringByAppendingPathComponent("texto")
+        let text = "oi"
+        text.writeToFile(soundFilePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        
+        let soundFileURL = NSURL(fileURLWithPath: soundFilePath)
+        let data = NSData(contentsOfURL: soundFileURL!)
+        var lala = AudioAttempt(alarmId: "teste1", audio: data, audioDescription: "minha record", senderId: "william")
+        
+        let muitodoido = test.addAudioAttempt(lala) as PFObject
+        println("audioId:\(lala.audioId)")
+        
+        println("oi")
+        
+//        test.deleteAudioAttempt(muitodoido)
     }
 
     override func didReceiveMemoryWarning() {
