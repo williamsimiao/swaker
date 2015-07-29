@@ -1,5 +1,5 @@
 //
-//  FriendsTableViewController.swift
+//  SettingsTableViewController.swift
 //  swaker
 //
 //  Created by André Marques da Silva Rodrigues on 29/07/15.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class FriendsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
 
-    var friends = [User]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDAO.sharedInstance().loadFriendsForCurrentUser()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -22,6 +20,9 @@ class FriendsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    @IBAction func logout(sender: AnyObject) {
+        UserDAO.sharedInstance().logout()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -29,30 +30,15 @@ class FriendsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        friends = UserDAO.sharedInstance().currentUserFriends
-        tableView.reloadData()
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return friends.count
-    }
-
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = friends[indexPath.row].name
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+
         // Configure the cell...
 
         return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -62,20 +48,17 @@ class FriendsTableViewController: UITableViewController {
     }
     */
 
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUserFriends.first!) {
-            UserDAO.sharedInstance().loadFriendsForCurrentUser()
-            friends = UserDAO.sharedInstance().currentUserFriends
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            tableView.reloadData()
-            } else {
-                println("failed to delete friend")
-            }
-        }
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
     }
+    */
 
     /*
     // Override to support rearranging the table view.

@@ -107,9 +107,9 @@ class UserDAO: NSObject {
     }
     
     /****************************************************************************************************
-        Função que retorna os amigos de um usuário
+        Função que retorna os amigos de um usuário para a propriedade self.currentUserFriends
         Parâmetros : void
-        Retorno    : Array de amigos ou array vazio (se você for sozinho na vida)
+        Retorno    : void
     ****************************************************************************************************/
     func loadFriendsForCurrentUser(){
         println("counting friends")
@@ -149,10 +149,52 @@ class UserDAO: NSObject {
         return false
     }
     
+    /****************************************************************************************************
+        Função que retorna um user a partir de um email
+        Parâmetros : email
+        Retorno    : o usuário correspondente ao email, ou nil caso não exista
+    ****************************************************************************************************/
     func userWithEmail(email:String!) -> User? {
         if let user = PFUser.query()!.whereKey("email", equalTo: email).findObjects()!.first as? PFUser {
             return User(user: user)
         }
         return nil
     }
+    
+    /****************************************************************************************************
+        Função que remove um usuário da lista de amigos do currentUser
+        Parâmetros : usuário a ser removido
+        Retorno    : true = removido, false = não removido
+    ****************************************************************************************************/
+    func deleteFriend(friend:User) -> Bool {
+        if let objects = PFQuery(className: "FriendList").whereKey("userId", equalTo: currentUser!.objectId).whereKey("friendId", equalTo: friend.objectId).findObjects() {
+            if !(objects.first as! PFObject).delete() {
+                return false
+            }
+        } else {
+            return false
+        }
+        if let objects = PFQuery(className: "FriendList").whereKey("userId", equalTo: friend.objectId).whereKey("friendId", equalTo: currentUser!.objectId).findObjects() {
+            if !(objects.first as! PFObject).delete() {
+                PFObject(className: "FriendList", dictionary: ["userId":currentUser!.objectId, "friendId":friend.objectId]).saveEventually()
+                return false
+            }
+        } else {
+            PFObject(className: "FriendList", dictionary: ["userId":currentUser!.objectId, "friendId":friend.objectId]).saveEventually()
+            return false
+        }
+        return true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

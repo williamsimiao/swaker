@@ -518,22 +518,44 @@
             </objects>
             <point key="canvasLocation" x="2684" y="1561"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Settings Table View Controller-->
         <scene sceneID="js8-Z2-l31">
             <objects>
-                <tableViewController id="PyR-Q7-ogf" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PCp-b3-bXg">
+                <tableViewController id="PyR-Q7-ogf" customClass="SettingsTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PCp-b3-bXg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Am1-nl-qIF">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Am1-nl-qIF" id="xML-Qa-J3P">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <sections>
+                            <tableViewSection id="n3P-GP-8CJ">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Am1-nl-qIF">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Am1-nl-qIF" id="xML-Qa-J3P">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xmK-2Z-jnC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                    <state key="normal" title="Log Out">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="logout:" destination="PyR-Q7-ogf" eventType="touchUpInside" id="Ldc-c1-6Df"/>
+                                                        <segue destination="A09-v3-A2q" kind="presentation" id="BNP-Ly-cFS"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xmK-2Z-jnC" firstAttribute="leading" secondItem="xML-Qa-J3P" secondAttribute="leading" id="2KS-G3-BFk"/>
+                                                <constraint firstAttribute="trailing" secondItem="xmK-2Z-jnC" secondAttribute="trailing" id="4B1-FE-qng"/>
+                                                <constraint firstAttribute="bottom" secondItem="xmK-2Z-jnC" secondAttribute="bottom" id="IIv-qc-l6J"/>
+                                                <constraint firstItem="xmK-2Z-jnC" firstAttribute="top" secondItem="xML-Qa-J3P" secondAttribute="top" id="goh-LY-VOt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="PyR-Q7-ogf" id="slZ-Qg-awW"/>
                             <outlet property="delegate" destination="PyR-Q7-ogf" id="9ZQ-DB-5tP"/>
@@ -547,7 +569,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Pnw-fm-st6"/>
+        <segue reference="BNP-Ly-cFS"/>
         <segue reference="vP4-3B-5KR"/>
     </inferredMetricsTieBreakers>
 </document>

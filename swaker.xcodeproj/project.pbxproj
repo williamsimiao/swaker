@@ -24,6 +24,7 @@
 		4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */; };
 		4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */; };
 		4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */; };
+		4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED61B69868500E08424 /* SettingsTableViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -69,6 +70,7 @@
 		4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAddingViewController.swift; sourceTree = "<group>"; };
+		4C217ED61B69868500E08424 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */,
 				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
 				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
+				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
 				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
+				4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
 				4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */,
