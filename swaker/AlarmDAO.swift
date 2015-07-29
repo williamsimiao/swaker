@@ -47,6 +47,7 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func loadUserAlarms() {
+        userAlarms = [Alarm]()
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.alarmsPath)
         while let alarm:String = enumerator?.nextObject() as? String{
             if alarm.hasSuffix("alf") {
@@ -65,6 +66,7 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func loadFriendsAlarms() {
+        friendsAlarms = [Alarm]()
         let bigQuery = PFQuery(className: "Alarm")
         let user = UserDAO.sharedInstance().currentUser!
         if user.friends != nil {

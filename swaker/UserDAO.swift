@@ -27,10 +27,10 @@ class UserDAO: NSObject {
         Retorno   : true = login sucesso ou false = login falhou
     ****************************************************************************************************/
     func login(user:User!) -> Bool {
-        if PFUser.currentUser() == nil {
+        if PFUser.currentUser()?.username == nil {
             // Não logado
             var error:NSError?
-            if let userDAO = PFUser.logInWithUsername(user.username, password: user.password, error: &error) {
+            if let userDAO = PFUser.logInWithUsername(user.username, password: "1234", error: &error) {
                 currentUser = User(user: userDAO)
             }
             else {
@@ -43,8 +43,6 @@ class UserDAO: NSObject {
         }
         return true
     }
-    
-    
     
     /****************************************************************************************************
         Função de cadastro
@@ -78,24 +76,20 @@ class UserDAO: NSObject {
     
     /****************************************************************************************************
         Função de excluir usuario
-    
         Parâmetros : Usuario a ser deletado
         Retorno    : true ou false para exclusao
     ****************************************************************************************************/
     func deleteUser(user:User!) ->Bool{
         let userDAO = PFUser(withoutDataWithClassName: "User", objectId: user.objectId)
-        
         return userDAO.delete()
     }
 
     
     /****************************************************************************************************
         Função de alterar dados
-    
         Parâmetros : Usuario com dados alterados
         Retorno    : True ou false para o update dos dados
     ****************************************************************************************************/
-    
     func updateUser(user:User!) ->Bool{
         
         var sucess = Bool()
@@ -109,5 +103,42 @@ class UserDAO: NSObject {
         }
         
         return userDAO.save()
+    }
+    
+    /****************************************************************************************************
+        Função que retorna os amigos de um usuário
+        Parâmetros : Usuario que tem uns amigos
+        Retorno    : Array de amigos ou array vazio (se você for sozinho na vida)
+    ****************************************************************************************************/
+    func friendsForUser(user:User) -> [User] {
+        var friends = [User]()
+        let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: user.objectId)
+        let objects = query.findObjects() as! [PFObject]
+        for obj in objects {
+            let user = PFUser(withoutDataWithClassName: "User", objectId: (obj["friendId"] as! String))
+            friends.append(User(user: user))
+        }
+        return friends
+    }
+    
+    /****************************************************************************************************
+        Função de adicionar um amigo
+        Parâmetros : Amigo (User)
+        Retorno    : true = adicionado false = não adicionado
+    ****************************************************************************************************/
+    func addFriend(friend:User!) -> Bool {
+        var friendStatement = PFObject(className: "FriendList")
+        
+        friendStatement.setObject(currentUser!.objectId, forKey: "userId")
+        friendStatement.setObject(friend.objectId, forKey: "friendId")
+        
+        var reverseStatement = PFObject(className: "FriendList")
+        reverseStatement.setObject(friend.objectId, forKey: "userId")
+        reverseStatement.setObject(currentUser!.objectId, forKey: "friendId")
+        
+        if friendStatement.save() && reverseStatement.save() {
+            return true
+        }
+        return false
     }
 }

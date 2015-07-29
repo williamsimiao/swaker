@@ -43,7 +43,7 @@ class User: NSObject {
         self.photo = photo
     }
     
-    init(user:PFUser) {
+    init(user:PFUser!) {
         self.objectId = user.objectId
         self.email = user.email
         self.username = user.username

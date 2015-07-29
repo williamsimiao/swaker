@@ -13,27 +13,21 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let userquery = PFUser.query()?.whereKey("name", equalTo: "Andre").findObjects()!
+        if let user = userquery!.first as? PFUser {
+            let userr = User(user: user)
+            PFUser.logOut()
+            UserDAO.sharedInstance().login(userr)
+        }
+        println(PFUser.currentUser())
         // Do any additional setup after loading the view, typically from a nib.
-        var test = AudioDAO.sharedInstance()
-        let dirPaths =
-        NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-            .UserDomainMask, true)
-        let docsDir = dirPaths[0] as! String
+//        let pfuser = PFUser.query()?.whereKey("username", equalTo: "andreanmasiro@live.com").findObjects()
+        let user = UserDAO.sharedInstance().currentUser
+//        UserDAO.sharedInstance().login(user)
+        let users = PFUser.query()?.whereKey("name", equalTo: "g0y").findObjects()
+        let heavz = users?.first as! PFUser
+        UserDAO.sharedInstance().addFriend(User(user: heavz))
         
-        let soundFilePath = docsDir.stringByAppendingPathComponent("texto")
-        let text = "oi"
-        text.writeToFile(soundFilePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
-        
-        let soundFileURL = NSURL(fileURLWithPath: soundFilePath)
-        let data = NSData(contentsOfURL: soundFileURL!)
-        var lala = AudioAttempt(alarmId: "teste1", audio: data, audioDescription: "minha record", senderId: "william")
-        
-        let muitodoido = test.addAudioAttempt(lala) as PFObject
-        println("audioId:\(lala.audioId)")
-        
-        println("oi")
-        
-//        test.deleteAudioAttempt(muitodoido)
     }
 
     override func didReceiveMemoryWarning() {
