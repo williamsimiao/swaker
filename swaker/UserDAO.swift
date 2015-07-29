@@ -11,12 +11,16 @@ import Parse
 
 class UserDAO: NSObject {
     
+    var currentUserFriends = [User]()
     var currentUser:User?
     static var instance:UserDAO?
     
     static func sharedInstance() -> UserDAO {
         if instance == nil {
             instance = UserDAO()
+            if PFUser.currentUser()?.username != nil {
+                instance!.currentUser = User(user: PFUser.currentUser()!)
+            }
         }
         return instance!
     }
@@ -30,16 +34,13 @@ class UserDAO: NSObject {
         if PFUser.currentUser()?.username == nil {
             // Não logado
             var error:NSError?
-            if let userDAO = PFUser.logInWithUsername(user.username, password: "1234", error: &error) {
+            if let userDAO = PFUser.logInWithUsername(user.username, password: user.password, error: &error) {
                 currentUser = User(user: userDAO)
             }
             else {
                 // Log In falhou
                 return false
             }
-        } else {
-            // Já logado
-            currentUser = User(user: PFUser.currentUser()!)
         }
         return true
     }
@@ -49,7 +50,7 @@ class UserDAO: NSObject {
         Parâmetros : Usuario com username, password e email
         Retorno    : true = cadastrou ou false = não cadastrou
     ****************************************************************************************************/
-    func signup(user:User!) -> Bool{
+    func signup(user:User!) -> Bool {
         
         var userDAO = PFUser()
         
@@ -79,7 +80,7 @@ class UserDAO: NSObject {
         Parâmetros : Usuario a ser deletado
         Retorno    : true ou false para exclusao
     ****************************************************************************************************/
-    func deleteUser(user:User!) ->Bool{
+    func deleteUser(user:User!) -> Bool {
         let userDAO = PFUser(withoutDataWithClassName: "User", objectId: user.objectId)
         return userDAO.delete()
     }
@@ -90,7 +91,7 @@ class UserDAO: NSObject {
         Parâmetros : Usuario com dados alterados
         Retorno    : True ou false para o update dos dados
     ****************************************************************************************************/
-    func updateUser(user:User!) ->Bool{
+    func updateUser(user:User!) -> Bool {
         
         var sucess = Bool()
         
@@ -107,18 +108,24 @@ class UserDAO: NSObject {
     
     /****************************************************************************************************
         Função que retorna os amigos de um usuário
-        Parâmetros : Usuario que tem uns amigos
+        Parâmetros : void
         Retorno    : Array de amigos ou array vazio (se você for sozinho na vida)
     ****************************************************************************************************/
-    func friendsForUser(user:User) -> [User] {
+    func loadFriendsForCurrentUser(){
+        println("counting friends")
         var friends = [User]()
-        let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: user.objectId)
-        let objects = query.findObjects() as! [PFObject]
-        for obj in objects {
-            let user = PFUser(withoutDataWithClassName: "User", objectId: (obj["friendId"] as! String))
-            friends.append(User(user: user))
+        let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: currentUser!.objectId)
+        let anyObjects = query.findObjects()
+        let objects = anyObjects as? [PFObject]
+        if objects != nil {
+            for obj in objects! {
+                let user = PFUser.query()?.whereKey("objectId", equalTo: obj["friendId"] as! String).findObjects()!.first as! PFUser
+                //                let user = PFUser(withoutDataWithClassName: "_User", objectId: (obj["friendId"] as! String))
+                println(user["email"])
+                friends.append(User(user: user))
+            }
         }
-        return friends
+        currentUserFriends = friends
     }
     
     /****************************************************************************************************
@@ -140,5 +147,12 @@ class UserDAO: NSObject {
             return true
         }
         return false
+    }
+    
+    func userWithEmail(email:String!) -> User? {
+        if let user = PFUser.query()!.whereKey("email", equalTo: email).findObjects()!.first as? PFUser {
+            return User(user: user)
+        }
+        return nil
     }
 }

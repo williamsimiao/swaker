@@ -20,6 +20,10 @@
 		4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AE1B66B18400163A05 /* AudioAttempt.swift */; };
 		4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111B01B66B19000163A05 /* AudioSaved.swift */; };
 		4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111B21B66C32200163A05 /* AlarmDAO.swift */; };
+		4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ECE1B695CFA00E08424 /* LoginViewController.swift */; };
+		4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */; };
+		4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */; };
+		4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -61,6 +65,10 @@
 		4C1111AE1B66B18400163A05 /* AudioAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioAttempt.swift; sourceTree = "<group>"; };
 		4C1111B01B66B19000163A05 /* AudioSaved.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSaved.swift; sourceTree = "<group>"; };
 		4C1111B21B66C32200163A05 /* AlarmDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmDAO.swift; sourceTree = "<group>"; };
+		4C217ECE1B695CFA00E08424 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
+		4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAddingViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -124,10 +132,10 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
+				4C217ECD1B695CB800E08424 /* ViewControllers */,
 				45E824D51B66B5D500F0F404 /* DAO */,
 				45E824D41B66B55F00F0F404 /* Entities */,
 				3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */,
-				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
 				3DB058E21B62B0D800DEC2CB /* Images.xcassets */,
 				3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */,
@@ -181,6 +189,18 @@
 				4CE549C81B6917B600CDB267 /* AudioDAO.swift */,
 			);
 			name = DAO;
+			sourceTree = "<group>";
+		};
+		4C217ECD1B695CB800E08424 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
+				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
+				4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */,
+				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
+				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		4CC5F1011B62B5AF00ADEC8B /* Frameworks */ = {
@@ -302,14 +322,18 @@
 			files = (
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,
+				4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */,
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
 				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
 				4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
+				4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
 				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
+				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
+				4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

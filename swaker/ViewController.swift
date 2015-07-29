@@ -13,21 +13,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let userquery = PFUser.query()?.whereKey("name", equalTo: "Andre").findObjects()!
-        if let user = userquery!.first as? PFUser {
-            let userr = User(user: user)
-            PFUser.logOut()
-            UserDAO.sharedInstance().login(userr)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser()?.username == nil {
+            performSegueWithIdentifier("loginScreen", sender: self)
+        } else {
+            performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
         }
-        println(PFUser.currentUser())
-        // Do any additional setup after loading the view, typically from a nib.
-//        let pfuser = PFUser.query()?.whereKey("username", equalTo: "andreanmasiro@live.com").findObjects()
-        let user = UserDAO.sharedInstance().currentUser
-//        UserDAO.sharedInstance().login(user)
-        let users = PFUser.query()?.whereKey("name", equalTo: "g0y").findObjects()
-        let heavz = users?.first as! PFUser
-        UserDAO.sharedInstance().addFriend(User(user: heavz))
-        
     }
 
     override func didReceiveMemoryWarning() {
