@@ -30,6 +30,7 @@
 		4CC5F0FC1B62B52500ADEC8B /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FB1B62B52500ADEC8B /* libstdc++.6.dylib */; };
 		4CC5F0FE1B62B53700ADEC8B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FD1B62B53700ADEC8B /* AudioToolbox.framework */; };
 		4CC5F1001B62B53F00ADEC8B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */; };
+		4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE549C81B6917B600CDB267 /* AudioDAO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		4CC5F0FB1B62B52500ADEC8B /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		4CC5F0FD1B62B53700ADEC8B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4CE549C81B6917B600CDB267 /* AudioDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			children = (
 				45E824D61B66B72100F0F404 /* UserDAO.swift */,
 				4C1111B21B66C32200163A05 /* AlarmDAO.swift */,
+				4CE549C81B6917B600CDB267 /* AudioDAO.swift */,
 			);
 			name = DAO;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
 				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
+				4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
 				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
