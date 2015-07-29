@@ -47,7 +47,7 @@ class UserDAO: NSObject {
         } else {
             let aUser = PFUser.currentUser()!
             currentUser = User(username: aUser.username!,
-                               password: aUser.password!,
+                               password: "",
                                   email: aUser.email!,
                                    name: aUser.objectForKey("name") as! String,
                                   photo: aUser.objectForKey("photo") as? NSData)
