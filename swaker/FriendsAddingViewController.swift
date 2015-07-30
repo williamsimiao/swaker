@@ -10,20 +10,27 @@ import UIKit
 
 class FriendsAddingViewController: UIViewController {
 
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var friendsEmailTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        indicator.hidesWhenStopped = true
         // Do any additional setup after loading the view.
     }
 
     @IBAction func add(sender: AnyObject) {
-        if let user = UserDAO.sharedInstance().userWithEmail(friendsEmailTextField.text) {
-            if UserDAO.sharedInstance().addFriend(user) {
-                UserDAO.sharedInstance().loadFriendsForCurrentUser()
-                navigationController?.popViewControllerAnimated(true)
+        indicator.startAnimating()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if let user = UserDAO.sharedInstance().userWithEmail(self.friendsEmailTextField.text) {
+                if UserDAO.sharedInstance().addFriend(user) {
+                    UserDAO.sharedInstance().loadFriendsForCurrentUser()
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
             }
-        }
+            self.indicator.stopAnimating()
+            
+        })
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

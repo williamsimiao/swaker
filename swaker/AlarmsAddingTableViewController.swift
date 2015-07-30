@@ -1,5 +1,5 @@
 //
-//  SignUpTableViewController.swift
+//  AlarmsAddingTableViewController.swift
 //  swaker
 //
 //  Created by André Marques da Silva Rodrigues on 29/07/15.
@@ -8,17 +8,16 @@
 
 import UIKit
 
-class SignUpTableViewController: UITableViewController {
+class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var senhaTextField: UITextField!
-    @IBOutlet weak var senha2TextField: UITextField!
-    @IBOutlet weak var nomeTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var datePicker: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicator.hidesWhenStopped = true
+        let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: NSDate())
+        datePicker.selectRow((components.hour + 24*341) - 1, inComponent: 0, animated: false)
+        datePicker.selectRow((components.minute + 60*136), inComponent: 1, animated: false)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,23 +25,47 @@ class SignUpTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    @IBAction func signUp(sender: AnyObject) {
-        if senhaTextField.text == senha2TextField.text {
-            indicator.startAnimating()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: nil)
-                if UserDAO.sharedInstance().signup(user) {
-                    self.performSegueWithIdentifier("signUpSucceeded", sender: self)
-                }
-                self.indicator.stopAnimating()
-            })
-        }
+    @IBAction func set(sender: AnyObject) {
+        let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: NSDate())
+        var selectedHour = pickerView(datePicker, titleForRow: datePicker.selectedRowInComponent(0), forComponent: 0).toInt()!
+        selectedHour = selectedHour == 0 ? 24 : selectedHour
+        let deltaHour =  selectedHour - (components.hour == 0 ? 24 : components.hour)
+        
+        let selectedMinute = pickerView(datePicker, titleForRow: datePicker.selectedRowInComponent(1), forComponent: 1).toInt()!
+        let deltaMinute = selectedMinute - components.minute
+        
+        let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: NSDate(timeIntervalSinceNow: NSTimeInterval(3600 * deltaHour + 60 * deltaMinute)) , setterId: UserDAO.sharedInstance().currentUser!.objectId)
+        AlarmDAO.sharedInstance().addAlarm(alarm)
+        AlarmDAO.sharedInstance().loadUserAlarms()
+        navigationController?.popViewControllerAnimated(true)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Picker view data source
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 16384
+    }
+
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        var title = String()
+        
+        if component == 0 {
+            let hours = (row + 1) % 24
+            title = String(format: "%02d", hours)
+        } else {
+            let minutes = row % 60
+            title = String(format: "%02d", minutes)
+        }
+        return title
+    }
     // MARK: - Table view data source
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

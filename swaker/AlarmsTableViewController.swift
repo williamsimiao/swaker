@@ -1,5 +1,5 @@
 //
-//  SignUpTableViewController.swift
+//  AlarmsTableViewController.swift
 //  swaker
 //
 //  Created by André Marques da Silva Rodrigues on 29/07/15.
@@ -8,17 +8,11 @@
 
 import UIKit
 
-class SignUpTableViewController: UITableViewController {
-
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var senhaTextField: UITextField!
-    @IBOutlet weak var senha2TextField: UITextField!
-    @IBOutlet weak var nomeTextField: UITextField!
+class AlarmsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicator.hidesWhenStopped = true
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,33 +20,37 @@ class SignUpTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    @IBAction func signUp(sender: AnyObject) {
-        if senhaTextField.text == senha2TextField.text {
-            indicator.startAnimating()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: nil)
-                if UserDAO.sharedInstance().signup(user) {
-                    self.performSegueWithIdentifier("signUpSucceeded", sender: self)
-                }
-                self.indicator.stopAnimating()
-            })
-        }
+    override func viewWillAppear(animated: Bool) {
+        AlarmDAO.sharedInstance().loadUserAlarms()
+        tableView.reloadData()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Potentially incomplete method implementation.
+        // Return the number of sections.
+        return 1
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
+        return AlarmDAO.sharedInstance().userAlarms.count
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel?.text = AlarmDAO.sharedInstance().userAlarms[indexPath.row].fireDate.description 
         // Configure the cell...
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -62,17 +60,17 @@ class SignUpTableViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            AlarmDAO.sharedInstance().loadUserAlarms()
+            if AlarmDAO.sharedInstance().deleteAlarm(AlarmDAO.sharedInstance().userAlarms[indexPath.row]) {
+                AlarmDAO.sharedInstance().loadUserAlarms()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.

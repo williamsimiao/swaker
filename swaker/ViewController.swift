@@ -11,15 +11,24 @@ import Parse
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicator.hidesWhenStopped = true
     }
     
     override func viewDidAppear(animated: Bool) {
         if PFUser.currentUser()?.username == nil {
             performSegueWithIdentifier("loginScreen", sender: self)
         } else {
-            performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
+            indicator.startAnimating()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                UserDAO.sharedInstance()
+                AlarmDAO.sharedInstance().loadUserAlarms()
+                self.indicator.stopAnimating()
+                self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
+            })
+
         }
     }
 

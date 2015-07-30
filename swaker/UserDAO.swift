@@ -20,6 +20,7 @@ class UserDAO: NSObject {
             instance = UserDAO()
             if PFUser.currentUser()?.username != nil {
                 instance!.currentUser = User(user: PFUser.currentUser()!)
+                instance?.loadFriendsForCurrentUser()
             }
         }
         return instance!

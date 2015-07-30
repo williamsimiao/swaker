@@ -53,8 +53,8 @@ class AlarmDAO: NSObject {
             if alarm.hasSuffix("alf") {
                 let filePath = alarmsPath.stringByAppendingPathComponent(alarm)
                 let data = NSData(contentsOfFile: filePath)
-                let alarm = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Alarm
-                userAlarms.append(alarm)
+                var anAlarm = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Alarm
+                userAlarms.append(anAlarm)
             }
         }
     }
@@ -97,7 +97,10 @@ class AlarmDAO: NSObject {
                         let path = self.alarmsPath.stringByAppendingPathComponent(alarm.objectId) + ".alf"
                         let toPath = self.alarmsPath.stringByAppendingPathComponent(PFAlarm.objectId!) + ".alf"
                         var error:NSError?
-                        NSFileManager.defaultManager().moveItemAtPath(path, toPath: toPath, error: &error)
+                        var alarm = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as! Alarm
+                        alarm.objectId = PFAlarm.objectId
+                        NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(toPath, atomically: true)
+                        NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
                     }
                 }
             })
@@ -108,12 +111,17 @@ class AlarmDAO: NSObject {
     
     /***************************************************************************
         Função que remove um alarme tanto do Parse quanto localmente
-        Parâmetro: objectId deste alarme
+        Parâmetro: Alarme a ser removido
         Retorno: sucesso ou não da operação
     ***************************************************************************/
     func deleteAlarm(alarm:Alarm!) -> Bool {
         if Alarm.deleteAlarm(alarm) {
             PFObject(withoutDataWithClassName:"Alarm", objectId:alarm.objectId).deleteEventually()
+            if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
+                for obj in objects {
+                    (obj as! PFObject).deleteEventually()
+                }
+            }
             return true
         }
         return false

@@ -10,12 +10,13 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var usernameTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         UserDAO.sharedInstance().logout()
+        indicator.hidesWhenStopped = true
         // Do any additional setup after loading the view.
     }
 
@@ -26,9 +27,21 @@ class LoginViewController: UIViewController {
     
     @IBAction func login(sender: AnyObject) {
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
-        if UserDAO.sharedInstance().login(user) {
-            performSegueWithIdentifier("loginSucceeded", sender: self)
-        }
+        indicator.startAnimating()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if UserDAO.sharedInstance().login(user) {
+                self.performSegueWithIdentifier("loginSucceeded", sender: self)
+                UserDAO.sharedInstance().loadFriendsForCurrentUser()
+            } else {
+                let alert = UIAlertController(title: "Incorrect Informtions", message: "Email and/or password is incorrect.", preferredStyle: UIAlertControllerStyle.Alert)
+                let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
+                })
+                alert.addAction(action)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            self.indicator.stopAnimating()
+        })
     }
 
     /*
