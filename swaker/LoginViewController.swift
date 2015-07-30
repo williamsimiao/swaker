@@ -28,6 +28,7 @@ class LoginViewController: UIViewController {
     @IBAction func login(sender: AnyObject) {
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
         indicator.startAnimating()
+        println(indicator.isAnimating())
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             if UserDAO.sharedInstance().login(user) {
                 self.performSegueWithIdentifier("loginSucceeded", sender: self)
