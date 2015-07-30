@@ -15,9 +15,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDAO.sharedInstance().logout()
-        indicator.hidesWhenStopped = true
         // Do any additional setup after loading the view.
+        indicator.hidden = true
+        indicator.startAnimating()
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,22 +26,27 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func login(sender: AnyObject) {
+        let indicator = self.indicator
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
-        indicator.startAnimating()
+        indicator.hidden = false
         println(indicator.isAnimating())
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             if UserDAO.sharedInstance().login(user) {
-                self.performSegueWithIdentifier("loginSucceeded", sender: self)
-                UserDAO.sharedInstance().loadFriendsForCurrentUser()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.performSegueWithIdentifier("loginSucceeded", sender: self)
+                    UserDAO.sharedInstance().loadFriendsForCurrentUser()
+                })
             } else {
                 let alert = UIAlertController(title: "Incorrect Informtions", message: "Email and/or password is incorrect.", preferredStyle: UIAlertControllerStyle.Alert)
                 let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
                 })
                 alert.addAction(action)
-                
                 self.presentViewController(alert, animated: true, completion: nil)
             }
-            self.indicator.stopAnimating()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                indicator.hidden = true
+            })
+            
         })
     }
 

@@ -35,6 +35,7 @@ class AlarmDAO: NSObject {
             instance = AlarmDAO()
             let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
             instance?.alarmsPath = docs.stringByAppendingPathComponent("Alarms")
+            instance?.loadFriendsAlarms()
             println(instance?.alarmsPath)
         }
         return instance!
@@ -54,7 +55,9 @@ class AlarmDAO: NSObject {
                 let filePath = alarmsPath.stringByAppendingPathComponent(alarm)
                 let data = NSData(contentsOfFile: filePath)
                 var anAlarm = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Alarm
-                userAlarms.append(anAlarm)
+                if anAlarm.setterId == UserDAO.sharedInstance().currentUser?.objectId {
+                    userAlarms.append(anAlarm)
+                }
             }
         }
     }

@@ -26,6 +26,7 @@
 		4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */; };
 		4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */; };
 		4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED61B69868500E08424 /* SettingsTableViewController.swift */; };
+		4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -75,6 +76,7 @@
 		4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAddingViewController.swift; sourceTree = "<group>"; };
 		4C217ED61B69868500E08424 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsTableViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
 				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
 				4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */,
+				4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
 				4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */,
+				4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
 				4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,

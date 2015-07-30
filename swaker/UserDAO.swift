@@ -72,6 +72,7 @@ class UserDAO: NSObject {
         Retorno    : void
     ****************************************************************************************************/
     func logout() {
+        currentUser = nil
         PFUser.logOut()
     }
     

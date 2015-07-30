@@ -1,19 +1,20 @@
 //
-//  FriendsTableViewController.swift
+//  FriendsAlarmsTableViewController.swift
 //  swaker
 //
-//  Created by André Marques da Silva Rodrigues on 29/07/15.
+//  Created by André Marques da Silva Rodrigues on 30/07/15.
 //  Copyright (c) 2015 William. All rights reserved.
 //
 
 import UIKit
 
-class FriendsTableViewController: UITableViewController {
+class FriendsAlarmsTableViewController: UITableViewController {
 
-    var friends = [User]()
+    let alarmDao = AlarmDAO.sharedInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -34,22 +35,16 @@ class FriendsTableViewController: UITableViewController {
         return 1
     }
 
-    override func viewWillAppear(animated: Bool) {
-        friends = UserDAO.sharedInstance().currentUserFriends
-        tableView.reloadData()
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return friends.count
+        return alarmDao.friendsAlarms.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = friends[indexPath.row].name
+        cell.textLabel?.text = "\(alarmDao.friendsAlarms[indexPath.row].alarmDescription)"
         // Configure the cell...
-
         return cell
     }
 
@@ -61,20 +56,17 @@ class FriendsTableViewController: UITableViewController {
     }
     */
 
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUserFriends[indexPath.row]) {
-            UserDAO.sharedInstance().loadFriendsForCurrentUser()
-            friends = UserDAO.sharedInstance().currentUserFriends
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            tableView.reloadData()
-            } else {
-                println("failed to delete friend")
-            }
-        }
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
     }
+    */
 
     /*
     // Override to support rearranging the table view.

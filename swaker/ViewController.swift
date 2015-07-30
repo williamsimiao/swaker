@@ -12,9 +12,9 @@ import Parse
 class ViewController: UIViewController {
 
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicator.hidesWhenStopped = true
     }
     
     override func viewDidAppear(animated: Bool) {

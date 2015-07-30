@@ -18,7 +18,7 @@ class SignUpTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicator.hidesWhenStopped = true
+        indicator.hidden = true
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -27,14 +27,20 @@ class SignUpTableViewController: UITableViewController {
     }
 
     @IBAction func signUp(sender: AnyObject) {
-        if senhaTextField.text == senha2TextField.text {
-            indicator.startAnimating()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        
+        if (senhaTextField.text == senha2TextField.text) && (senha2TextField.text != "") && (senhaTextField.text != "") && (emailTextField.text != "") && (nomeTextField.text != "") {
+            let indicator = self.indicator
+            indicator.hidden = false
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: nil)
                 if UserDAO.sharedInstance().signup(user) {
-                    self.performSegueWithIdentifier("signUpSucceeded", sender: self)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.performSegueWithIdentifier("signUpSucceeded", sender: self)
+                    })
                 }
-                self.indicator.stopAnimating()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.indicator.stopAnimating()
+                })
             })
         }
     }

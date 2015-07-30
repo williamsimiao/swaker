@@ -122,7 +122,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DBk-bP-LW6">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DBk-bP-LW6">
                                 <rect key="frame" x="106" y="326" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -240,7 +240,7 @@
                                                         <action selector="signUp:" destination="QLc-2R-4CV" eventType="touchUpInside" id="S1r-Vl-6Ym"/>
                                                     </connections>
                                                 </button>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-Bs-psb">
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-Bs-psb">
                                                     <rect key="frame" x="560" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
@@ -370,16 +370,16 @@
             </objects>
             <point key="canvasLocation" x="1896" y="1561"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Friends Alarms Table View Controller-->
         <scene sceneID="NlW-6a-lfP">
             <objects>
-                <tableViewController id="ehr-To-VrN" sceneMemberID="viewController">
+                <tableViewController id="ehr-To-VrN" customClass="FriendsAlarmsTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2bJ-AS-Vih">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="eTE-wx-lhX">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="eTE-wx-lhX">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eTE-wx-lhX" id="1MS-fQ-Oxz">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -477,7 +477,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-2S-5IT">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-2S-5IT">
                                 <rect key="frame" x="281" y="172" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -655,6 +655,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="51m-G4-d1D"/>
-        <segue reference="Pnw-fm-st6"/>
+        <segue reference="aLq-g0-SPc"/>
     </inferredMetricsTieBreakers>
 </document>

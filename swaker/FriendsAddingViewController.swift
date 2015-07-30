@@ -15,22 +15,38 @@ class FriendsAddingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicator.hidesWhenStopped = true
+        indicator.hidden = true
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(animated: Bool) {
+//        let ind = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
+//        ind.backgroundColor = UIColor.blackColor()
+//        ind.center = CGPoint(x: CGRectGetMidX(view.frame), y: CGRectGetMidY(view.frame))
+//        view.addSubview(ind)
+    }
+    
     @IBAction func add(sender: AnyObject) {
-        indicator.startAnimating()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        
+        let indicator = self.indicator
+        indicator.hidden = false
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            indicator.hidden = false
+            
             if let user = UserDAO.sharedInstance().userWithEmail(self.friendsEmailTextField.text) {
                 if UserDAO.sharedInstance().addFriend(user) {
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
-                    self.navigationController?.popViewControllerAnimated(true)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.navigationController?.popViewControllerAnimated(true)
+                    })
                 }
             }
-            self.indicator.stopAnimating()
-            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                println("RRRRODOU")
+                indicator.hidden = true
+            })
         })
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
