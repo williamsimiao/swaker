@@ -14,30 +14,55 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        var test = AudioDAO.sharedInstance()
-        let dirPaths =
-        NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-            .UserDomainMask, true)
-        let docsDir = dirPaths[0] as! String
         
-        let soundFilePath = docsDir.stringByAppendingPathComponent("texto")
-        println("\(soundFilePath)")
-        let text = "oi"
-        text.writeToFile(soundFilePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        println("UserId:\(PFUser.currentUser()?.objectId)")
         
-        let soundFileURL = NSURL(fileURLWithPath: soundFilePath)
-        let data = NSData(contentsOfURL: soundFileURL!)
+        println("lets subricribe to channel")
         
-        var lala = AudioAttempt(alarmId: "teste1", audio: data, audioDescription: "minha record", senderId: "william")
+        let currentInstallation = PFInstallation.currentInstallation()
+       
+        let friendsQuery = PFQuery(className: "FrindList")
+        friendsQuery.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+        let arrayDeFriends = friendsQuery.findObjects()!
         
-        lala.SaveAudioInToLibrary()
+        var channels = [String]()
         
-        let muitodoido = test.addAudioAttempt(lala)!
+        for friendObject in arrayDeFriends {
+            
+            let frindId = friendObject["friendId"] as! String
+            currentInstallation.addUniqueObject(frindId, forKey: "channels")
+            channels.append(frindId)
+
+        }
+        currentInstallation.saveInBackground()
+
+        //fim do subscribe
         
-        let tipoSaved = lala.convertToSaved()
+        let butao = UIButton(frame: CGRectMake(200, 200, 200, 200))
+        butao.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        butao.setTitle("push me", forState: UIControlState.Normal)
+        butao.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        self.view.addSubview(butao)
         
-      
-        tipoSaved.SaveAudioInToLibrary()
+    }
+    
+    /*
+        
+    */
+    func pressed(sender: UIButton, channels: Array<String>) {
+        
+        println("sending a push")
+        
+        let push = PFPush()
+        
+        // Be sure to use the plural 'setChannels'.
+        push.setChannels(channels)
+        push.setMessage("The Giants won against the Mets 2-3.")
+        push.sendPushInBackground()
+        
+
+        
+
     }
 
     override func didReceiveMemoryWarning() {

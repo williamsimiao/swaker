@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFUser.enableAutomaticUser()
         
-        //UserDAO.sharedInstance().login(User(username: "xaxa", password: "bobo"))
+        //UserDAO.sharedInstance().login(User(username: "jotape", password: "1234"))
         
         let defaultACL = PFACL();
         
