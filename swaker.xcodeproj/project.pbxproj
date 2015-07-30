@@ -14,6 +14,7 @@
 		3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E21B62B0D800DEC2CB /* Images.xcassets */; };
 		3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */; };
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
+		3DCBC2DC1B6AA240002739E6 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCBC2DB1B6AA240002739E6 /* RecordViewController.swift */; };
 		45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E824D61B66B72100F0F404 /* UserDAO.swift */; };
 		4C1111A91B66AE6500163A05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111A81B66AE6500163A05 /* User.swift */; };
 		4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AA1B66AFE400163A05 /* Audio.swift */; };
@@ -63,6 +64,7 @@
 		3DB058EB1B62B0D800DEC2CB /* swakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058F01B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
+		3DCBC2DB1B6AA240002739E6 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		4C1111A81B66AE6500163A05 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C1111AA1B66AFE400163A05 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
 				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
 				4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */,
+				3DCBC2DB1B6AA240002739E6 /* RecordViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,
+				3DCBC2DC1B6AA240002739E6 /* RecordViewController.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,
 				4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */,
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
