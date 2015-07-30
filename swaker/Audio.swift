@@ -12,7 +12,7 @@ class Audio: NSObject {
     var audio:NSData!
     var audioDescription:String?
     var senderId:String!
-    var audioId: String!
+    var audioName: String!
     
     init(audio:NSData!, audioDescription:String?, senderId:String!) {
         
@@ -22,23 +22,12 @@ class Audio: NSObject {
         
     }
     
-    func checkAudioSufix() -> String {
-        let path = checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
-        
-        if (!NSFileManager.defaultManager().fileExistsAtPath(path)) {
-            let audioSufixCounter = "1"
-            audioSufixCounter.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
-        }
-        let audioSufix = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
-        return audioSufix!
-    }
-    
     /*
-    Checa se existe um driretorio 'directoryPath' na pasta documents, caso nao exista cria
+        Checa se existe um driretorio 'directoryPath' na pasta documents, caso nao exista cria
     */
     
     func checkDirectory(directoryPath: String) -> String {
-        let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+        var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
         let fullPath = docs.stringByAppendingPathComponent(directoryPath)
         
         if !NSFileManager.defaultManager().fileExistsAtPath(fullPath) {
