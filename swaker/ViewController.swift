@@ -28,7 +28,6 @@ class ViewController: UIViewController {
                 self.indicator.stopAnimating()
                 self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
             })
-
         }
     }
 

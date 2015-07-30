@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D07BBFE1B69D29500FD5620 /* propostaSound.caf */; };
 		3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */; };
 		3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DD1B62B0D800DEC2CB /* ViewController.swift */; };
 		3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058DF1B62B0D800DEC2CB /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D07BBFE1B69D29500FD5620 /* propostaSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = propostaSound.caf; sourceTree = "<group>"; };
 		3DB058D61B62B0D800DEC2CB /* swaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058DA1B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D07BBFD1B69D24600FD5620 /* Default Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				3D07BBFE1B69D29500FD5620 /* propostaSound.caf */,
+			);
+			name = "Default Sounds";
+			sourceTree = "<group>";
+		};
 		3DB058CD1B62B0D800DEC2CB = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +163,7 @@
 		3DB058D91B62B0D800DEC2CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3D07BBFD1B69D24600FD5620 /* Default Sounds */,
 				3DB058DA1B62B0D800DEC2CB /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -179,8 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				4C1111A81B66AE6500163A05 /* User.swift */,
-				4C1111AA1B66AFE400163A05 /* Audio.swift */,
 				4C1111AC1B66B08200163A05 /* Alarm.swift */,
+				4C1111AA1B66AFE400163A05 /* Audio.swift */,
 				4C1111AE1B66B18400163A05 /* AudioAttempt.swift */,
 				4C1111B01B66B19000163A05 /* AudioSaved.swift */,
 			);
@@ -310,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */,
+				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
 				3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */,
 			);
@@ -479,6 +491,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = swaker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -493,6 +506,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = swaker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

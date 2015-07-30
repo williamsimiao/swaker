@@ -15,18 +15,70 @@ class AudioAttempt: Audio {
     init(alarmId:String!, audio:NSData!, audioDescription:String!, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.alarmId = alarmId
-        
-        var audioSufix = checkAudioSufix()
-        self.audioId = "AUD_" + audioSufix
-        audioSufix = ("\(audioSufix.toInt()!+1)")
-        println("sufix:\(audioSufix)")
-        let path = checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
-        audioSufix.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        self.audioName = self.alarmId + ".attempt"
     }
     
+    required init(coder aDecoder: NSCoder) {
+        
+        let alarmId = aDecoder.decodeObjectForKey("alarmId") as! String
+        let audio = aDecoder.decodeObjectForKey("audio") as! NSData
+        let audioDescription = aDecoder.decodeObjectForKey("audioDescription") as! String
+        let senderId = aDecoder.decodeObjectForKey("senderId") as! String
+        let audioName = aDecoder.decodeObjectForKey("audioName") as! String
+        super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
+        self.alarmId = alarmId
+        self.audioName = audioName
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        
+        aCoder.encodeObject(audio, forKey: "audio")
+        aCoder.encodeObject(audioDescription, forKey: "audioDescription")
+        aCoder.encodeObject(senderId, forKey: "senderId")
+        aCoder.encodeObject(alarmId, forKey: "alarmId")
+        aCoder.encodeObject(audioName, forKey: "audioName")
+    }
+
+    
+    /*
+        Converte um audioAttempt para AudioSaved
+        Retorno: audioSaved
+    */
     func convertToSaved() -> AudioSaved {
         let saved = AudioSaved(receiverId: alarmId, audio: self.audio, audioDescription: self.audioDescription, senderId: self.senderId)
         
         return saved
+    }
+    
+    /*
+        Salva o audio localmente da pasta Library
+        Retorno: booleano de sucesso
+    
+        Obs: No banco o nome deste objecto e igual ao do arquivo
+        EX: "Alarm.objectId".attempt
+             hx2311jbfda423
+    */
+    func SaveAudioInToLibrary() -> Bool {
+        
+        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(checkDirectory("Attempts").stringByAppendingPathComponent(self.audioName), atomically: true)
+        return success
+    }
+    
+    /*
+        deletando audio da pasta Attempts
+    */
+    
+    func deleteAudioLocaly() -> Bool {
+        
+        var error:NSError?
+        
+        let pasta = checkDirectory("Attempts")
+        let path = pasta.stringByAppendingPathComponent("\(self.audioName).auf")
+        let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
+        
+        if !success {
+            println(error?.localizedDescription)
+        }
+        return success
     }
 }
