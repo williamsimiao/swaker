@@ -51,6 +51,19 @@ class AlarmsTableViewController: UITableViewController {
 
         return cell
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "requestPermission" {
+            let requestP = segue.destinationViewController as! RequestPermissionTableViewController
+            
+           let indexPath = self.tableView.indexPathForSelectedRow()
+            
+            requestP.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
+            
+            
+        }
+    }
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -62,6 +75,8 @@ class AlarmsTableViewController: UITableViewController {
 
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+      
         if editingStyle == .Delete {
             // Delete the row from the data source
             AlarmDAO.sharedInstance().loadUserAlarms()
@@ -71,6 +86,7 @@ class AlarmsTableViewController: UITableViewController {
             }
         }
     }
+    
 
     /*
     // Override to support rearranging the table view.

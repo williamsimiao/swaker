@@ -15,7 +15,8 @@ class AudioDAO: NSObject {
     static var Instance: AudioDAO?
     
     var audioSavedArray: Array<AudioSaved>?
-    var audioAttemptArray: Array<AudioAttempt>?
+    var audioAttemptArray = [AudioAttempt]()
+    //var audioAttemptArray: Array<AudioAttempt>?
     var audioPath: String!
     
     static func sharedInstance() -> AudioDAO{
@@ -51,7 +52,7 @@ class AudioDAO: NSObject {
         let ArrayPFobjectsAttempt = AudioQuery.whereKey("AlarmId", equalTo: alarmId).findObjects()!
         for aPFobject in ArrayPFobjectsAttempt {
             var anAudio = AudioAttempt(alarmId: alarmId as String, audio: aPFobject["audio"] as! NSData, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
-            audioAttemptArray?.append(anAudio)
+            audioAttemptArray.append(anAudio)
         }
     }
     
