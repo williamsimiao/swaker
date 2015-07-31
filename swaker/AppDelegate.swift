@@ -20,6 +20,12 @@ import Parse
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    enum Categories:String{
+        case proposal = "PROPOSAL_CATEGORY"
+        case acceptance = "ACCEPTANCE_CATEGORY"
+    }
+
+    
     var window: UIWindow?
     
     //--------------------------------------
@@ -78,6 +84,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             application.registerForRemoteNotificationTypes(types)
         }
+        
+        //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
+        // Extract the notification data
+        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            
+            let category = notificationPayload["category"] as! UIMutableUserNotificationCategory
+            println("\(Categories.proposal.rawValue)")
+            if category.identifier == Categories.proposal.rawValue {
+                
+            }
+            
+            var audioDAO = AudioDAO.sharedInstance()
+            
+            
+            // Create a pointer to the Photo object
+            let audio = notificationPayload["a"] as! NSString
+            let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
+            
+            // Fetch photo object
+            targetAudio.fetchIfNeededInBackgroundWithBlock {
+                (object: PFObject?, error:NSError?) -> Void in
+                if error == nil {
+                    let audioRecebido = audioDAO.convertPFObjectTOAudioSaved(object!) as AudioSaved
+                    let success = audioRecebido.SaveAudioInToLibrary()
+                    println("\(success)")
+                    
+                }
+                else {
+                    println("Deu treta")
+                }
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
         return true
     }
     
@@ -112,6 +153,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if application.applicationState == UIApplicationState.Inactive {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         }
+    }
+    
+    func subscribe() {
+        /*
+        vamos associar a installation a um user
+        */
+        UserDAO.sharedInstance().loadFriendsForCurrentUser()
+        let installation = PFInstallation.currentInstallation()
+        installation["user"] = PFUser.currentUser()
+        installation.saveInBackground()
+        
+        /*
+        Vamos no inscrver para receber notifications de nossos amigos
+        */
+        let currentInstallation = PFInstallation.currentInstallation()
+        
+        if let arrayDeFriends = UserDAO.sharedInstance().currentUser!.friends {
+            for friend in arrayDeFriends {
+                let friendId = friend.objectId
+                currentInstallation.addUniqueObject("c" + friendId, forKey: "channels")
+            }
+        }
+        currentInstallation.saveInBackground()
+        //fim do subscribe
     }
     
     ///////////////////////////////////////////////////////////

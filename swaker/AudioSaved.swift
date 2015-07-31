@@ -66,8 +66,9 @@ class AudioSaved: Audio {
     
     */
     func SaveAudioInToLibrary() -> Bool {
-        
-        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(checkDirectory("Saved").stringByAppendingPathComponent(self.audioName + ".auf"), atomically: true)
+        let path = checkDirectory("Saved").stringByAppendingPathComponent(self.audioName + ".auf")
+        println("SaLVANDO\(path)")
+        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
         return success
     }
     
