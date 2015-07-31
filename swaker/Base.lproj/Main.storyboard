@@ -568,7 +568,44 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yuo-41-B0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3478" y="1554"/>
+            <point key="canvasLocation" x="4058" y="1550"/>
+        </scene>
+        <!--Request Permission Table View Controller-->
+        <scene sceneID="aQB-Cl-0or">
+            <objects>
+                <tableViewController id="Op4-m0-BXD" customClass="RequestPermissionTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="l1J-dM-RdF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gKm-kK-nJG" customClass="RequestPTableViewCell" customModule="swaker" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gKm-kK-nJG" id="VKR-jP-cCn">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0g1-rv-MHa">
+                                            <rect key="frame" x="453" y="0.0" width="43" height="30"/>
+                                            <state key="normal" title="Aceita">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="accept:" destination="gKm-kK-nJG" eventType="touchUpInside" id="cry-5D-nrC"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Op4-m0-BXD" id="hH2-US-siP"/>
+                            <outlet property="delegate" destination="Op4-m0-BXD" id="Jlh-c8-whs"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PPd-I0-3Vf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4058" y="2281"/>
         </scene>
         <!--Alarms Table View Controller-->
         <scene sceneID="GfF-8e-X6R">
@@ -584,6 +621,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nz7-vv-hE7" id="27s-ZW-P2h">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Op4-m0-BXD" kind="show" identifier="requestPermission" id="SMG-Sb-HdM"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
