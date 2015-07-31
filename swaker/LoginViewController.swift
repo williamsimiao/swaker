@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
                     self.performSegueWithIdentifier("loginSucceeded", sender: self)
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
                     AlarmDAO.sharedInstance().loadUserAlarms()
+                    AlarmDAO.sharedInstance().deleteLocalAlarmsIfNeeded()
                 })
             } else {
                 let alert = UIAlertController(title: "Incorrect Informtions", message: "Email and/or password is incorrect.", preferredStyle: UIAlertControllerStyle.Alert)

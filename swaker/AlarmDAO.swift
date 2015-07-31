@@ -63,6 +63,31 @@ class AlarmDAO: NSObject {
     }
     
     /***************************************************************************
+        Função que remove os alarmes do Parse caso não existam localmente.
+        Devolve um array de alarmes para a propriedade self.userAlarms
+        Parâmetro: Void
+        Retorno: Void
+    ***************************************************************************/
+    func deleteLocalAlarmsIfNeeded() {
+        let query = PFQuery(className: "Alarm").whereKey("setterId", equalTo: UserDAO.sharedInstance().currentUser!.objectId)
+        if let alarms = query.findObjects() as? [PFObject] {
+            var exists = false
+            for alarm in alarms {
+                for lAlarm in userAlarms {
+                    if alarm.objectId == lAlarm.objectId {
+                        exists = true
+                        break
+                    }
+                }
+                if !exists {
+                    alarm.deleteEventually()
+                }
+            }
+        }
+
+    }
+    
+    /***************************************************************************
         Função que carrega os alarmes dos amigos
         Devolve um array de alarmes para a propriedade self.friendsAlarms
         Parâmetro: Void
