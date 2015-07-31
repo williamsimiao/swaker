@@ -17,6 +17,8 @@ class RecordViewController: UIViewController {
     var audioPlayer:AVAudioPlayer!
     var soundFileURL: NSURL!
     var channels = [String]()
+    let MyuserDAO = UserDAO.sharedInstance()
+
 
     //MARK: recordStart
     @IBAction func recordStart(sender: AnyObject) {
@@ -37,9 +39,17 @@ class RecordViewController: UIViewController {
         audioPlayer.play()
     }
     
+    
     //Mark viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //signUP
+        //login
+        let will = User(username: "andreanmasiro@live.com", password: "1234", email: "williamsimiao@gmail.com", name: "William", photo: nil)
+        //println("\(MyuserDAO.signup(will))")
+        MyuserDAO.login(will)
+        println("userId:\(PFUser.currentUser()?.objectId)")
         
         subscribe()
         settingRecorder()
@@ -59,20 +69,20 @@ class RecordViewController: UIViewController {
         
         var test = AudioDAO.sharedInstance()
         let Audiodata = NSData(contentsOfURL: self.soundFileURL!)
-        var audioAttemp = AudioAttempt(alarmId: "teste1", audio: Audiodata, audioDescription: "minha record", senderId: "william")
+        var audioAttemp = AudioAttempt(alarmId: "novoTeste", audio: Audiodata, audioDescription: "minha record", senderId: "william")
         let AudioObject = test.addAudioAttempt(audioAttemp)
         let objectId = AudioObject?.objectId
         
         let data = [
             "a" : objectId!,
-            "category" : "NewAudioProposal",
-//            "alert" : "Push e muito loco",
+            //"category" : "PROPOSAL_CATEGORY",
+            "alert" : "Push e muito loco",
             "badge" : "Increment",
             "sounds" : "cheering.caf"
         ]
         
         let comps = NSDateComponents()
-        comps.year = 2015
+        comps.year = 2016
         comps.month = 7
         comps.day = 29
         comps.hour = 3
@@ -84,9 +94,10 @@ class RecordViewController: UIViewController {
         
         let push = PFPush()
         push.expireAtDate(date)
-        push.setChannels(channels)
+        push.setChannel("c" + PFUser.currentUser()!.objectId!)
         push.setData(data)
         push.sendPushInBackground()
+        
         
     }
     
@@ -141,6 +152,7 @@ class RecordViewController: UIViewController {
         /*
             vamos associar a installation a um user
         */
+        UserDAO.sharedInstance().loadFriendsForCurrentUser()
         
         let installation = PFInstallation.currentInstallation()
         installation["user"] = PFUser.currentUser()
@@ -150,14 +162,15 @@ class RecordViewController: UIViewController {
             Vamos no inscrver para receber notifications de nossos amigos
         */
         let currentInstallation = PFInstallation.currentInstallation()
-        let friendsQuery = PFQuery(className: "FrindList")
-        friendsQuery.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+        let friendsQuery = PFQuery(className: "FriendList")
+        friendsQuery.whereKey("userId", equalTo: UserDAO.sharedInstance().currentUser!.objectId)
         let arrayDeFriends = friendsQuery.findObjects()!
 
         for friendObject in arrayDeFriends {
             
             let frindId = friendObject["friendId"] as! String
-            currentInstallation.addUniqueObject(frindId, forKey: "channels")
+            currentInstallation.addUniqueObject("c" + frindId, forKey: "channels")
+            println("c\(frindId)")
             channels.append(frindId)
             
         }

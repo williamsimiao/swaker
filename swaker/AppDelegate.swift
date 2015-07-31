@@ -20,6 +20,12 @@ import Parse
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    enum Categories:String{
+        case proposal = "PROPOSAL_CATEGORY"
+        case acceptance = "ACCEPTANCE_CATEGORY"
+    }
+
+    
     var window: UIWindow?
     
     //--------------------------------------
@@ -77,6 +83,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
             application.registerForRemoteNotificationTypes(types)
         }
+        
+        //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
+        // Extract the notification data
+        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            
+            let category = notificationPayload["category"] as! UIMutableUserNotificationCategory
+            println("\(Categories.proposal.rawValue)")
+            if category.identifier == Categories.proposal.rawValue {
+                
+            }
+            
+            var audioDAO = AudioDAO.sharedInstance()
+            
+            
+            // Create a pointer to the Photo object
+            let audio = notificationPayload["a"] as! NSString
+            let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
+            
+            // Fetch photo object
+            targetAudio.fetchIfNeededInBackgroundWithBlock {
+                (object: PFObject?, error:NSError?) -> Void in
+                if error == nil {
+                    let audioRecebido = audioDAO.convertPFObjectTOAudioSaved(object!) as AudioSaved
+                    let success = audioRecebido.SaveAudioInToLibrary()
+                    println("\(success)")
+                    
+                }
+                else {
+                    println("Deu treta")
+                }
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
         return true
     }
     

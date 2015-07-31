@@ -40,6 +40,7 @@ class UserDAO: NSObject {
             }
             else {
                 // Log In falhou
+                println("LALALALA")
                 return false
             }
         }

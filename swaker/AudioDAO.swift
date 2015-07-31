@@ -105,4 +105,11 @@ class AudioDAO: NSObject {
         
     }
     
+    func convertPFObjectTOAudioSaved (audioObject: PFObject) -> AudioSaved{
+        
+        let receivedAudio = AudioSaved(receiverId: audioObject["receiverId"] as! String, audio: audioObject["audio"] as! NSData, audioDescription: audioObject["description"] as! String, senderId: audioObject["senderId"] as! String)
+        
+        return receivedAudio
+    }
+    
 }
