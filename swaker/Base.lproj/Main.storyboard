@@ -385,7 +385,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="jqG-Oc-daE" kind="show" id="AlW-21-xKz"/>
+                                    <segue destination="jqG-Oc-daE" kind="show" identifier="recordingViewController" id="AlW-21-xKz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
