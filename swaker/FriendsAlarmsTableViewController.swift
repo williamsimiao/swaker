@@ -9,8 +9,6 @@
 import UIKit
 
 class FriendsAlarmsTableViewController: UITableViewController {
-
-    let alarmDao = AlarmDAO.sharedInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +19,11 @@ class FriendsAlarmsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,12 +40,12 @@ class FriendsAlarmsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return alarmDao.friendsAlarms.count
+        return AlarmDAO.sharedInstance().friendsAlarms.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = "\(alarmDao.friendsAlarms[indexPath.row].alarmDescription)"
+        cell.textLabel?.text = "\(AlarmDAO.sharedInstance().friendsAlarms[indexPath.row].alarmDescription)"
         // Configure the cell...
         return cell
     }

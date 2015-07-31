@@ -69,7 +69,8 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func loadFriendsAlarms() {
-        friendsAlarms = [Alarm]()
+        self.friendsAlarms.removeAll(keepCapacity: false)
+        var fAlarms = [Alarm]()
         let bigQuery = PFQuery(className: "Alarm")
         let user = UserDAO.sharedInstance().currentUser!
         if user.friends != nil {
@@ -78,11 +79,12 @@ class AlarmDAO: NSObject {
                 let alarms = query.findObjects() as? Array<PFObject>
                 if alarms != nil {
                     for alarm in alarms! {
-                        friendsAlarms.append(Alarm(PFAlarm: alarm))
+                        fAlarms.append(Alarm(PFAlarm: alarm))
                     }
                 }
             }
         }
+        self.friendsAlarms = fAlarms
     }
     
     /***************************************************************************
@@ -128,5 +130,9 @@ class AlarmDAO: NSObject {
             return true
         }
         return false
+    }
+    
+    static func unload() {
+        self.instance = nil
     }
 }

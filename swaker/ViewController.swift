@@ -18,12 +18,13 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        
         if PFUser.currentUser()?.username == nil {
             performSegueWithIdentifier("loginScreen", sender: self)
         } else {
             indicator.startAnimating()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                UserDAO.sharedInstance()
+                UserDAO.sharedInstance().loadFriendsForCurrentUser()
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 self.indicator.stopAnimating()
                 self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
@@ -35,7 +36,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

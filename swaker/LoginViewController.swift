@@ -35,6 +35,7 @@ class LoginViewController: UIViewController {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.performSegueWithIdentifier("loginSucceeded", sender: self)
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
+                    AlarmDAO.sharedInstance().loadUserAlarms()
                 })
             } else {
                 let alert = UIAlertController(title: "Incorrect Informtions", message: "Email and/or password is incorrect.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -50,14 +51,13 @@ class LoginViewController: UIViewController {
         })
     }
 
-    /*
     // MARK: - Navigation
-
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

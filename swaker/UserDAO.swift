@@ -20,7 +20,6 @@ class UserDAO: NSObject {
             instance = UserDAO()
             if PFUser.currentUser()?.username != nil {
                 instance!.currentUser = User(user: PFUser.currentUser()!)
-                instance?.loadFriendsForCurrentUser()
             }
         }
         return instance!
@@ -72,8 +71,9 @@ class UserDAO: NSObject {
         Retorno    : void
     ****************************************************************************************************/
     func logout() {
-        currentUser = nil
         PFUser.logOut()
+        UserDAO.unload()
+        AlarmDAO.unload()
     }
     
     
@@ -128,6 +128,7 @@ class UserDAO: NSObject {
             }
         }
         currentUserFriends = friends
+        currentUser?.friends = friends
     }
     
     /****************************************************************************************************
@@ -186,5 +187,9 @@ class UserDAO: NSObject {
             return false
         }
         return true
+    }
+    
+    static func unload() {
+        self.instance = nil
     }
 }
