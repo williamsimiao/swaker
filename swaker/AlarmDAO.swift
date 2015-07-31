@@ -129,6 +129,7 @@ class AlarmDAO: NSObject {
                         var error:NSError?
                         var alarm = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as! Alarm
                         alarm.objectId = PFAlarm.objectId
+                        PFInstallation.currentInstallation().addUniqueObject("a"+alarm.objectId, forKey: "channels")
                         NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(toPath, atomically: true)
                         NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
                     }

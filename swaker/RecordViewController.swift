@@ -18,6 +18,7 @@ class RecordViewController: UIViewController {
     var soundFileURL: NSURL!
     var channels = [String]()
     let MyuserDAO = UserDAO.sharedInstance()
+    var alarm:Alarm!
 
 
     //MARK: recordStart
@@ -85,7 +86,7 @@ class RecordViewController: UIViewController {
         
         let push = PFPush()
         push.expireAtDate(date)
-        push.setChannel("c" + PFUser.currentUser()!.objectId!)
+        push.setChannel("a" + alarm.objectId)
         push.setData(data)
         push.sendPushInBackground()
         
