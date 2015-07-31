@@ -15,6 +15,8 @@
 		3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */; };
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
 		45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E824D61B66B72100F0F404 /* UserDAO.swift */; };
+		45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */; };
+		45ED4CB21B6ABECD00F07C6F /* RequestPermissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */; };
 		4C1111A91B66AE6500163A05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111A81B66AE6500163A05 /* User.swift */; };
 		4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AA1B66AFE400163A05 /* Audio.swift */; };
 		4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AC1B66B08200163A05 /* Alarm.swift */; };
@@ -65,6 +67,8 @@
 		3DB058F01B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
 		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
+		45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPTableViewCell.swift; sourceTree = "<group>"; };
+		45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPermissionTableViewController.swift; sourceTree = "<group>"; };
 		4C1111A81B66AE6500163A05 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C1111AA1B66AFE400163A05 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		4C1111AC1B66B08200163A05 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
+				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
 				45E824D51B66B5D500F0F404 /* DAO */,
 				45E824D41B66B55F00F0F404 /* Entities */,
@@ -210,6 +215,14 @@
 			name = DAO;
 			sourceTree = "<group>";
 		};
+		45EBA0AC1B6BBA9800CAC235 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
 		4C217ECD1B695CB800E08424 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +235,7 @@
 				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
 				4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */,
 				4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */,
+				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -349,6 +363,7 @@
 				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,
 				4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */,
+				45ED4CB21B6ABECD00F07C6F /* RequestPermissionTableViewController.swift in Sources */,
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
 				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
@@ -361,6 +376,7 @@
 				4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
+				45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */,
 				4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
