@@ -78,7 +78,7 @@ class RecordViewController: UIViewController {
             //"category" : "PROPOSAL_CATEGORY",
             "alert" : "Push e muito loco",
             "badge" : "Increment",
-            "sounds" : "cheering.caf"
+            "sounds" : "propostaSound.caf"
         ]
         
         let comps = NSDateComponents()

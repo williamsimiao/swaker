@@ -63,12 +63,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Track an app open here if we launch with a push, unless
             // "content_available" was used to trigger a background push (introduced in iOS 7).
             // In that case, we skip tracking here to avoid double counting the app-open.
-            
+            println("backgroung")
+
             let preBackgroundPush = !application.respondsToSelector("backgroundRefreshStatus")
             let oldPushHandlerOnly = !self.respondsToSelector("application:didReceiveRemoteNotification:fetchCompletionHandler:")
             var noPushPayload = false;
             if let options = launchOptions {
                 noPushPayload = options[UIApplicationLaunchOptionsRemoteNotificationKey] != nil;
+                println("nao tem payload")
+                
             }
             if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
                 PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -84,39 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerForRemoteNotificationTypes(types)
         }
         
-        //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
-        // Extract the notification data
-        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
-            
-            let category = notificationPayload["category"] as! UIMutableUserNotificationCategory
-            println("\(Categories.proposal.rawValue)")
-            if category.identifier == Categories.proposal.rawValue {
-                
-            }
-            
-            var audioDAO = AudioDAO.sharedInstance()
-            
-            
-            // Create a pointer to the Photo object
-            let audio = notificationPayload["a"] as! NSString
-            let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
-            
-            // Fetch photo object
-            targetAudio.fetchIfNeededInBackgroundWithBlock {
-                (object: PFObject?, error:NSError?) -> Void in
-                if error == nil {
-                    let audioRecebido = audioDAO.convertPFObjectTOAudioSaved(object!) as AudioSaved
-                    let success = audioRecebido.SaveAudioInToLibrary()
-                    println("\(success)")
-                    
-                }
-                else {
-                    println("Deu treta")
-                }
-            }
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+        println("lal")
         
         return true
     }
@@ -137,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error)
             }
         }
+        println("ets")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -151,17 +123,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFPush.handlePush(userInfo)
         if application.applicationState == UIApplicationState.Inactive {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+            
+            //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
+            // Extract the notification data
+            if let notificationPayload = userInfo[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+                
+                let category = notificationPayload["category"] as! UIMutableUserNotificationCategory
+                println("\(Categories.proposal.rawValue)")
+                if category.identifier == Categories.proposal.rawValue {
+                    
+                }
+                
+                var audioDAO = AudioDAO.sharedInstance()
+                
+                
+                // Create a pointer to the Photo object
+                let audio = notificationPayload["a"] as! NSString
+                let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
+                
+                // Fetch photo object
+                targetAudio.fetchIfNeededInBackgroundWithBlock {
+                    (object: PFObject?, error:NSError?) -> Void in
+                    if error == nil {
+                        let audioRecebido = audioDAO.convertPFObjectTOAudioSaved(object!) as AudioSaved
+                        let success = audioRecebido.SaveAudioInToLibrary()
+                        println("\(success)")
+                        
+                    }
+                    else {
+                        println("Deu treta")
+                    }
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         }
     }
     
     ///////////////////////////////////////////////////////////
     // Uncomment this method if you want to use Push Notifications with Background App Refresh
     ///////////////////////////////////////////////////////////
-    // func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    //     if application.applicationState == UIApplicationState.Inactive {
-    //         PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-    //     }
-    // }
+     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+         if application.applicationState == UIApplicationState.Inactive {
+             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+            
+         }
+     }
     
     //--------------------------------------
     // MARK: Facebook SDK Integration
