@@ -30,6 +30,7 @@
 		4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */; };
 		4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED61B69868500E08424 /* SettingsTableViewController.swift */; };
 		4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */; };
+		4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -83,6 +84,7 @@
 		4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAddingViewController.swift; sourceTree = "<group>"; };
 		4C217ED61B69868500E08424 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsTableViewController.swift; sourceTree = "<group>"; };
+		4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
+				4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */,
 				4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */,
 				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
 				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
@@ -363,6 +366,7 @@
 			files = (
 				4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
+				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,
 				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,
 				4C13ECD11B6C0759002E1B21 /* RecordViewController.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,

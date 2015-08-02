@@ -190,6 +190,15 @@ class UserDAO: NSObject {
         return true
     }
     
+    /****************************************************************************************************
+        Função que reseta a senha do usuário
+        Parâmetros : email do usuário
+        Retorno    : true = resetado, false = não resetado
+    ****************************************************************************************************/
+    func resetPasswordForEmail(email:String!) -> Bool {
+        return PFUser.requestPasswordResetForEmail(email)
+    }
+    
     static func unload() {
         self.instance = nil
     }
