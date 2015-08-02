@@ -29,7 +29,7 @@
                     </view>
                     <connections>
                         <outlet property="indicator" destination="n9t-1a-xOL" id="Uor-Ix-sOu"/>
-                        <segue destination="A09-v3-A2q" kind="show" identifier="loginScreen" id="Pnw-fm-st6"/>
+                        <segue destination="A09-v3-A2q" kind="presentation" identifier="loginScreen" animates="NO" id="Pnw-fm-st6"/>
                         <segue destination="tQL-H1-EO6" kind="show" identifier="userAlreadyLoggedIn" id="vP4-3B-5KR"/>
                     </connections>
                 </viewController>
@@ -170,13 +170,11 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="G8U-sr-7fC" kind="popoverPresentation" popoverAnchorView="YVL-y9-rbo" id="mvv-Xs-7vs">
-                                        <popoverArrowDirection key="popoverArrowDirection" left="YES"/>
-                                    </segue>
+                                    <action selector="forgotYourPassword:" destination="A09-v3-A2q" eventType="touchUpInside" id="oFU-LC-tTu"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.037066020669999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="YVL-y9-rbo" secondAttribute="centerX" id="4e5-Se-w4d"/>
                             <constraint firstItem="wtC-km-kD4" firstAttribute="top" secondItem="YVL-y9-rbo" secondAttribute="bottom" constant="20" id="7gF-FH-jrd"/>
@@ -203,12 +201,15 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="forgotPasswordButton" destination="YVL-y9-rbo" id="wCo-2Q-EJW"/>
                         <outlet property="indicator" destination="DBk-bP-LW6" id="UnE-Ex-1Tk"/>
                         <outlet property="logInButton" destination="jSi-tj-luJ" id="pab-zS-Wct"/>
                         <outlet property="passwordTextField" destination="qkb-hy-Kqd" id="tGD-fr-vZp"/>
+                        <outlet property="signUpButton" destination="EyY-4s-b6U" id="7H2-c0-kUg"/>
                         <outlet property="textFieldsView" destination="zOY-7e-IBo" id="C9b-Td-LiR"/>
                         <outlet property="usernameTextField" destination="bpe-aB-MIC" id="l3U-m6-b58"/>
                         <segue destination="tQL-H1-EO6" kind="show" identifier="loginSucceeded" id="51m-G4-d1D"/>
+                        <segue destination="G8U-sr-7fC" kind="presentation" identifier="forgotPassword" animates="NO" id="fhA-zg-KWw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHX-ia-mau" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -852,19 +853,48 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="He5-WL-7k9">
+                                <rect key="frame" x="282" y="550" width="37" height="30"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="done:" destination="G8U-sr-7fC" eventType="touchUpInside" id="QiS-it-ec5"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WYB-rm-uSD">
+                                <rect key="frame" x="550" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.037066020669999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="WYB-rm-uSD" secondAttribute="trailing" constant="30" id="4fG-2z-aDm"/>
+                            <constraint firstAttribute="centerX" secondItem="He5-WL-7k9" secondAttribute="centerX" id="D1C-O0-4BA"/>
                             <constraint firstItem="pa4-wR-sH8" firstAttribute="top" secondItem="Uwq-l6-Adc" secondAttribute="bottom" constant="10" id="DY3-7x-gqT"/>
                             <constraint firstAttribute="trailing" secondItem="pa4-wR-sH8" secondAttribute="trailing" constant="20" id="Fw5-BE-1Qe"/>
+                            <constraint firstItem="7YH-Me-Kv5" firstAttribute="top" secondItem="He5-WL-7k9" secondAttribute="bottom" constant="20" id="HXb-gY-vV0"/>
                             <constraint firstAttribute="trailing" secondItem="Uwq-l6-Adc" secondAttribute="trailing" constant="20" id="fO6-cj-zaM"/>
+                            <constraint firstItem="He5-WL-7k9" firstAttribute="top" secondItem="w2R-BJ-sjq" secondAttribute="bottom" id="jSC-iI-6Al"/>
+                            <constraint firstAttribute="centerY" secondItem="WYB-rm-uSD" secondAttribute="centerY" id="kl3-Q0-XRq"/>
                             <constraint firstItem="pa4-wR-sH8" firstAttribute="leading" secondItem="yWs-cx-XK9" secondAttribute="leading" constant="20" id="rKW-vv-6Dv"/>
                             <constraint firstAttribute="centerY" secondItem="pa4-wR-sH8" secondAttribute="centerY" id="sZF-gP-Mic"/>
+                            <constraint firstItem="pa4-wR-sH8" firstAttribute="leading" secondItem="WYB-rm-uSD" secondAttribute="trailing" constant="30" id="u4i-ha-pVe"/>
+                            <constraint firstAttribute="centerY" secondItem="pa4-wR-sH8" secondAttribute="centerY" id="uvN-pk-tPQ"/>
+                            <constraint firstItem="He5-WL-7k9" firstAttribute="leading" secondItem="yWs-cx-XK9" secondAttribute="leadingMargin" constant="4" id="yGm-T9-Y8U"/>
                             <constraint firstItem="Uwq-l6-Adc" firstAttribute="leading" secondItem="yWs-cx-XK9" secondAttribute="leading" constant="20" id="zOq-fO-scc"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="u4i-ha-pVe"/>
+                                <exclude reference="jSC-iI-6Al"/>
+                                <exclude reference="yGm-T9-Y8U"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="jdq-9j-DJD" id="D6M-OG-shS"/>
+                        <outlet property="indicator" destination="WYB-rm-uSD" id="Tb9-1Q-r3J"/>
+                        <outlet property="submitButton" destination="pa4-wR-sH8" id="GyA-cg-ZS3"/>
                         <outlet property="textFieldView" destination="Uwq-l6-Adc" id="dfB-ch-EA2"/>
                     </connections>
                 </viewController>

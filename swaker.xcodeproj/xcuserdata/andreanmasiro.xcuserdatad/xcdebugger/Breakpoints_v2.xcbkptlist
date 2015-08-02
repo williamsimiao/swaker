@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swaker/LoginViewController.swift"
-            timestampString = "460173438.35243"
+            timestampString = "460177397.076927"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "login(_:)"
             landmarkType = "5">
          </BreakpointContent>
