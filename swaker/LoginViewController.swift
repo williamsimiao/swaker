@@ -52,7 +52,7 @@ class LoginViewController: UIViewController {
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
                     AlarmDAO.sharedInstance().loadUserAlarms()
                     AlarmDAO.sharedInstance().deleteLocalAlarmsIfNeeded()
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).subscribe()
+                    (UIApplication.sharedApplication().delegate as! AppDelegate).subscribeToFriendsAlarms()
                 })
             } else {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in

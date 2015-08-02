@@ -20,12 +20,7 @@ import Parse
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    enum Categories:String{
-        case proposal = "PROPOSAL_CATEGORY"
-        case acceptance = "ACCEPTANCE_CATEGORY"
-    }
-
-    
+    var audioDAOinstance = AudioDAO.sharedInstance()
     var window: UIWindow?
     
     //--------------------------------------
@@ -75,50 +70,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         if application.respondsToSelector("registerUserNotificationSettings:") {
+            // setting types
             let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
-            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+            
+            /////////////CATEGORIES////////////
+            //Setando action de aceitar audio
+            let acceptAction = UIMutableUserNotificationAction()
+            acceptAction.identifier = "ACCEPT_IDENTIFIER"
+            acceptAction.title = "Accept"
+            acceptAction.activationMode = UIUserNotificationActivationMode.Foreground
+            acceptAction.destructive = true
+            //Como o activationMode e foreground o autenticationRequeried e true
+            
+            //Setando action de recusar
+            let refuseAction = UIMutableUserNotificationAction()
+            refuseAction.identifier = "REFUSE_IDENTIFIER"
+            refuseAction.title = "Refuse"
+            refuseAction.activationMode = UIUserNotificationActivationMode.Foreground
+            //A action acima ja e destructive entao essa nao pode ser tambem, lose sera a de cor azul
+            
+            //Colocando as actions acima em categories
+            //                let notificationCategory = notificationPayload["category"] as! UIMutableUserNotificationCategory
+            let proposalCategory = UIMutableUserNotificationCategory()
+            
+            proposalCategory.identifier = "POPOSAL_CATEGORY"
+            //actions para notification com a tela desbloqueada
+            proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Default)
+            
+            //actions para notification na lockscreen
+            proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Minimal)
+            
+            let categories = NSSet(objects: proposalCategory)
+            
+            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: categories as Set<NSObject>)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         } else {
-            let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
+            let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
             
-            application.registerForRemoteNotificationTypes(types)
+            application.registerForRemoteNotifications()
         }
-        
-        //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
-        // Extract the notification data
-        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
-            
-            let category = notificationPayload["category"] as! UIMutableUserNotificationCategory
-            println("\(Categories.proposal.rawValue)")
-            if category.identifier == Categories.proposal.rawValue {
-                
-            }
-            
-            var audioDAO = AudioDAO.sharedInstance()
-            
-            
-            // Create a pointer to the Photo object
-            let audio = notificationPayload["a"] as! NSString
-            let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
-            
-            // Fetch photo object
-            targetAudio.fetchIfNeededInBackgroundWithBlock {
-                (object: PFObject?, error:NSError?) -> Void in
-                if error == nil {
-                    let audioRecebido = audioDAO.convertPFObjectTOAudioSaved(object!) as AudioSaved
-                    let success = audioRecebido.SaveAudioInToLibrary()
-                    println("\(success)")
-                    
-                }
-                else {
-                    println("Deu treta")
-                }
-            }
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        
         return true
     }
     
@@ -155,7 +146,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func subscribe() {
+    /*
+        Metodo para receber notificacoes quando amigos setarem novo alarme
+    */
+    
+    func subscribeToFriendsAlarms() {
         /*
         vamos associar a installation a um user
         */
@@ -182,11 +177,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ///////////////////////////////////////////////////////////
     // Uncomment this method if you want to use Push Notifications with Background App Refresh
     ///////////////////////////////////////////////////////////
-    // func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    //     if application.applicationState == UIApplicationState.Inactive {
-    //         PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-    //     }
-    // }
+     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+         if application.applicationState == UIApplicationState.Inactive {
+             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+            //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
+            // Extract the notification data
+            if let notificationPayload = userInfo["aps"] as? NSDictionary {
+                
+                // Create a pointer to the audio object
+                let audio = notificationPayload["a"] as! NSString
+                let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
+                
+                // Fetch photo object
+                targetAudio.fetchIfNeededInBackgroundWithBlock {
+                    (object: PFObject?, error:NSError?) -> Void in
+                    if error == nil {
+                        let audioRecebido = self.audioDAOinstance.convertPFObjectTOAudioSaved(object!) as AudioSaved
+                        let success = audioRecebido.SaveAudioInToLibrary()
+                        println("\(success)")
+                        
+                    }
+                    else {
+                        println("Deu treta ao pegar o audio")
+                    }
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+         }
+     }
     
     //--------------------------------------
     // MARK: Facebook SDK Integration
