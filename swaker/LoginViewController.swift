@@ -92,14 +92,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return UIInterfaceOrientation.Portrait.rawValue
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
     // MARK: - Navigation
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
