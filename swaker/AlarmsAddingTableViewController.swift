@@ -12,6 +12,7 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
 
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var datePicker: UIPickerView!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,7 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
         let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: NSDate())
         datePicker.selectRow((components.hour + 24*341) - 1, inComponent: 0, animated: false)
         datePicker.selectRow((components.minute + 60*136), inComponent: 2, animated: false)
-        
+        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -28,18 +29,23 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
     }
 
     @IBAction func set(sender: AnyObject) {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: NSDate())
-        
+        let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitDay | .CalendarUnitMonth | .CalendarUnitYear, fromDate: NSDate())
+//        let components = NSCalendar.currentCalendar().componentsInTimeZone(NSTimeZone.systemTimeZone(), fromDate: NSDate())
         var selectedHour = pickerView(datePicker, attributedTitleForRow: datePicker.selectedRowInComponent(0), forComponent: 0)!.string.toInt()!
         selectedHour = selectedHour == 0 ? 24 : selectedHour
-        let deltaHour =  selectedHour - (components.hour == 0 ? 24 : components.hour)
         
-        let selectedMinute = pickerView(datePicker, attributedTitleForRow: datePicker.selectedRowInComponent(1), forComponent: 2)!.string.toInt()!
-        let deltaMinute = selectedMinute - components.minute
+        let selectedMinute = pickerView(datePicker, attributedTitleForRow: datePicker.selectedRowInComponent(2), forComponent: 2)!.string.toInt()!
         
-        let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: NSDate(timeIntervalSinceNow: NSTimeInterval(3600 * deltaHour + 60 * deltaMinute)) , setterId: UserDAO.sharedInstance().currentUser!.objectId)
+        components.hour = selectedHour
+        components.minute = selectedMinute
+        
+        if (selectedHour < components.hour) || ((selectedHour == components.hour) && (selectedMinute <= components.minute)) {
+            components.day++
+        }
+        let fireDate = currentCalendar.dateFromComponents(components)!
+        
+        let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: fireDate , setterId: UserDAO.sharedInstance().currentUser!.objectId)
         AlarmDAO.sharedInstance().addAlarm(alarm)
-        AlarmDAO.sharedInstance().loadUserAlarms()
         navigationController?.popViewControllerAnimated(true)
     }
     

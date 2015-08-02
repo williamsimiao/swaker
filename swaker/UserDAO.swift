@@ -36,10 +36,10 @@ class UserDAO: NSObject {
             var error:NSError?
             if let userDAO = PFUser.logInWithUsername(user.username, password: user.password, error: &error) {
                 currentUser = User(user: userDAO)
+                PFInstallation.currentInstallation().setObject(userDAO, forKey: "user")
+                PFInstallation.currentInstallation().save()
             }
             else {
-                // Log In falhou
-                println("LALALALA")
                 return false
             }
         }
@@ -114,8 +114,8 @@ class UserDAO: NSObject {
         Parâmetros : void
         Retorno    : void
     ****************************************************************************************************/
-    func loadFriendsForCurrentUser(){
-        println("counting friends")
+    func loadFriendsForCurrentUser() {
+        println("Loading friends")
         var friends = [User]()
         let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: currentUser!.objectId)
         let anyObjects = query.findObjects()
@@ -123,8 +123,7 @@ class UserDAO: NSObject {
         if objects != nil {
             for obj in objects! {
                 let user = PFUser.query()?.whereKey("objectId", equalTo: obj["friendId"] as! String).findObjects()!.first as! PFUser
-                //                let user = PFUser(withoutDataWithClassName: "_User", objectId: (obj["friendId"] as! String))
-                println(user["email"])
+                PFInstallation.currentInstallation().addObject("f" + user.objectId!, forKey: "channels")
                 friends.append(User(user: user))
             }
         }
@@ -201,5 +200,9 @@ class UserDAO: NSObject {
     
     static func unload() {
         self.instance = nil
+        PFInstallation.currentInstallation().setObject([], forKey: "channels")
+        PFInstallation.currentInstallation().removeObjectForKey("user")
+        PFInstallation.currentInstallation().save()
+        
     }
 }

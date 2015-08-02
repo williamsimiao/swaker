@@ -155,30 +155,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func subscribe() {
-        /*
-        vamos associar a installation a um user
-        */
-        UserDAO.sharedInstance().loadFriendsForCurrentUser()
-        let installation = PFInstallation.currentInstallation()
-        installation["user"] = PFUser.currentUser()
-        installation.saveInBackground()
-        
-        /*
-        Vamos no inscrver para receber notifications de nossos amigos
-        */
-        let currentInstallation = PFInstallation.currentInstallation()
-        
-        if let arrayDeFriends = UserDAO.sharedInstance().currentUser!.friends {
-            for friend in arrayDeFriends {
-                let friendId = friend.objectId
-                currentInstallation.addUniqueObject("c" + friendId, forKey: "channels")
-            }
-        }
-        currentInstallation.saveInBackground()
-        //fim do subscribe
-    }
-    
     ///////////////////////////////////////////////////////////
     // Uncomment this method if you want to use Push Notifications with Background App Refresh
     ///////////////////////////////////////////////////////////

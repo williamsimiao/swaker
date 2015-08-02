@@ -84,7 +84,6 @@ class AlarmDAO: NSObject {
                 }
             }
         }
-
     }
     
     /***************************************************************************
@@ -148,6 +147,8 @@ class AlarmDAO: NSObject {
     func deleteAlarm(alarm:Alarm!) -> Bool {
         if Alarm.deleteAlarm(alarm) {
             PFObject(withoutDataWithClassName:"Alarm", objectId:alarm.objectId).deleteEventually()
+            PFInstallation.currentInstallation().removeObject("a"+alarm.objectId, forKey: "channels")
+            PFInstallation.currentInstallation().saveEventually()
             if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
                 for obj in objects {
                     (obj as! PFObject).deleteEventually()
@@ -158,7 +159,22 @@ class AlarmDAO: NSObject {
         return false
     }
     
+    
+    /***************************************************************************
+        Função que adiciona assinaturas aos canais correspondentes aos alarmes do usuário
+        Parâmetro: void
+        Retorno: void
+    ***************************************************************************/
+    func subscribeToAlarms() {
+        for alarm in userAlarms {
+            PFInstallation.currentInstallation().addObject("a"+alarm.objectId, forKey: "channels")
+        }
+        PFInstallation.currentInstallation().save()
+    }
+    
     static func unload() {
-        self.instance = nil
+        if instance != nil {
+            self.instance = nil
+        }
     }
 }
