@@ -21,6 +21,15 @@ class RecordViewController: UIViewController {
     let MyaudioDAO = AudioDAO.sharedInstance()
     var alarm:Alarm!
     
+    enum categoriesIdentifiers:String{
+        //notificacao de nova proposta de audio
+        case proposal = "PROPOSAL_CATEGORY"
+        //notificacao de amigo setou novo alarme, nao necessita de actions
+        case newAlarm = "NEWALARM_CATEGORY"
+        
+        // nao precisa de category pra notification de audio aceito
+    }
+    
     
     //MARK: recordStart
     @IBAction func recordStart(sender: AnyObject) {
@@ -65,7 +74,7 @@ class RecordViewController: UIViewController {
         let AudioObject = MyaudioDAO.addAudioAttempt(audioAttemp)
         let objectId = AudioObject?.objectId
         let data = [
-            "category" : "POPOSAL_CATEGORY",
+            "category" : categoriesIdentifiers.proposal.rawValue,
             "alert" : "Proposta de audio de \(MyuserDAO.currentUser!.name)",
             "badge" : "Increment",
             //"sounds" : "cheering.caf",

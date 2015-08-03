@@ -20,8 +20,25 @@ import Parse
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var audioDAOinstance = AudioDAO.sharedInstance()
     var window: UIWindow?
+    
+    //Identificadores para as categorias
+    enum categoriesIdentifiers:String{
+        //notificacao de nova proposta de audio
+        case proposal = "PROPOSAL_CATEGORY"
+        //notificacao de amigo setou novo alarme, nao necessita de actions
+        case newAlarm = "NEWALARM_CATEGORY"
+        
+        // nao precisa de category pra notification de audio aceito
+    }
+    //Identificadores para as acoes de PROPOSAL_CATEGORY
+    enum ActionsIdentifiers:String{
+        //acao de aceitar o audio
+        case accept = "ACCEPT_ACTION"
+        //acao de recusar o audio
+        case refuse = "REFUSE_ACTION"
+    }
+
     
     //--------------------------------------
     // MARK: - UIApplicationDelegate
@@ -76,24 +93,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             /////////////CATEGORIES////////////
             //Setando action de aceitar audio
             let acceptAction = UIMutableUserNotificationAction()
-            acceptAction.identifier = "ACCEPT_IDENTIFIER"
+            acceptAction.identifier = ActionsIdentifiers.accept.rawValue
             acceptAction.title = "Accept"
-            acceptAction.activationMode = UIUserNotificationActivationMode.Foreground
-            acceptAction.destructive = true
+            acceptAction.activationMode = UIUserNotificationActivationMode.Background
+            acceptAction.authenticationRequired = true
+            acceptAction.destructive = false
             //Como o activationMode e foreground o autenticationRequeried e true
             
             //Setando action de recusar
             let refuseAction = UIMutableUserNotificationAction()
-            refuseAction.identifier = "REFUSE_IDENTIFIER"
+            refuseAction.identifier = ActionsIdentifiers.refuse.rawValue
             refuseAction.title = "Refuse"
-            refuseAction.activationMode = UIUserNotificationActivationMode.Foreground
+            refuseAction.activationMode = UIUserNotificationActivationMode.Background
+            refuseAction.authenticationRequired = true
+            refuseAction.destructive = true
             //A action acima ja e destructive entao essa nao pode ser tambem, lose sera a de cor azul
             
             //Colocando as actions acima em categories
             //                let notificationCategory = notificationPayload["category"] as! UIMutableUserNotificationCategory
             let proposalCategory = UIMutableUserNotificationCategory()
             
-            proposalCategory.identifier = "POPOSAL_CATEGORY"
+            proposalCategory.identifier = categoriesIdentifiers.proposal.rawValue
+            
             //actions para notification com a tela desbloqueada
             proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Default)
             
@@ -101,7 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Minimal)
             
             let categories = NSSet(objects: proposalCategory)
-            
             let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: categories as Set<NSObject>)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
@@ -139,12 +159,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handlePush(userInfo)
-        if application.applicationState == UIApplicationState.Inactive {
-            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-        }
-    }
+//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+//        PFPush.handlePush(userInfo)
+//        if application.applicationState == UIApplicationState.Inactive {
+//            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+//
+//            }
+//
+//        }
+//    }
     
     /*
         Metodo para receber notificacoes quando amigos setarem novo alarme
@@ -174,38 +197,90 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //fim do subscribe
     }
     
-    ///////////////////////////////////////////////////////////
-    // Uncomment this method if you want to use Push Notifications with Background App Refresh
-    ///////////////////////////////////////////////////////////
+    func getRecordViewController() {
+        let tabController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+        let navigation = tabController.viewControllers![3] as! UINavigationController
+        
+        let friendsAlarmsController = navigation.storyboard?.instantiateViewControllerWithIdentifier("FriendsAlarmsController") as! UITableViewController
+        let recordController = friendsAlarmsController.storyboard?.instantiateViewControllerWithIdentifier("RecordController") as! UIViewController
+        
+        navigation.pushViewController(recordController, animated: true)
+        
+    }
+    
+    func getAlarmsViewController() {
+        let tabController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+        let navigation = tabController.viewControllers![3] as! UINavigationController
+        
+        let MyAlarmsController = navigation.storyboard?.instantiateViewControllerWithIdentifier("MyAlarmsController") as! UITableViewController
+    }
+
+    /*
+    
+    */
      func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-         if application.applicationState == UIApplicationState.Inactive {
-             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-            //////////////////////////HANDLING PUSHNOTIFICATION WHWN APP IS IN BACKGROUND//////////////////////////////
-            // Extract the notification data
-            if let notificationPayload = userInfo["aps"] as? NSDictionary {
-                
-                // Create a pointer to the audio object
-                let audio = notificationPayload["a"] as! NSString
-                let targetAudio = PFObject(withoutDataWithClassName: "Audio", objectId: audio as String)
-                
-                // Fetch photo object
-                targetAudio.fetchIfNeededInBackgroundWithBlock {
-                    (object: PFObject?, error:NSError?) -> Void in
-                    if error == nil {
-                        let audioRecebido = self.audioDAOinstance.convertPFObjectTOAudioSaved(object!) as AudioSaved
-                        let success = audioRecebido.SaveAudioInToLibrary()
-                        println("\(success)")
-                        
-                    }
-                    else {
-                        println("Deu treta ao pegar o audio")
-                    }
-                }
+        
+        let notificationPayload = userInfo["aps"] as! NSDictionary
+        
+         if application.applicationState == UIApplicationState.Background {
+            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+            let notificationCategory = notificationPayload["category"] as! String
+            if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
+                getAlarmsViewController()
+                //application.applicationIconBadgeNumber = 0
             }
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
+                getRecordViewController()
+            }
 
          }
+        if application.applicationState == UIApplicationState.Active {
+            let inAppNotification = UIAlertController()
+            let message = notificationPayload["alert"] as! String
+            if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
+                inAppNotification.title = "New alarm from\(message))"
+            }
+            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
+                inAppNotification.title = "New alarm from\(message))"
+            }
+        }
      }
+     
+        
+    
+    func application(application: UIApplication,
+        handleActionWithIdentifier identifier: String?,
+        forRemoteNotification userInfo: [NSObject : AnyObject],
+        completionHandler: () -> Void) {
+            let notificationPayload = userInfo["aps"] as! NSDictionary
+            
+            // Create a pointer to the audio object
+            let audio = userInfo["a"] as! String
+            println("Buscando pelo audio de ID: \(audio)")
+            if identifier == ActionsIdentifiers.accept.rawValue {
+                if let audioObject = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audio).getFirstObject(){
+                    println("achou")
+                    let receivedAudio = AudioSaved(PFAudioSaved: audioObject)
+                    receivedAudio.SaveAudioInToLibrary()
+                    //just to be shure
+                    println("audioDescription:\(receivedAudio.audioDescription!)")
+                    
+                }
+                else {
+                    println("nao achou")
+                }
+                
+            }
+            if identifier == ActionsIdentifiers.refuse.rawValue {
+                //deletando o audio do audio attempt
+                //AudioDAO.sharedInstance().deleteAudioAttempt(<#audioObject: PFObject#>)
+                
+            }
+
+            completionHandler()
+    }
+
+    
     
     //--------------------------------------
     // MARK: Facebook SDK Integration

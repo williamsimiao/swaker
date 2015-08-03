@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var textFieldsView: UIView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()

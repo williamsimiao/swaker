@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class AudioSaved: Audio {
     
@@ -33,6 +34,16 @@ class AudioSaved: Audio {
         self.audioName = audioName
     }
     
+    init(PFAudioSaved:PFObject) {
+        let audioPFFile = PFAudioSaved["audio"] as! PFFile
+        //there is fetching here
+        let audioData = audioPFFile.getData()! as NSData 
+        super.init(audio: audioData, audioDescription: PFAudioSaved["description"] as? String, senderId: PFAudioSaved["senderId"] as! String)
+        self.receiverId = PFUser.currentUser()?.objectId
+        self.audioName = audioPFFile.name
+    }
+
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(audio, forKey: "audio")
         aCoder.encodeObject(audioDescription, forKey: "audioDescription")
@@ -55,6 +66,16 @@ class AudioSaved: Audio {
         let audioSufix = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
         return audioSufix!
     }
+    
+    /*
+        Convertedo para PFObject
+    */
+    func toPFObject() -> PFObject {
+        var object:PFObject!
+        let audioPFFile = PFFile(name: audioName, data: audio)
+        object = PFObject(className: "AudioSaved", dictionary: ["audio":audioPFFile, "description":audioDescription, "receiverId":receiverId, "senderId":senderId])
+        return object
+    }
 
     
     /*
@@ -66,8 +87,9 @@ class AudioSaved: Audio {
     
     */
     func SaveAudioInToLibrary() -> Bool {
-        let path = checkDirectory("Saved").stringByAppendingPathComponent(self.audioName + ".auf")
-        println("SaLVANDO\(path)")
+        //tirei a extensao auf
+        let path = checkDirectory("Saved").stringByAppendingPathComponent(self.audioName)
+        println("SALVANDO \(self.audioName)")
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
         return success
     }
