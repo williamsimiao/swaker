@@ -12,9 +12,6 @@ class RequestPTableViewCell: UITableViewCell {
     
     
     @IBAction func accept(sender: AnyObject) {
-        
-        
-        
     }
 
     override func awakeFromNib() {

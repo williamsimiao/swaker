@@ -32,17 +32,13 @@ class RequestPermissionTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return  audioDAO.audioAttemptArray.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RequestPTableViewCell
-        
         cell.textLabel?.text = "\(audioDAO.audioAttemptArray[indexPath.row].audioName)"
-        
-
         return cell
 
     }

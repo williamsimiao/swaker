@@ -73,7 +73,9 @@ class Alarm: NSObject, NSCoding {
         Retorno: Sucesso ou não da operação.
     ***************************************************************************/
     func save() -> Bool {
-        self.objectId = String(Alarm.primaryKey())
+        if self.objectId == nil {
+            self.objectId = String(Alarm.primaryKey())
+        }
         let path = Alarm.DAO.alarmsPath.stringByAppendingPathComponent("\(self.objectId).alf")
         return NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
     }

@@ -48,7 +48,7 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func loadUserAlarms() {
-        userAlarms = [Alarm]()
+        userAlarms.removeAll(keepCapacity: false)
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.alarmsPath)
         while let alarm:String = enumerator?.nextObject() as? String{
             if alarm.hasSuffix("alf") {
@@ -117,22 +117,20 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func addAlarm(alarm:Alarm) -> Bool {
-        if alarm.save() {
-            let PFAlarm = alarm.toPFObject()
-            if PFAlarm.save() {
-                let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.alarmsPath)
-                while let alarmId:String = enumerator?.nextObject() as? String {
-                    if alarmId == (alarm.objectId + ".alf") {
-                        let path = self.alarmsPath.stringByAppendingPathComponent(alarm.objectId) + ".alf"
-                        let toPath = self.alarmsPath.stringByAppendingPathComponent(PFAlarm.objectId!) + ".alf"
-                        var error:NSError?
-                        var alarm = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as! Alarm
-                        alarm.objectId = PFAlarm.objectId
-                        PFInstallation.currentInstallation().addUniqueObject("a"+alarm.objectId, forKey: "channels")
-                        PFInstallation.currentInstallation().save()
-                        alarm.save()
-                        NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
-                    }
+        let PFAlarm = alarm.toPFObject()
+        if PFAlarm.save() {
+            let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.alarmsPath)
+            while let alarmId:String = enumerator?.nextObject() as? String {
+                if alarmId == (alarm.objectId + ".alf") {
+                    let path = self.alarmsPath.stringByAppendingPathComponent(alarm.objectId) + ".alf"
+                    let toPath = self.alarmsPath.stringByAppendingPathComponent(PFAlarm.objectId!) + ".alf"
+                    var error:NSError?
+                    var alarm = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as! Alarm
+                    alarm.objectId = PFAlarm.objectId
+                    alarm.save()
+                    NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
+                    PFInstallation.currentInstallation().addObject("a"+alarm.objectId, forKey: "channels")
+                    PFInstallation.currentInstallation().save()
                 }
             }
             return true
