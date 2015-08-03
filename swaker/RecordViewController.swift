@@ -79,7 +79,6 @@ class RecordViewController: UIViewController {
             "badge" : "Increment",
             //"sounds" : "cheering.caf",
             "a" : objectId!
-            
         ]
         
         let comps = NSDateComponents()

@@ -119,7 +119,7 @@ class AlarmDAO: NSObject {
     func addAlarm(alarm:Alarm) -> Bool {
         if alarm.save() {
             let PFAlarm = alarm.toPFObject()
-            PFAlarm.saveEventually({ (success, error) -> Void in
+            if PFAlarm.save() {
                 let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.alarmsPath)
                 while let alarmId:String = enumerator?.nextObject() as? String {
                     if alarmId == (alarm.objectId + ".alf") {
@@ -129,12 +129,12 @@ class AlarmDAO: NSObject {
                         var alarm = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as! Alarm
                         alarm.objectId = PFAlarm.objectId
                         PFInstallation.currentInstallation().addUniqueObject("a"+alarm.objectId, forKey: "channels")
-                        PFInstallation.currentInstallation().saveInBackground()
-                        NSKeyedArchiver.archivedDataWithRootObject(alarm).writeToFile(toPath, atomically: true)
+                        PFInstallation.currentInstallation().save()
+                        alarm.save()
                         NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
                     }
                 }
-            })
+            }
             return true
         }
         return false

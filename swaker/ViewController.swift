@@ -26,6 +26,7 @@ class ViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 UserDAO.sharedInstance().loadFriendsForCurrentUser()
                 AlarmDAO.sharedInstance().loadUserAlarms()
+                AlarmDAO.sharedInstance().loadFriendsAlarms()
                 self.indicator.stopAnimating()
                 self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
             })
