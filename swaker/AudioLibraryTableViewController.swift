@@ -74,7 +74,7 @@ class AudioLibraryTableViewController: UITableViewController {
             // Delete the row from the data source
             //AudioDAO.sharedInstance().loadLocalAudios()
             //nao precisa recarregar acho
-            if AudioDAO.sharedInstance().deleteAudioSaved(<#audioObject: PFObject#>)(AlarmDAO.sharedInstance().userAlarms[indexPath.row]) {
+            if AudioDAO.sharedInstance().deleteAudioSaved(AudioDAO.sharedInstance().audioSavedArray[indexPath.row]) {
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }

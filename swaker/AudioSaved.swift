@@ -71,9 +71,14 @@ class AudioSaved: Audio {
         Convertedo para PFObject
     */
     func toPFObject() -> PFObject {
-        var object:PFObject!
+        var object = PFObject()
         let audioPFFile = PFFile(name: audioName, data: audio)
-        object = PFObject(className: "AudioSaved", dictionary: ["audio":audioPFFile, "description":audioDescription, "receiverId":receiverId, "senderId":senderId])
+//        object = PFObject(className: "AudioSaved", dictionary: ["audio":audioPFFile, "description":audioDescription, "receiverId":receiverId, "senderId":senderId!])
+        object = PFObject(className: "AudioSaved")
+        object["audio"] = audioPFFile
+        object["description"] = audioDescription
+        object["receiverId"] = receiverId
+        object["senderId"] = senderId
         return object
     }
 

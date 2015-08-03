@@ -119,8 +119,15 @@ class AudioDAO: NSObject {
     
     func deleteAudioSaved(audioSaved: AudioSaved) -> Bool{
         let audioObject = audioSaved.toPFObject()
-        let success = PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId).deleteEventually()
-        return success
+        PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId).deleteEventually()
+//        if let ParseObject = PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId) {
+//            return true
+//        }
+//        else {
+//            println("Nao achou o audio para deletar")
+//            return false
+//        }
+        return true
     }
     
     func convertPFObjectTOAudioSaved (audioObject: PFObject) -> AudioSaved{
