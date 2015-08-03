@@ -147,8 +147,10 @@ class AlarmDAO: NSObject {
     func deleteAlarm(alarm:Alarm!) -> Bool {
         if Alarm.deleteAlarm(alarm) {
             PFObject(withoutDataWithClassName:"Alarm", objectId:alarm.objectId).deleteEventually()
-            PFInstallation.currentInstallation().removeObject("a"+alarm.objectId, forKey: "channels")
-            PFInstallation.currentInstallation().saveEventually()
+//            PFPush.unsubscribeFromChannelInBackground("a"+alarm.objectId)
+            let installation = PFInstallation.currentInstallation()
+            installation.removeObject("a"+alarm.objectId, forKey: "channels")
+            installation.save()
             if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
                 for obj in objects {
                     (obj as! PFObject).deleteEventually()

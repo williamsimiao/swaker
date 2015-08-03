@@ -18,35 +18,25 @@ class FriendsAddingViewController: UIViewController {
         indicator.hidden = true
         // Do any additional setup after loading the view.
     }
-
-    override func viewDidAppear(animated: Bool) {
-//        let ind = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
-//        ind.backgroundColor = UIColor.blackColor()
-//        ind.center = CGPoint(x: CGRectGetMidX(view.frame), y: CGRectGetMidY(view.frame))
-//        view.addSubview(ind)
-    }
     
     @IBAction func add(sender: AnyObject) {
         
         let indicator = self.indicator
         indicator.hidden = false
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            indicator.hidden = false
-            
             if let user = UserDAO.sharedInstance().userWithEmail(self.friendsEmailTextField.text) {
                 if UserDAO.sharedInstance().addFriend(user) {
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
+                    AlarmDAO.sharedInstance().loadFriendsAlarms()
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.navigationController?.popViewControllerAnimated(true)
                     })
                 }
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                println("RRRRODOU")
                 indicator.hidden = true
             })
         })
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
