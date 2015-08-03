@@ -227,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */,
+				3D90402E1B6EC4E5005E9991 /* AudioCell.swift */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -235,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
-				3D90402E1B6EC4E5005E9991 /* AudioCell.swift */,
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,

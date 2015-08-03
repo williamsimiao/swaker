@@ -46,7 +46,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Nc2-Xk-T6J">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Nc2-Xk-T6J" customClass="AudioCell" customModule="swaker" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nc2-Xk-T6J" id="0ER-O9-Prt">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -57,7 +57,8 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="PlayButton:" destination="Nc2-Xk-T6J" eventType="touchUpInside" id="66G-um-y1h"/>
+                                                <action selector="PlayButton:" destination="Nc2-Xk-T6J" eventType="touchUpInside" id="DqJ-m7-C2t"/>
+                                                <action selector="play:" destination="Zq6-Uj-AUh" eventType="touchUpInside" id="24p-39-t6H"/>
                                             </connections>
                                         </button>
                                     </subviews>

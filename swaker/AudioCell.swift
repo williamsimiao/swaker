@@ -11,7 +11,7 @@ import AVFoundation
 
 
 class AudioCell: UITableViewCell {
-    var audioPath = String()
+    var audio:NSData!
 
     @IBAction func PlayButton(sender: AnyObject) {
         var error:NSError?

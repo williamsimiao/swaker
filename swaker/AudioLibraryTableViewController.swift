@@ -11,6 +11,7 @@ import AVFoundation
 
 
 class AudioLibraryTableViewController: UITableViewController {
+    
     var audioPlayer:AVAudioPlayer!
 
     override func viewDidLoad() {
@@ -30,6 +31,11 @@ class AudioLibraryTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func play(sender:AnyObject) {
+        let cell = sender.superview as! AudioCell
+        audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -51,8 +57,9 @@ class AudioLibraryTableViewController: UITableViewController {
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! AudioCell
         cell.textLabel?.text = AudioDAO.sharedInstance().audioSavedArray[indexPath.row].audioName
+        cell.audio = AudioDAO.sharedInstance().audioSavedArray[indexPath.row].audio
         
         return cell
     }
