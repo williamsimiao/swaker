@@ -65,6 +65,7 @@ class AudioDAO: NSObject {
         Parametro: ID do alarme
     */
     func loadAudiosFromAlarm(alarmId: String) {
+        audioAttemptArray.removeAll(keepCapacity: false)
         let AudioQuery = PFQuery(className: "AudioAttempt")
         let ArrayPFobjectsAttempt = AudioQuery.whereKey("alarmId", equalTo: alarmId).findObjects()!
         for aPFobject in ArrayPFobjectsAttempt {

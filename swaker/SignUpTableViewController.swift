@@ -8,17 +8,25 @@
 
 import UIKit
 
-class SignUpTableViewController: UITableViewController {
+class SignUpTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    var indicator: UIActivityIndicatorView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var senhaTextField: UITextField!
     @IBOutlet weak var senha2TextField: UITextField!
     @IBOutlet weak var nomeTextField: UITextField!
+    @IBOutlet weak var pictureImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        indicator.startAnimating()
+        navigationItem.titleView = indicator
+        
         indicator.hidden = true
+        
+        pictureImageView.layer.cornerRadius = pictureImageView.frame.height / 2
+        pictureImageView.clipsToBounds = true
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -32,7 +40,7 @@ class SignUpTableViewController: UITableViewController {
             let indicator = self.indicator
             indicator.hidden = false
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: nil)
+                let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: UIImagePNGRepresentation(self.pictureImageView.image))
                 if UserDAO.sharedInstance().signup(user) {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.performSegueWithIdentifier("signUpSucceeded", sender: self)
@@ -44,6 +52,43 @@ class SignUpTableViewController: UITableViewController {
             })
         }
     }
+    
+    @IBAction func cancel(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func pickAImage(sender: AnyObject) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        
+        var alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        var cameraAction = UIAlertAction(title: "Camera", style: .Default) { (cameraAction) -> Void in
+            if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+                imagePicker.sourceType = .Camera
+                self.presentViewController(imagePicker, animated: true, completion: nil)
+            }
+        }
+        var libraryAction = UIAlertAction(title: "Library", style: .Default) { (libraryAction) -> Void in
+            imagePicker.sourceType = .PhotoLibrary
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (cancelAction) -> Void in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        }
+        alert.addAction(cameraAction)
+        alert.addAction(libraryAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        pictureImageView.image = image
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

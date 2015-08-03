@@ -60,7 +60,7 @@ class UserDAO: NSObject {
         userDAO.email = user.email
         userDAO.setObject(user.name, forKey: "name")
         if user.photo != nil {
-            userDAO.setObject(user.photo!, forKey: "photo")
+            userDAO.setObject(PFFile(data:user.photo!), forKey: "photo")
         }
         
         return userDAO.signUp()

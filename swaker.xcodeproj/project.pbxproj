@@ -45,6 +45,7 @@
 		4CC5F1001B62B53F00ADEC8B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */; };
 		4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */; };
 		4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */; };
+		4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCB8D791B700DF0005B243C /* userDefault.png */; };
 		4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE549C81B6917B600CDB267 /* AudioDAO.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsTableViewController.swift; sourceTree = "<group>"; };
 		4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAddingTableViewController.swift; sourceTree = "<group>"; };
+		4CCB8D791B700DF0005B243C /* userDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userDefault.png; sourceTree = "<group>"; };
 		4CE549C81B6917B600CDB267 /* AudioDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,6 +164,7 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
+				4CCB8D791B700DF0005B243C /* userDefault.png */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
 				45E824D51B66B5D500F0F404 /* DAO */,
@@ -353,6 +356,7 @@
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
 				3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */,
+				4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
