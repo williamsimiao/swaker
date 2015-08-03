@@ -13,6 +13,7 @@ import AVFoundation
 
 class RecordViewController: UIViewController {
     
+    @IBOutlet weak var DescriptionField: UITextField!
     var audioRecorder:AVAudioRecorder!
     var audioPlayer:AVAudioPlayer!
     var soundFileURL: NSURL!
@@ -30,6 +31,10 @@ class RecordViewController: UIViewController {
         // nao precisa de category pra notification de audio aceito
     }
     
+    @IBAction func Library(sender: AnyObject) {
+        let audioLibrary = AudioLibraryTableViewController()
+        self.presentViewController(audioLibrary, animated: true, completion: nil)
+    }
     
     //MARK: recordStart
     @IBAction func recordStart(sender: AnyObject) {
@@ -50,24 +55,8 @@ class RecordViewController: UIViewController {
         audioPlayer.play()
     }
     
-    
-    //Mark viewDidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        settingRecorder()
-        //botao de push
-        let butao = UIButton(frame: CGRectMake(200, 400, 100, 100))
-        butao.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        butao.backgroundColor = UIColor.yellowColor()
-        butao.setTitle("push me", forState: UIControlState.Normal)
-        butao.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
-        self.view.addSubview(butao)
-    }
-    
-    //MARK: acao do botao push
-    func pressed(sender: UIButton!) {
-        
-        println("sending a push")
+    //MARK: acao do botao send
+    @IBAction func Send(sender: AnyObject) {
         
         let Audiodata = NSData(contentsOfURL: self.soundFileURL!)
         var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: Audiodata, audioDescription: "minha record", senderId: PFUser.currentUser()?.objectId)
@@ -101,12 +90,26 @@ class RecordViewController: UIViewController {
         push.sendPushInBackground()
     }
     
+    //Mark viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        settingRecorder()
+        //botao de push
+        let butao = UIButton(frame: CGRectMake(200, 400, 100, 100))
+        butao.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        butao.backgroundColor = UIColor.yellowColor()
+        butao.setTitle("push me", forState: UIControlState.Normal)
+        butao.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        self.view.addSubview(butao)
+    }
+    
     //MARK: coisas do recorder
     func settingRecorder() {
         
         let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let docsDir = dirPaths[0] as! String
-        var soundFilePath = docsDir.stringByAppendingPathComponent("Temporario")
+        var soundFilePath = docsDir.stringByAppendingPathComponent("Saved")
+        soundFilePath = soundFilePath.stringByAppendingPathComponent("Sended")
         
         let manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(soundFilePath) {

@@ -91,6 +91,9 @@ class AudioDAO: NSObject {
         if PFAttempt.save() {
             return PFAttempt
         }
+        else{
+            //Mostra um erro pro usuario
+        }
         return nil
         //adicione um bloco para alterar o nome do audio para o PFobject.objectId
 

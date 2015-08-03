@@ -15,7 +15,7 @@ class AudioAttempt: Audio {
     init(alarmId:String!, audio:NSData!, audioDescription:String!, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.alarmId = alarmId
-        self.audioName = self.alarmId + "." + UserDAO.sharedInstance().currentUser!.objectId
+        self.audioName = self.alarmId + ".auf"
     }
     
     required init(coder aDecoder: NSCoder) {

@@ -13,9 +13,16 @@ import AVFoundation
 class AudioLibraryTableViewController: UITableViewController {
     
     var audioPlayer:AVAudioPlayer!
+    var allowAudioSelection: Bool!
 
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        segmentControl.setTitle("Received", forSegmentAtIndex: 0)
+        segmentControl.setTitle("Sended", forSegmentAtIndex: 1)
+        //setei para a segunda ser a defult
+
         navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,6 +37,10 @@ class AudioLibraryTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func indexChanged(sender: AnyObject) {
+    }
+    
 
     @IBAction func play(sender:AnyObject) {
         let cell = sender.superview as! AudioCell
@@ -58,7 +69,7 @@ class AudioLibraryTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! AudioCell
-        cell.textLabel?.text = AudioDAO.sharedInstance().audioSavedArray[indexPath.row].audioName
+        //cell.textLabel?.text = AudioDAO.sharedInstance().audioSavedArray[indexPath.row].audioName
         cell.audio = AudioDAO.sharedInstance().audioSavedArray[indexPath.row].audio
         
         return cell

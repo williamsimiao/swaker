@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Uncomment and fill in with your Parse credentials:
         Parse.setApplicationId("eKtqynNoZEzvVKyz1FF7c5P2AnZabIH2iFDxROlf", clientKey: "BWNFwG2GyaN9sWywej6Pzh5iyCYHedTOcJUyZ4oW")
+        println("LAUNCH")
         //
         // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
         // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
@@ -209,6 +210,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
          }
+        
+        if application.applicationState == UIApplicationState.Inactive {
+            //ta 
+            println("inative")
+        }
         if application.applicationState == UIApplicationState.Active {
             let inAppNotification = UIAlertController()
             let message = notificationPayload["alert"] as! String
@@ -254,7 +260,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             completionHandler()
     }
-    
     //--------------------------------------
     // MARK: Facebook SDK Integration
     //--------------------------------------

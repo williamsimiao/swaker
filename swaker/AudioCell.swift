@@ -15,19 +15,17 @@ class AudioCell: UITableViewCell {
 
     @IBAction func PlayButton(sender: AnyObject) {
         var error:NSError?
+        let  tableview  = self.superview?.superview as! UITableView
+        let controller = tableview.dataSource as! AudioLibraryTableViewController
+        controller.audioPlayer = AVAudioPlayer(data: audio, error: &error)
         
-//        audioPlayer = AVAudioPlayer(contentsOfURL: <#NSURL!#>, error: error)
-//        audioPlayer.play()
+        controller.audioPlayer.play()
     }
     
 //    override init(style: UITableViewCellStyle, reuseIdentifier: String?, path: String) {
 //        let decoder = 
 //        let audio = AudioSaved()
 //    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
