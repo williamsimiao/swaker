@@ -113,7 +113,7 @@ class AlarmDAO: NSObject {
     
     /***************************************************************************
         Função que adiciona um novo alarme
-        Parâmetro: o alarme a ser salvo:Alarm
+        Parâmetro: o alarme a ser salvo: Alarm
         Retorno: Void
     ***************************************************************************/
     func addAlarm(alarm:Alarm) -> Bool {

@@ -147,7 +147,7 @@ class UserDAO: NSObject {
         reverseStatement.setObject(currentUser!.objectId, forKey: "friendId")
         
         if friendStatement.save() && reverseStatement.save() {
-            PFInstallation.currentInstallation().addObject(friend.objectId, forKey: "channels")
+            PFInstallation.currentInstallation().addObject("f"+friend.objectId, forKey: "channels")
             PFInstallation.currentInstallation().save()
             return true
         }

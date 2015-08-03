@@ -15,9 +15,7 @@ class RequestPermissionTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         audioDAO.loadAudiosFromAlarm(alarm!.objectId)
-        
     }
 
     override func didReceiveMemoryWarning() {
