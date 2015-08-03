@@ -37,19 +37,30 @@
             </objects>
             <point key="canvasLocation" x="-304" y="795"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Audio Library Table View Controller-->
         <scene sceneID="0C6-ZE-w45">
             <objects>
-                <tableViewController id="Zq6-Uj-AUh" sceneMemberID="viewController">
+                <tableViewController id="Zq6-Uj-AUh" customClass="AudioLibraryTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QDm-Rn-muN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Nc2-Xk-T6J">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Nc2-Xk-T6J">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nc2-Xk-T6J" id="0ER-O9-Prt">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiP-eF-TnT">
+                                            <rect key="frame" x="532" y="5" width="30" height="30"/>
+                                            <state key="normal" title="Play">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="PlayButton:" destination="Nc2-Xk-T6J" eventType="touchUpInside" id="66G-um-y1h"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -62,12 +73,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZ9-8k-vIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2690" y="-509"/>
+            <point key="canvasLocation" x="2698" y="-509"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="kCN-V2-56O">
             <objects>
-                <tabBarController id="tQL-H1-EO6" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" id="tQL-H1-EO6" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="GHj-an-9Ie">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -450,7 +461,7 @@
         <!--Friends Alarms Table View Controller-->
         <scene sceneID="NlW-6a-lfP">
             <objects>
-                <tableViewController id="ehr-To-VrN" customClass="FriendsAlarmsTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FriendsAlarmsController" id="ehr-To-VrN" customClass="FriendsAlarmsTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2bJ-AS-Vih">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -480,7 +491,7 @@
         <!--Record View Controller-->
         <scene sceneID="YXm-T1-kjZ">
             <objects>
-                <viewController id="jqG-Oc-daE" customClass="RecordViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecordController" id="jqG-Oc-daE" customClass="RecordViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LRF-O8-Tr8"/>
                         <viewControllerLayoutGuide type="bottom" id="MBr-u6-0EL"/>
@@ -708,7 +719,7 @@
         <!--Alarms Table View Controller-->
         <scene sceneID="GfF-8e-X6R">
             <objects>
-                <tableViewController id="M0y-hE-KxY" customClass="AlarmsTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MyAlarmsController" id="M0y-hE-KxY" customClass="AlarmsTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PLC-4c-GsR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

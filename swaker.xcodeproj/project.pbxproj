@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D07BBFE1B69D29500FD5620 /* propostaSound.caf */; };
+		3D90402B1B6EBA35005E9991 /* AudioLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */; };
+		3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402E1B6EC4E5005E9991 /* AudioCell.swift */; };
 		3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */; };
 		3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DD1B62B0D800DEC2CB /* ViewController.swift */; };
 		3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058DF1B62B0D800DEC2CB /* Main.storyboard */; };
@@ -58,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		3D07BBFE1B69D29500FD5620 /* propostaSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = propostaSound.caf; sourceTree = "<group>"; };
+		3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLibraryTableViewController.swift; sourceTree = "<group>"; };
+		3D90402E1B6EC4E5005E9991 /* AudioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
 		3DB058D61B62B0D800DEC2CB /* swaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058DA1B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 		4C217ECD1B695CB800E08424 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
+				3D90402E1B6EC4E5005E9991 /* AudioCell.swift */,
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
@@ -384,6 +390,8 @@
 				4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
+				3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */,
+				3D90402B1B6EBA35005E9991 /* AudioLibraryTableViewController.swift in Sources */,
 				45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */,
 				4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */,
 			);

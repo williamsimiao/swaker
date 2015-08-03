@@ -18,9 +18,19 @@ class RecordViewController: UIViewController {
     var soundFileURL: NSURL!
     var channels = [String]()
     let MyuserDAO = UserDAO.sharedInstance()
+    let MyaudioDAO = AudioDAO.sharedInstance()
     var alarm:Alarm!
-
-
+    
+    enum categoriesIdentifiers:String{
+        //notificacao de nova proposta de audio
+        case proposal = "PROPOSAL_CATEGORY"
+        //notificacao de amigo setou novo alarme, nao necessita de actions
+        case newAlarm = "NEWALARM_CATEGORY"
+        
+        // nao precisa de category pra notification de audio aceito
+    }
+    
+    
     //MARK: recordStart
     @IBAction func recordStart(sender: AnyObject) {
         audioRecorder.record()
@@ -31,7 +41,7 @@ class RecordViewController: UIViewController {
     @IBAction func recordEnd(sender: AnyObject) {
         audioRecorder.stop()
     }
-
+    
     //MARK: play
     @IBAction func play(sender: AnyObject) {
         var error:NSError?
@@ -59,18 +69,17 @@ class RecordViewController: UIViewController {
         
         println("sending a push")
         
-        var test = AudioDAO.sharedInstance()
         let Audiodata = NSData(contentsOfURL: self.soundFileURL!)
-        var audioAttemp = AudioAttempt(alarmId: "novoTeste", audio: Audiodata, audioDescription: "minha record", senderId: "william")
-        let AudioObject = test.addAudioAttempt(audioAttemp)
+        var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: Audiodata, audioDescription: "minha record", senderId: PFUser.currentUser()?.objectId)
+        let AudioObject = MyaudioDAO.addAudioAttempt(audioAttemp)
         let objectId = AudioObject?.objectId
-        
         let data = [
-            "a" : objectId!,
-            //"category" : "PROPOSAL_CATEGORY",
-            "alert" : "Push e muito loco",
+            "category" : categoriesIdentifiers.proposal.rawValue,
+            "alert" : "Proposta de audio de \(MyuserDAO.currentUser!.name)",
             "badge" : "Increment",
-            "sounds" : "cheering.caf"
+            //"sounds" : "cheering.caf",
+            "a" : objectId!
+            
         ]
         
         let comps = NSDateComponents()
@@ -87,10 +96,9 @@ class RecordViewController: UIViewController {
         let push = PFPush()
         push.expireAtDate(date)
         push.setChannel("a" + alarm.objectId)
+        println("a" + alarm.objectId)
         push.setData(data)
         push.sendPushInBackground()
-        
-        
     }
     
     //MARK: coisas do recorder
@@ -100,21 +108,11 @@ class RecordViewController: UIViewController {
         let docsDir = dirPaths[0] as! String
         var soundFilePath = docsDir.stringByAppendingPathComponent("Temporario")
         
-        println("1:\(soundFilePath)")
-        
         let manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(soundFilePath) {
-            println("nao existe, cria")
-            println("\(soundFilePath)")
             manager.createDirectoryAtPath(soundFilePath, withIntermediateDirectories: false, attributes: nil, error: nil)
         }
-        else {
-            println("exite temp")
-        }
-        soundFilePath = soundFilePath.stringByAppendingPathComponent("sound.caf")
-        
-        println("2:\(soundFilePath)")
-
+        soundFilePath = soundFilePath.stringByAppendingPathComponent("record.caf")
         
         let recordSettings =
         [AVEncoderAudioQualityKey: AVAudioQuality.Max.rawValue,
@@ -127,8 +125,6 @@ class RecordViewController: UIViewController {
         //Enviando para o banco o audio salvo em temp pelo recorder
         soundFileURL = NSURL(fileURLWithPath: soundFilePath)
         
-
-        
         let audioSession = AVAudioSession.sharedInstance()
         audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord,
             error: &error)
@@ -136,7 +132,6 @@ class RecordViewController: UIViewController {
         audioRecorder = AVAudioRecorder(URL: soundFileURL, settings: recordSettings as [NSObject : AnyObject], error: &error)
         audioRecorder.prepareToRecord()
         
-        println("fim do setting recorder")
     }
     
     override func didReceiveMemoryWarning() {

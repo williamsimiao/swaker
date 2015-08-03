@@ -15,7 +15,7 @@ class AudioAttempt: Audio {
     init(alarmId:String!, audio:NSData!, audioDescription:String!, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.alarmId = alarmId
-        self.audioName = self.alarmId + ".attempt"
+        self.audioName = self.alarmId + "." + UserDAO.sharedInstance().currentUser!.objectId
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -41,16 +41,6 @@ class AudioAttempt: Audio {
 
     
     /*
-        Converte um audioAttempt para AudioSaved
-        Retorno: audioSaved
-    */
-    func convertToSaved() -> AudioSaved {
-        let saved = AudioSaved(receiverId: alarmId, audio: self.audio, audioDescription: self.audioDescription, senderId: self.senderId)
-        
-        return saved
-    }
-    
-    /*
         Salva o audio localmente da pasta Library
         Retorno: booleano de sucesso
     
@@ -73,7 +63,7 @@ class AudioAttempt: Audio {
         var error:NSError?
         
         let pasta = checkDirectory("Attempts")
-        let path = pasta.stringByAppendingPathComponent("\(self.audioName).auf")
+        let path = pasta.stringByAppendingPathComponent(self.audioName)
         let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         
         if !success {

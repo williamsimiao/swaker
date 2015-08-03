@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var textFieldsView: UIView!
     var gradientLayer:CAGradientLayer!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
