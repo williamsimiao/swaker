@@ -59,6 +59,7 @@ class AlarmsTableViewController: UITableViewController {
            let indexPath = self.tableView.indexPathForSelectedRow()
             
             requestP.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
+            println("ALAREM ID"+requestP.alarm!.objectId)
             
             
         }
