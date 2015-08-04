@@ -38,6 +38,16 @@ class AudioAttempt: Audio {
         aCoder.encodeObject(alarmId, forKey: "alarmId")
         aCoder.encodeObject(audioName, forKey: "audioName")
     }
+    
+    init(PFAudioAttempt:PFObject) {
+        let audioPFFile = PFAudioAttempt["audio"] as! PFFile
+        //there is fetching here
+        let audioData = audioPFFile.getData()! as NSData
+        super.init(audio: audioData, audioDescription: PFAudioAttempt["description"] as? String, senderId: PFAudioAttempt["senderId"] as! String)
+        self.alarmId = PFAudioAttempt["alarmId"] as! String
+        self.audioName = audioPFFile.name
+    }
+
 
     
     /*
@@ -48,9 +58,10 @@ class AudioAttempt: Audio {
         EX: "Alarm.objectId".attempt
              hx2311jbfda423
     */
-    func SaveAudioInToLibrary() -> Bool {
-        
-        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(checkDirectory("Attempts").stringByAppendingPathComponent(self.audioName), atomically: true)
+    func SaveAudioInToTemporaryDir() -> Bool {
+        let path = checkDirectory("Temporary").stringByAppendingPathComponent(self.audioName)
+        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
+        self.audio.writeToFile(path + ".caf", atomically: true)
         return success
     }
     
@@ -71,4 +82,6 @@ class AudioAttempt: Audio {
         }
         return success
     }
+    
+    
 }

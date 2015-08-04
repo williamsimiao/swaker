@@ -26,9 +26,9 @@ class AudioDAO: NSObject {
     static func sharedInstance() -> AudioDAO{
         if Instance == nil {
             Instance = AudioDAO()
-            Instance?.loadReceivedFromDirectory("Received")
-            Instance?.loadReceivedFromDirectory("Created")
-            Instance?.loadReceivedFromDirectory("Temporary")
+            Instance?.loadAudiosFromDirectory("Received")
+            Instance?.loadAudiosFromDirectory("Created")
+            Instance?.loadAudiosFromDirectory("Temporary")
 
         }
         return Instance!
@@ -60,7 +60,7 @@ class AudioDAO: NSObject {
         Carrega audios do diretorio passado
         Retorno: retorna se o diretori existe
     */
-    func loadReceivedFromDirectory(directoty: String) -> Bool {
+    func loadAudiosFromDirectory(directoty: String) -> Bool {
         
         let totalPath = path.stringByAppendingPathComponent(directoty)
         if !NSFileManager.defaultManager().fileExistsAtPath(totalPath) {
@@ -88,10 +88,11 @@ class AudioDAO: NSObject {
     }
     
     /*
-        Carrega todos os audios que possuem alarmId como o parametro alarmId
+        Carrega do BANCO todos os audios que possuem alarmId como o parametro alarmId
         Parametro: ID do alarme
     */
     func loadAudiosFromAlarm(alarmId: String) {
+        
         audioAttemptArray.removeAll(keepCapacity: false)
         let AudioQuery = PFQuery(className: "AudioAttempt")
         let ArrayPFobjectsAttempt = AudioQuery.whereKey("alarmId", equalTo: alarmId).findObjects()!

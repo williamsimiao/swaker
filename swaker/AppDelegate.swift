@@ -264,14 +264,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if identifier == ActionsIdentifiers.accept.rawValue {
                 if let audioObject = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audio).getFirstObject(){
                     println("achou")
-                    let receivedAudio = AudioSaved(PFAudioSaved: audioObject)
-                    receivedAudio.SaveAudioInToDirectoy("Received")
+                    let receivedAudio = AudioAttempt(PFAudioAttempt: audioObject)
+                    receivedAudio.SaveAudioInToTemporaryDir()
                     //just to be shure
                     println("audioDescription:\(receivedAudio.audioDescription!)")
                     
                 }
                 else {
-                    println("nao achou")
+                    println("nao achou no banco")
                 }
                 
             }

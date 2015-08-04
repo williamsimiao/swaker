@@ -43,6 +43,12 @@ class AudioSaved: Audio {
         self.receiverId = PFUser.currentUser()?.objectId
         self.audioName = audioPFFile.name
     }
+    
+    init(myAudioAttempt: AudioAttempt) {
+        super.init(audio: myAudioAttempt.audio, audioDescription: myAudioAttempt.audioDescription, senderId: myAudioAttempt.senderId)
+        self.receiverId = UserDAO.sharedInstance().currentUser?.objectId
+        self.audioName = myAudioAttempt.audioName
+    }
 
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -93,11 +99,13 @@ class AudioSaved: Audio {
     func SaveAudioInToDirectoy(directory: String) -> Bool {
         //tirei a extensao auf
         let manager = NSFileManager.defaultManager()
+        //aqui ja faz a checagem se o path existe, se nao existir cria
         var path = checkDirectory(directory) as String
-        var error:NSError?
-        if !manager.fileExistsAtPath(path) {
-            manager.createDirectoryAtPath(path, withIntermediateDirectories: false, attributes: nil, error: &error)        }
-        println("SALVANDO \(self.audioName)")
+//        var error:NSError?
+//        if !manager.fileExistsAtPath(path) {
+//            manager.createDirectoryAtPath(path, withIntermediateDirectories: false, attributes: nil, error: &error)        }
+        path.stringByAppendingPathComponent(self.audioName)
+        println("SALVANDO tipo SAVED: \(self.audioName)")
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
         return success
     }
