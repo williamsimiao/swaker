@@ -175,9 +175,11 @@ class AudioDAO: NSObject {
         for notif in UIApplication.sharedApplication().scheduledLocalNotifications {
             let notif = notif as! UILocalNotification
             if notif.category == AppDelegate.categoriesIdentifiers.newAlarm.rawValue {
+                UIApplication.sharedApplication().cancelLocalNotification(notif)
                 let notifUserInfo = notif.userInfo as! [String:String!]
                 if notifUserInfo["alarmId"] == audio.alarmId {
                     notif.soundName = path.stringByAppendingPathComponent("Temporary").stringByAppendingPathComponent(audio.alarmId + ".caf")
+                    UIApplication.sharedApplication().scheduleLocalNotification(notif)
                 }
             }
         }
