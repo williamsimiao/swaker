@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case proposal = "PROPOSAL_CATEGORY"
         //notificacao de amigo setou novo alarme, nao necessita de actions
         case newAlarm = "NEWALARM_CATEGORY"
+        //notificacao local de acordar
+        case wakeUp = "WAKEUP_CATEGORY"
         
         // nao precisa de category pra notification de audio aceito
     }
@@ -37,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case accept = "ACCEPT_ACTION"
         //acao de recusar o audio
         case refuse = "REFUSE_ACTION"
+        //acao de soneca
+        case snooze = "SNOOZE_ACTION"
+        //acao de parar o som do alarme
+        case stop = "STOP_ACTION"
     }
 
     
@@ -55,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Uncomment and fill in with your Parse credentials:
         Parse.setApplicationId("eKtqynNoZEzvVKyz1FF7c5P2AnZabIH2iFDxROlf", clientKey: "BWNFwG2GyaN9sWywej6Pzh5iyCYHedTOcJUyZ4oW")
+        println("LAUNCH")
         //
         // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
         // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
@@ -107,21 +114,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             refuseAction.activationMode = UIUserNotificationActivationMode.Background
             refuseAction.authenticationRequired = true
             refuseAction.destructive = true
-            //A action acima ja e destructive entao essa nao pode ser tambem, lose sera a de cor azul
             
-            //Colocando as actions acima em categories
-            //                let notificationCategory = notificationPayload["category"] as! UIMutableUserNotificationCategory
+            //setando action de soneca
+            let snoozeAction = UIMutableUserNotificationAction()
+            snoozeAction.identifier = ActionsIdentifiers.snooze.rawValue
+            snoozeAction.title = "Snooze"
+            snoozeAction.activationMode = UIUserNotificationActivationMode.Background
+            snoozeAction.authenticationRequired = false
+            snoozeAction.destructive = false
+            
+            //setando action de parar o alarme
+            let stopAction = UIMutableUserNotificationAction()
+            stopAction.identifier = ActionsIdentifiers.stop.rawValue
+            stopAction.title = "Stop"
+            stopAction.activationMode = UIUserNotificationActivationMode.Background
+            stopAction.authenticationRequired = false
+            stopAction.destructive = true
+            
+            //setando a categoria de proposta de audio
             let proposalCategory = UIMutableUserNotificationCategory()
-            
             proposalCategory.identifier = categoriesIdentifiers.proposal.rawValue
-            
             //actions para notification com a tela desbloqueada
             proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Default)
-            
             //actions para notification na lockscreen
             proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Minimal)
             
-            let categories = NSSet(objects: proposalCategory)
+            //setando a cateria de alarm recebido, nao tem action mas preciso da categorie 
+            //pra identificar a notificacao
+            let newAlarmCategory = UIMutableUserNotificationCategory()
+            newAlarmCategory.identifier = categoriesIdentifiers.newAlarm.rawValue
+            
+            //Gruping the categories in to a set
+            let categories = NSSet(objects: proposalCategory, newAlarmCategory)
             let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: categories as Set<NSObject>)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
@@ -209,6 +233,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
          }
+        
+        if application.applicationState == UIApplicationState.Inactive {
+            //ta 
+            println("inative")
+        }
         if application.applicationState == UIApplicationState.Active {
             let inAppNotification = UIAlertController()
             let message = notificationPayload["alert"] as! String
@@ -236,7 +265,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let audioObject = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audio).getFirstObject(){
                     println("achou")
                     let receivedAudio = AudioSaved(PFAudioSaved: audioObject)
-                    receivedAudio.SaveAudioInToLibrary()
+                    receivedAudio.SaveAudioInToDirectoy("Received")
                     //just to be shure
                     println("audioDescription:\(receivedAudio.audioDescription!)")
                     
@@ -254,6 +283,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             completionHandler()
     }
+    /*
+        Metodo chamado quando nao usamos
+    */
+    
+    func application(application: UIApplication, didReceiveLocalNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        println("Local")
+    }
+    
+    func application(application: UIApplication,
+        handleActionWithIdentifier identifier: String?,
+        forLocalNotification notification: UILocalNotification,
+        completionHandler: () -> Void) {
+            
+    }
+    
+    
+    
     
     //--------------------------------------
     // MARK: Facebook SDK Integration

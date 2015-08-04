@@ -16,11 +16,12 @@ class AudioSaved: Audio {
     init(receiverId:String!, audio:NSData!, audioDescription:String?, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.receiverId = receiverId
+//        var audioSufix = checkAudioSufix()
+//        self.audioName = "AUD_" + audioSufix
+//        audioSufix = ("\(audioSufix.toInt()!+1)")
+//        audioSufix.writeToFile(checkDirectory(""), atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        self.audioName = self.senderId + "_" + self.receiverId + ".auf"
         
-        var audioSufix = checkAudioSufix()
-        self.audioName = "AUD_" + audioSufix
-        audioSufix = ("\(audioSufix.toInt()!+1)")
-        audioSufix.writeToFile(checkDirectory(""), atomically: true, encoding: NSUTF8StringEncoding, error: nil)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -53,6 +54,7 @@ class AudioSaved: Audio {
     }
     
     /*
+    
         Gera um sufixo a partir do numero lido no arquivo 'AudioSufixCounter'
         Esse sufixo sera o nome do arquivo de audio
     */
@@ -91,9 +93,13 @@ class AudioSaved: Audio {
         Banco: AUD_01
     
     */
-    func SaveAudioInToLibrary() -> Bool {
+    func SaveAudioInToDirectoy(directory: String) -> Bool {
         //tirei a extensao auf
-        let path = checkDirectory("Saved").stringByAppendingPathComponent(self.audioName)
+        let manager = NSFileManager.defaultManager()
+        var path = checkDirectory(directory) as String
+        var error:NSError?
+        if !manager.fileExistsAtPath(path) {
+            manager.createDirectoryAtPath(path, withIntermediateDirectories: false, attributes: nil, error: &error)        }
         println("SALVANDO \(self.audioName)")
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
         return success

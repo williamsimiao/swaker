@@ -13,6 +13,9 @@ import AVFoundation
 
 class RecordViewController: UIViewController {
     
+    @IBOutlet weak var PleaseLabel: UILabel!
+    @IBOutlet weak var SendButton: UIButton!
+    @IBOutlet weak var DescriptionField: UITextField!
     var audioRecorder:AVAudioRecorder!
     var audioPlayer:AVAudioPlayer!
     var soundFileURL: NSURL!
@@ -30,6 +33,10 @@ class RecordViewController: UIViewController {
         // nao precisa de category pra notification de audio aceito
     }
     
+    @IBAction func Library(sender: AnyObject) {
+        let audioLibrary = AudioLibraryTableViewController()
+        SendButton.hidden = false
+    }
     
     //MARK: recordStart
     @IBAction func recordStart(sender: AnyObject) {
@@ -40,6 +47,10 @@ class RecordViewController: UIViewController {
     //MARK: recordEnd
     @IBAction func recordEnd(sender: AnyObject) {
         audioRecorder.stop()
+        PleaseLabel.hidden = false
+        DescriptionField.hidden = false
+        SendButton.hidden = false
+
     }
     
     //MARK: play
@@ -50,27 +61,11 @@ class RecordViewController: UIViewController {
         audioPlayer.play()
     }
     
-    
-    //Mark viewDidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        settingRecorder()
-        //botao de push
-        let butao = UIButton(frame: CGRectMake(200, 400, 100, 100))
-        butao.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        butao.backgroundColor = UIColor.yellowColor()
-        butao.setTitle("push me", forState: UIControlState.Normal)
-        butao.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
-        self.view.addSubview(butao)
-    }
-    
-    //MARK: acao do botao push
-    func pressed(sender: UIButton!) {
-        
-        println("sending a push")
+    //MARK: acao do botao send
+    @IBAction func Send(sender: AnyObject) {
         
         let Audiodata = NSData(contentsOfURL: self.soundFileURL!)
-        var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: Audiodata, audioDescription: "minha record", senderId: PFUser.currentUser()?.objectId)
+        var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: Audiodata, audioDescription: DescriptionField.text, senderId: PFUser.currentUser()?.objectId)
         let AudioObject = MyaudioDAO.addAudioAttempt(audioAttemp)
         let objectId = AudioObject?.objectId
         let data = [
@@ -81,23 +76,24 @@ class RecordViewController: UIViewController {
             "a" : objectId!
         ]
         
-        let comps = NSDateComponents()
-        comps.year = 2016
-        comps.month = 7
-        comps.day = 29
-        comps.hour = 3
-        comps.minute = 10
-        let gregorian = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let date = gregorian!.dateFromComponents(comps);
-        
-        // Send push notification with expiration
-        
         let push = PFPush()
-        push.expireAtDate(date)
+        push.expireAtDate(alarm.fireDate)
         push.setChannel("a" + alarm.objectId)
-        println("a" + alarm.objectId)
         push.setData(data)
         push.sendPushInBackground()
+    }
+    
+    //Mark viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        settingRecorder()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        SendButton.hidden = true
+        DescriptionField.hidden = true
+        PleaseLabel.hidden = true
     }
     
     //MARK: coisas do recorder
@@ -105,7 +101,7 @@ class RecordViewController: UIViewController {
         
         let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let docsDir = dirPaths[0] as! String
-        var soundFilePath = docsDir.stringByAppendingPathComponent("Temporario")
+        var soundFilePath = docsDir.stringByAppendingPathComponent("Saved")
         
         let manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(soundFilePath) {
@@ -130,6 +126,7 @@ class RecordViewController: UIViewController {
         
         audioRecorder = AVAudioRecorder(URL: soundFileURL, settings: recordSettings as [NSObject : AnyObject], error: &error)
         audioRecorder.prepareToRecord()
+        
         
     }
     
