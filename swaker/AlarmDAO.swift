@@ -144,7 +144,7 @@ class AlarmDAO: NSObject {
             let alarmNotification = UILocalNotification()
             
             alarmNotification.alertBody = alarm.alarmDescription
-            alarmNotification.fireDate = alarm.fireDate
+            alarmNotification.fireDate = NSDate(timeInterval: NSTimeInterval(-NSTimeZone.localTimeZone().secondsFromGMT), sinceDate: alarm.fireDate)
             alarmNotification.userInfo = ["alarmId":alarm.objectId]
             alarmNotification.category = AppDelegate.categoriesIdentifiers.newAlarm.rawValue
             UIApplication.sharedApplication().scheduleLocalNotification(alarmNotification)

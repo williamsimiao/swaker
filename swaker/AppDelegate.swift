@@ -51,6 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let sett = UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(sett)
+        
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         //        Parse.enableLocalDatastore()
@@ -173,6 +177,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error)
             }
         }
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        println("aeee")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
