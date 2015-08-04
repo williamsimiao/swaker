@@ -30,18 +30,18 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
 
     @IBAction func set(sender: AnyObject) {
         let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitDay | .CalendarUnitMonth | .CalendarUnitYear, fromDate: NSDate())
-//        let components = NSCalendar.currentCalendar().componentsInTimeZone(NSTimeZone.systemTimeZone(), fromDate: NSDate())
         var selectedHour = pickerView(datePicker, attributedTitleForRow: datePicker.selectedRowInComponent(0), forComponent: 0)!.string.toInt()!
         selectedHour = selectedHour == 0 ? 24 : selectedHour
         
         let selectedMinute = pickerView(datePicker, attributedTitleForRow: datePicker.selectedRowInComponent(2), forComponent: 2)!.string.toInt()!
         
-        components.hour = selectedHour
-        components.minute = selectedMinute
-        
         if (selectedHour < components.hour) || ((selectedHour == components.hour) && (selectedMinute <= components.minute)) {
             components.day++
         }
+        
+        components.hour = selectedHour
+        components.minute = selectedMinute
+        
         let fireDate = currentCalendar.dateFromComponents(components)!
         
         let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: fireDate , setterId: UserDAO.sharedInstance().currentUser!.objectId)

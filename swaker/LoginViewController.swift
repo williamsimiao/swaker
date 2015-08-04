@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
                     self.performSegueWithIdentifier("loginSucceeded", sender: self)
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
                     AlarmDAO.sharedInstance().loadUserAlarms()
-                    AlarmDAO.sharedInstance().deleteLocalAlarmsIfNeeded()
+                    AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
                     AlarmDAO.sharedInstance().subscribeToAlarms()
                 })
             } else {

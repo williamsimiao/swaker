@@ -26,6 +26,9 @@ class AlarmDAO: NSObject {
             }
         }
     }
+    
+    var idsPath:String!
+    var userAlarmsIdsToDelete = [String]()
     var userAlarms = [Alarm]()
     var friendsAlarms = [Alarm]()
     static var instance:AlarmDAO?
@@ -36,6 +39,10 @@ class AlarmDAO: NSObject {
             let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
             instance?.alarmsPath = docs.stringByAppendingPathComponent("Alarms")
             instance?.loadFriendsAlarms()
+            instance?.idsPath = docs.stringByAppendingPathComponent("userAlarmsIdsToDelete.plist")
+            if let idsToDelete = NSKeyedUnarchiver.unarchiveObjectWithFile(instance!.idsPath) as? [String] {
+                instance?.userAlarmsIdsToDelete = idsToDelete
+            }
             println(instance?.alarmsPath)
         }
         return instance!
@@ -56,7 +63,13 @@ class AlarmDAO: NSObject {
                 let data = NSData(contentsOfFile: filePath)
                 var anAlarm = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! Alarm
                 if anAlarm.setterId == UserDAO.sharedInstance().currentUser?.objectId {
-                    userAlarms.append(anAlarm)
+                    if (Int(anAlarm.fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
+                        userAlarms.append(anAlarm)
+                    } else {
+                        // Move os audios ja tocados pra pasta certa
+                        println("passouu")
+                        self.deleteAlarm(anAlarm)
+                    }
                 }
             }
         }
@@ -64,11 +77,10 @@ class AlarmDAO: NSObject {
     
     /***************************************************************************
         Função que remove os alarmes do Parse caso não existam localmente.
-        Devolve um array de alarmes para a propriedade self.userAlarms
         Parâmetro: Void
         Retorno: Void
     ***************************************************************************/
-    func deleteLocalAlarmsIfNeeded() {
+    func deleteCloudAlarmsIfNeeded() {
         let query = PFQuery(className: "Alarm").whereKey("setterId", equalTo: UserDAO.sharedInstance().currentUser!.objectId)
         if let alarms = query.findObjects() as? [PFObject] {
             var exists = false
@@ -84,6 +96,11 @@ class AlarmDAO: NSObject {
                 }
             }
         }
+        deletePendingAlarms()
+    }
+    
+    func deletePendingAlarms() {
+        
     }
     
     /***************************************************************************
@@ -123,6 +140,15 @@ class AlarmDAO: NSObject {
             alarm.save()
             PFInstallation.currentInstallation().addObject("a"+alarm.objectId, forKey: "channels")
             PFInstallation.currentInstallation().save()
+            
+            let alarmNotification = UILocalNotification()
+            
+            alarmNotification.alertBody = alarm.alarmDescription
+            alarmNotification.fireDate = alarm.fireDate
+            alarmNotification.userInfo = ["alarmId":alarm.objectId]
+            alarmNotification.category = AppDelegate.categoriesIdentifiers.newAlarm.rawValue
+            UIApplication.sharedApplication().scheduleLocalNotification(alarmNotification)
+            
             return true
         }
         return false
@@ -135,21 +161,20 @@ class AlarmDAO: NSObject {
     ***************************************************************************/
     func deleteAlarm(alarm:Alarm!) -> Bool {
         if Alarm.deleteAlarm(alarm) {
-            PFObject(withoutDataWithClassName:"Alarm", objectId:alarm.objectId).deleteEventually()
-//            PFPush.unsubscribeFromChannelInBackground("a"+alarm.objectId)
-            let installation = PFInstallation.currentInstallation()
-            installation.removeObject("a"+alarm.objectId, forKey: "channels")
-            installation.save()
-            if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
-                for obj in objects {
-                    (obj as! PFObject).deleteEventually()
+            userAlarmsIdsToDelete.append(alarm.objectId)
+            deletePendingAlarms()
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
+                    for obj in objects {
+                        (obj as! PFObject).deleteEventually()
+                    }
                 }
-            }
+            })
+            NSKeyedArchiver.archiveRootObject(userAlarmsIdsToDelete, toFile: idsPath)
             return true
         }
         return false
     }
-    
     
     /***************************************************************************
         Função que adiciona assinaturas aos canais correspondentes aos alarmes do usuário

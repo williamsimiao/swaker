@@ -27,6 +27,7 @@ class ViewController: UIViewController {
                 UserDAO.sharedInstance().loadFriendsForCurrentUser()
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 AlarmDAO.sharedInstance().loadFriendsAlarms()
+                AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
                 self.indicator.stopAnimating()
                 self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
             })

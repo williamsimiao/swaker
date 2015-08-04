@@ -75,13 +75,13 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         imagePicker.delegate = self
         
         var alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        var cameraAction = UIAlertAction(title: "Camera", style: .Default) { (cameraAction) -> Void in
+        var cameraAction = UIAlertAction(title: "Take Photo", style: .Default) { (cameraAction) -> Void in
             if UIImagePickerController.isSourceTypeAvailable(.Camera) {
                 imagePicker.sourceType = .Camera
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
         }
-        var libraryAction = UIAlertAction(title: "Library", style: .Default) { (libraryAction) -> Void in
+        var libraryAction = UIAlertAction(title: "Choose from Camera Roll", style: .Default) { (libraryAction) -> Void in
             imagePicker.sourceType = .PhotoLibrary
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }

@@ -106,11 +106,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="n3j-Ql-gwp" kind="relationship" relationship="viewControllers" id="BVc-SH-y57"/>
-                        <segue destination="DJG-x3-ldc" kind="relationship" relationship="viewControllers" id="FPu-EG-Th9"/>
-                        <segue destination="JEp-s2-1hL" kind="relationship" relationship="viewControllers" id="1Ar-E3-Zdf"/>
-                        <segue destination="L7Q-T0-TaT" kind="relationship" relationship="viewControllers" id="vdj-Fh-nbc"/>
-                        <segue destination="eMy-Bq-sXQ" kind="relationship" relationship="viewControllers" id="2Hr-Xv-tGf"/>
+                        <segue destination="L7Q-T0-TaT" kind="relationship" relationship="viewControllers" id="trR-Bj-loM"/>
+                        <segue destination="n3j-Ql-gwp" kind="relationship" relationship="viewControllers" id="uCa-Cg-UVb"/>
+                        <segue destination="DJG-x3-ldc" kind="relationship" relationship="viewControllers" id="u83-Y0-ISJ"/>
+                        <segue destination="JEp-s2-1hL" kind="relationship" relationship="viewControllers" id="oDh-H2-89B"/>
+                        <segue destination="eMy-Bq-sXQ" kind="relationship" relationship="viewControllers" id="o1c-aH-E5L"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iAx-oU-mwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,7 +251,7 @@
         <scene sceneID="j1s-5b-9UE">
             <objects>
                 <tableViewController id="QLc-2R-4CV" customClass="SignUpTableViewController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Wdn-Cf-ew1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Wdn-Cf-ew1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -363,7 +363,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSa-2r-kdn">
-                                                    <rect key="frame" x="250" y="10.5" width="100" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="E37-on-JXU"/>
                                                         <constraint firstAttribute="width" constant="100" id="Jbs-Xj-tyx"/>
@@ -371,6 +371,12 @@
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="E37-on-JXU"/>
+                                                            <exclude reference="Jbs-Xj-tyx"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="pickAImage:" destination="QLc-2R-4CV" eventType="touchUpInside" id="08s-Og-607"/>
                                                     </connections>
@@ -380,9 +386,19 @@
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="qSa-2r-kdn" secondAttribute="centerY" id="Eb7-cw-BW0"/>
                                                 <constraint firstAttribute="centerX" secondItem="qSa-2r-kdn" secondAttribute="centerX" id="GdV-VZ-HgQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="qSa-2r-kdn" secondAttribute="bottom" id="R4e-vy-7il"/>
+                                                <constraint firstAttribute="trailing" secondItem="qSa-2r-kdn" secondAttribute="trailing" id="SH8-Q2-hEZ"/>
+                                                <constraint firstItem="qSa-2r-kdn" firstAttribute="leading" secondItem="nxj-fO-VEQ" secondAttribute="leading" id="cPf-Nk-VKs"/>
+                                                <constraint firstItem="qSa-2r-kdn" firstAttribute="top" secondItem="nxj-fO-VEQ" secondAttribute="top" id="hQA-9E-Tfj"/>
                                                 <constraint firstAttribute="centerX" secondItem="gCM-65-t5Y" secondAttribute="centerX" id="ymI-JR-vMs"/>
                                                 <constraint firstAttribute="centerY" secondItem="gCM-65-t5Y" secondAttribute="centerY" id="zOE-Fo-D21"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Eb7-cw-BW0"/>
+                                                    <exclude reference="GdV-VZ-HgQ"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -472,7 +488,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0hL-gz-Gsz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1896" y="869"/>
+            <point key="canvasLocation" x="1914" y="845"/>
         </scene>
         <!--Settings-->
         <scene sceneID="zIO-2H-u6s">
@@ -491,7 +507,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghA-kw-RQZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2690" y="2293"/>
+            <point key="canvasLocation" x="1914" y="2317"/>
         </scene>
         <!--Alarms-->
         <scene sceneID="xNB-v1-gWO">
@@ -802,7 +818,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yuo-41-B0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4058" y="1550"/>
+            <point key="canvasLocation" x="4058" y="1561"/>
         </scene>
         <!--Request Permission Table View Controller-->
         <scene sceneID="aQB-Cl-0or">
@@ -839,7 +855,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PPd-I0-3Vf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4870" y="2281"/>
+            <point key="canvasLocation" x="4058" y="2317"/>
         </scene>
         <!--Alarms Table View Controller-->
         <scene sceneID="GfF-8e-X6R">
@@ -924,7 +940,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hX1-o6-piw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3502" y="2293"/>
+            <point key="canvasLocation" x="1914" y="3077"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="0Ic-YL-kbb">
@@ -1061,8 +1077,8 @@
         <image name="userDefault.png" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="BNP-Ly-cFS"/>
         <segue reference="vP4-3B-5KR"/>
-        <segue reference="Pnw-fm-st6"/>
-        <segue reference="sKr-3T-2iE"/>
+        <segue reference="uCa-Cg-UVb"/>
     </inferredMetricsTieBreakers>
 </document>

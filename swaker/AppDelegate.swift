@@ -252,10 +252,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      
         
     
-    func application(application: UIApplication,
-        handleActionWithIdentifier identifier: String?,
-        forRemoteNotification userInfo: [NSObject : AnyObject],
-        completionHandler: () -> Void) {
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
             let notificationPayload = userInfo["aps"] as! NSDictionary
             
             // Create a pointer to the audio object
@@ -268,6 +265,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     receivedAudio.SaveAudioInToDirectoy("Received")
                     //just to be shure
                     println("audioDescription:\(receivedAudio.audioDescription!)")
+                    
+                    for notif in UIApplication.sharedApplication().scheduledLocalNotifications {
+                        let notif = notif as! UILocalNotification
+                    }
                     
                 }
                 else {
