@@ -17,10 +17,11 @@ class AudioLibraryTableViewController: UITableViewController {
 
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentControl.setTitle("Received", forSegmentAtIndex: 0)
-        segmentControl.setTitle("Sended", forSegmentAtIndex: 1)
+        segmentControl.setTitle("Created", forSegmentAtIndex: 1)
         //setei para a segunda ser a defult
 
         navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
@@ -57,8 +58,8 @@ class AudioLibraryTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        AudioDAO.sharedInstance().loadReceivedAudios()
-        AudioDAO.sharedInstance().loadCreatedAudios()
+        AudioDAO.sharedInstance().loadReceivedFromDirectory("Received")
+        AudioDAO.sharedInstance().loadReceivedFromDirectory("Created")
         tableView.reloadData()
     }
 

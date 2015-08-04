@@ -16,7 +16,7 @@ class AudioSaved: Audio {
     init(receiverId:String!, audio:NSData!, audioDescription:String?, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.receiverId = receiverId
-//        var audioSufix = checkAudioSufix()
+        var audioSufix = checkAudioSufix()
 //        self.audioName = "AUD_" + audioSufix
 //        audioSufix = ("\(audioSufix.toInt()!+1)")
 //        audioSufix.writeToFile(checkDirectory(""), atomically: true, encoding: NSUTF8StringEncoding, error: nil)
@@ -86,12 +86,9 @@ class AudioSaved: Audio {
 
     
     /*
-        Salva o audio localmente da pasta Library
+        Salva um audio saved no diretorio passado
         Retorno: booleano de sucesso
-        Obs: No banco o nome deste objecto e diferente ao do arquivo
-        pasta: AUD_01.auf
-        Banco: AUD_01
-    
+        OBS: esse metodo deveria ficar na AudioDAO
     */
     func SaveAudioInToDirectoy(directory: String) -> Bool {
         //tirei a extensao auf
