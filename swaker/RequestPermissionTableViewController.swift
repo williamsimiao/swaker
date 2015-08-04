@@ -11,12 +11,13 @@ import UIKit
 class RequestPermissionTableViewController: UITableViewController {
     
     let audioDAO = AudioDAO.sharedInstance()
+    var audiosArray  = [AudioAttempt]()
     var alarm : Alarm?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audioDAO.loadAudiosFromAlarm(alarm!.objectId)
+        audiosArray = audioDAO.loadAudiosFromAlarm(alarm!.objectId)
         
     }
 
@@ -33,14 +34,14 @@ class RequestPermissionTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return  audioDAO.audioAttemptArray.count
+        return  audiosArray.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RequestPTableViewCell
         
-        cell.textLabel?.text = "\(audioDAO.audioAttemptArray[indexPath.row].audioName)"
+        cell.textLabel?.text = "\(audiosArray[indexPath.row].audioName)"
         
 
         return cell

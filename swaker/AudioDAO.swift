@@ -14,17 +14,17 @@ class AudioDAO: NSObject {
 
     static var Instance: AudioDAO?
     
-    var audioSavedArray = [AudioSaved]()
-    var audioAttemptArray = [AudioAttempt]()
+    var audioCreatedArray = [AudioSaved]()
+    var audioReceivedArray = [AudioSaved]()
     //var audioAttemptArray: Array<AudioAttempt>?
-    var SavedPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+    
+    var path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
     
     static func sharedInstance() -> AudioDAO{
         if Instance == nil {
             Instance = AudioDAO()
-            let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-            Instance?.SavedPath = docs.stringByAppendingPathComponent("Saved")
-            Instance?.loadLocalAudios()
+            Instance?.loadCreatedAudios()
+            Instance?.loadReceivedAudios()
 
         }
         return Instance!
@@ -34,45 +34,72 @@ class AudioDAO: NSObject {
         Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
         CARREGA DO BANCO
     */
-    func loadSavedAudios() -> Array<AudioSaved> {
-        audioSavedArray = [AudioSaved]()
+    func loadSavedAudios() {
         
         let AudioQuery = PFQuery(className: "AudioSaved")
-        let ArrayPFobjectsSaved = AudioQuery.whereKey("receiverId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!
+        let ArrayPFobjectsReceived = AudioQuery.whereKey("receiverId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!
         
-        for aPFobject in ArrayPFobjectsSaved {
+        for aPFobject in ArrayPFobjectsReceived {
             var anAudio = AudioSaved(receiverId: aPFobject["receiverId"] as! String, audio: aPFobject["audio"] as! NSData, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
-            audioSavedArray.append(anAudio)
+            audioReceivedArray.append(anAudio)
         }
-        return audioSavedArray
+        
+        let ArrayPFobjectsCreated = AudioQuery.whereKey("senderId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!
+        
+        for aPFobject in ArrayPFobjectsCreated {
+            var anAudio = AudioSaved(receiverId: aPFobject["receiverId"] as! String, audio: aPFobject["audio"] as! NSData, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
+            audioReceivedArray.append(anAudio)
+        }
     }
     
     /*
-        CARREGA DA PASTA "Saved"
+        CARREGA DA PASTA "Received"
     */
-    func loadLocalAudios() {
-        let enumerator = NSFileManager.defaultManager().enumeratorAtPath(self.SavedPath)
-        while let audioName:String = enumerator?.nextObject() as? String{
-            let filePath = SavedPath.stringByAppendingPathComponent(audioName)
-            let data = NSData(contentsOfFile: filePath)
-            var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
-            audioSavedArray.append(anAudio)
+    func loadReceivedAudios() {
+        //path to de directory "received"
+        let receivedPath = path.stringByAppendingPathComponent("Received")
+        let enumerator = NSFileManager.defaultManager().enumeratorAtPath(receivedPath)
+        while let fileName:String = enumerator?.nextObject() as? String{
+            if fileName.hasSuffix("auf") {
+                let filePath = receivedPath.stringByAppendingPathComponent(fileName)
+                let data = NSData(contentsOfFile: filePath)
+                var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
+                audioReceivedArray.append(anAudio)
+            }
         }
     }
+    
+    /*
+        CARREGA DA PASTA "Created"
+    */
+    func loadCreatedAudios() {
+        //path to de directory "created"
+        let createdPath = path.stringByAppendingPathComponent("Received")
+        let enumerator = NSFileManager.defaultManager().enumeratorAtPath(createdPath)
+        while let fileName:String = enumerator?.nextObject() as? String{
+            if fileName.hasSuffix("auf") {
+                let filePath = createdPath.stringByAppendingPathComponent(fileName)
+                let data = NSData(contentsOfFile: filePath)
+                var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
+                audioCreatedArray.append(anAudio)
+            }
+        }
+    }
+
     
     /*
         Carrega todos os audios que possuem alarmId como o parametro alarmId
         Parametro: ID do alarme
     */
-    func loadAudiosFromAlarm(alarmId: String) {
-        
-        
+    func loadAudiosFromAlarm(alarmId: String) -> Array<AudioAttempt>{
+        var audioAttemptArray = [AudioAttempt]()
         let AudioQuery = PFQuery(className: "AudioAttempt")
         let ArrayPFobjectsAttempt = AudioQuery.whereKey("AlarmId", equalTo: alarmId).findObjects()!
         for aPFobject in ArrayPFobjectsAttempt {
             var anAudio = AudioAttempt(alarmId: alarmId as String, audio: aPFobject["audio"] as! NSData, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
             audioAttemptArray.append(anAudio)
         }
+        return audioAttemptArray
     }
     
     /*
@@ -82,9 +109,7 @@ class AudioDAO: NSObject {
     func addAudioAttempt(anAudio:AudioAttempt) -> PFObject? {
         let PFAttempt = PFObject(className: "AudioAttempt")
         PFAttempt.setObject(anAudio.alarmId!, forKey: "alarmId")
-        
         let file = PFFile(name: anAudio.audioName, data: anAudio.audio)
-        
         PFAttempt.setObject(file, forKey: "audio")
         PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
@@ -114,23 +139,23 @@ class AudioDAO: NSObject {
         return PFAttempt
     }
     
+    /*
+        deleta audio da classe audooAttempt do banco
+        Parametro: PFObject
+    */
     func deleteAudioAttempt(audioObject: PFObject) -> Bool {
         
         let success = PFObject(withoutDataWithClassName: "AudioAttempt", objectId: audioObject.objectId).delete()
         return success
     }
     
-    func deleteAudioSaved(audioSaved: AudioSaved) -> Bool{
+    /*
+        metodo para deletar audio da classe audioSaved do banco
+    */
+    
+    func deleteAudioSaved(audioSaved: AudioSaved) {
         let audioObject = audioSaved.toPFObject()
         PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId).deleteEventually()
-//        if let ParseObject = PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId) {
-//            return true
-//        }
-//        else {
-//            println("Nao achou o audio para deletar")
-//            return false
-//        }
-        return true
     }
     
     func convertPFObjectTOAudioSaved (audioObject: PFObject) -> AudioSaved{
@@ -139,5 +164,7 @@ class AudioDAO: NSObject {
         
         return receivedAudio
     }
+    
+    
     
 }
