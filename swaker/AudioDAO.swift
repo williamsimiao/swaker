@@ -16,7 +16,9 @@ class AudioDAO: NSObject {
     
     var audioCreatedArray = [AudioSaved]()
     var audioReceivedArray = [AudioSaved]()
+    var audioTemporaryArray = [AudioSaved]()
     var audioAttemptArray = [AudioAttempt]()
+
     //var audioAttemptArray: Array<AudioAttempt>?
     
     var path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
@@ -24,8 +26,9 @@ class AudioDAO: NSObject {
     static func sharedInstance() -> AudioDAO{
         if Instance == nil {
             Instance = AudioDAO()
-            Instance?.loadCreatedAudios()
-            Instance?.loadReceivedAudios()
+            Instance?.loadAudiosFromDirectory("Received")
+            Instance?.loadAudiosFromDirectory("Created")
+            Instance?.loadAudiosFromDirectory("Temporary")
 
         }
         return Instance!
@@ -54,45 +57,42 @@ class AudioDAO: NSObject {
     }
     
     /*
-        CARREGA DA PASTA "Received"
+        Carrega audios do diretorio passado
+        Retorno: retorna se o diretori existe
     */
-    func loadReceivedAudios() {
-        //path to de directory "received"
-        let receivedPath = path.stringByAppendingPathComponent("Received")
-        let enumerator = NSFileManager.defaultManager().enumeratorAtPath(receivedPath)
+    func loadAudiosFromDirectory(directoty: String) -> Bool {
+        
+        let totalPath = path.stringByAppendingPathComponent(directoty)
+        if !NSFileManager.defaultManager().fileExistsAtPath(totalPath) {
+            return false
+        }
+        let enumerator = NSFileManager.defaultManager().enumeratorAtPath(totalPath)
         while let fileName:String = enumerator?.nextObject() as? String{
             if fileName.hasSuffix("auf") {
-                let filePath = receivedPath.stringByAppendingPathComponent(fileName)
+                let filePath = totalPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
                 var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
-                audioReceivedArray.append(anAudio)
+                switch directoty {
+                    case "Received":
+                        audioReceivedArray.append(anAudio)
+                    case "Created":
+                        audioCreatedArray.append(anAudio)
+                    case "Temporary":
+                        audioTemporaryArray.append(anAudio)
+                    default:
+                        break
+                }
             }
         }
+        return true
     }
     
     /*
-        CARREGA DA PASTA "Created"
-    */
-    func loadCreatedAudios() {
-        //path to de directory "created"
-        let createdPath = path.stringByAppendingPathComponent("Received")
-        let enumerator = NSFileManager.defaultManager().enumeratorAtPath(createdPath)
-        while let fileName:String = enumerator?.nextObject() as? String{
-            if fileName.hasSuffix("auf") {
-                let filePath = createdPath.stringByAppendingPathComponent(fileName)
-                let data = NSData(contentsOfFile: filePath)
-                var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
-                audioCreatedArray.append(anAudio)
-            }
-        }
-    }
-
-    
-    /*
-        Carrega todos os audios que possuem alarmId como o parametro alarmId
+        Carrega do BANCO todos os audios que possuem alarmId como o parametro alarmId
         Parametro: ID do alarme
     */
     func loadAudiosFromAlarm(alarmId: String) {
+        
         audioAttemptArray.removeAll(keepCapacity: false)
         let AudioQuery = PFQuery(className: "AudioAttempt")
         let ArrayPFobjectsAttempt = AudioQuery.whereKey("alarmId", equalTo: alarmId).findObjects()!
