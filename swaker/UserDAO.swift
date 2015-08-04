@@ -31,19 +31,17 @@ class UserDAO: NSObject {
         Retorno   : true = login sucesso ou false = login falhou
     ****************************************************************************************************/
     func login(user:User!) -> Bool {
-        if PFUser.currentUser()?.username == nil {
-            // Não logado
             var error:NSError?
             if let userDAO = PFUser.logInWithUsername(user.username, password: user.password, error: &error) {
-                currentUser = User(user: userDAO)
-                PFInstallation.currentInstallation().setObject(userDAO, forKey: "user")
-                PFInstallation.currentInstallation().save()
+                if currentUser == nil {
+                    currentUser = User(user: userDAO)
+                    PFInstallation.currentInstallation().setObject(userDAO, forKey: "user")
+                    PFInstallation.currentInstallation().save()
+
+                }
+                return true
             }
-            else {
-                return false
-            }
-        }
-        return true
+        return false
     }
     
     /****************************************************************************************************
@@ -51,8 +49,7 @@ class UserDAO: NSObject {
         Parâmetros : Usuario com username, password e email
         Retorno    : true = cadastrou ou false = não cadastrou
     ****************************************************************************************************/
-    func signup(user:User!) -> Bool {
-        
+    func signup(user:User!) -> Bool {   
         var userDAO = PFUser()
         
         userDAO.username = user.username
@@ -62,8 +59,11 @@ class UserDAO: NSObject {
         if user.photo != nil {
             userDAO.setObject(PFFile(data:user.photo!), forKey: "photo")
         }
-        
-        return userDAO.signUp()
+        if userDAO.signUp() {
+            self.logout()
+            return true
+        }
+        return false
     }
     
     /****************************************************************************************************

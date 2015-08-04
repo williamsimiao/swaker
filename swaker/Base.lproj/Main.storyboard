@@ -392,7 +392,6 @@
                         <outlet property="pictureImageView" destination="gCM-65-t5Y" id="Mj9-9N-zk6"/>
                         <outlet property="senha2TextField" destination="1ON-KM-aKi" id="66R-jz-nIs"/>
                         <outlet property="senhaTextField" destination="FNW-zz-fna" id="5sg-Rj-k86"/>
-                        <segue destination="A09-v3-A2q" kind="show" identifier="signUpSucceeded" id="aLq-g0-SPc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FHU-YH-fzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -973,6 +972,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vP4-3B-5KR"/>
-        <segue reference="aLq-g0-SPc"/>
+        <segue reference="Pnw-fm-st6"/>
     </inferredMetricsTieBreakers>
 </document>

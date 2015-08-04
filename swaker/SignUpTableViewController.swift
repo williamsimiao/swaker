@@ -20,10 +20,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        indicator.startAnimating()
         navigationItem.titleView = indicator
-        
-        indicator.hidden = true
         
         pictureImageView.layer.cornerRadius = pictureImageView.frame.height / 2
         pictureImageView.clipsToBounds = true
@@ -36,14 +33,29 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
 
     @IBAction func signUp(sender: AnyObject) {
         
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel) { (okAction) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "OK", style: .Cancel) { (cancelAction) -> Void in
+        }
+
         if (senhaTextField.text == senha2TextField.text) && (senha2TextField.text != "") && (senhaTextField.text != "") && (emailTextField.text != "") && (nomeTextField.text != "") {
             let indicator = self.indicator
-            indicator.hidden = false
+            indicator.startAnimating()
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: UIImagePNGRepresentation(self.pictureImageView.image))
                 if UserDAO.sharedInstance().signup(user) {
+                    alert.message = "Sign Up succeeded."
+                    alert.addAction(okAction)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.performSegueWithIdentifier("signUpSucceeded", sender: self)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                } else {
+                    alert.message = "Could not Sign Up."
+                    alert.addAction(cancelAction)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.presentViewController(alert, animated: true, completion: nil)
                     })
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
