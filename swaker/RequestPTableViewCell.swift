@@ -10,8 +10,10 @@ import UIKit
 
 class RequestPTableViewCell: UITableViewCell {
     
+    var audioAttempt:AudioAttempt!
     
     @IBAction func accept(sender: AnyObject) {
+        AudioDAO.sharedInstance().acceptAudioAttempt(audioAttempt)
     }
 
     override func awakeFromNib() {

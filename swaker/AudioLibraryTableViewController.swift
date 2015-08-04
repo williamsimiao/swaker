@@ -58,8 +58,7 @@ class AudioLibraryTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        AudioDAO.sharedInstance().loadAudiosFromDirectory("Received")
-        AudioDAO.sharedInstance().loadAudiosFromDirectory("Created")
+        AudioDAO.sharedInstance().loadAllAudios()
         tableView.reloadData()
     }
 

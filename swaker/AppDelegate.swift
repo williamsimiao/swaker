@@ -259,22 +259,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let audio = userInfo["a"] as! String
             println("Buscando pelo audio de ID: \(audio)")
             if identifier == ActionsIdentifiers.accept.rawValue {
-                if let audioObject = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audio).getFirstObject(){
-                    println("achou")
-                    let receivedAudio = AudioAttempt(PFAudioAttempt: audioObject)
-                    receivedAudio.SaveAudioInToTemporaryDir()
-                    //just to be shure
-                    println("audioDescription:\(receivedAudio.audioDescription!)")
-                    
-                    for notif in UIApplication.sharedApplication().scheduledLocalNotifications {
-                        let notif = notif as! UILocalNotification
-                    }
-                    
-                }
-                else {
-                    println("nao achou no banco")
-                }
-                
+                let audioo = PFObject(withoutDataWithClassName: "AudioAttempt", objectId: audio)
+                AudioDAO.sharedInstance().acceptAudioAttempt(AudioAttempt(PFAudioAttempt: audioo))
             }
             if identifier == ActionsIdentifiers.refuse.rawValue {
                 //deletando o audio do audio attempt
