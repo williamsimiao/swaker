@@ -1,0 +1,102 @@
+
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "0F3-nB-DFD"; */
+"0F3-nB-DFD.normalTitle" = "Play";
+
+/* Class = "UIButton"; normalTitle = "Aceita"; ObjectID = "0g1-rv-MHa"; */
+"0g1-rv-MHa.normalTitle" = "Aceita";
+
+/* Class = "UITabBarItem"; title = "Audios"; ObjectID = "1V2-VV-g3Y"; */
+"1V2-VV-g3Y.title" = "Audios";
+
+/* Class = "UITableViewSection"; headerTitle = "password confirmation"; ObjectID = "65E-tx-o9e"; */
+"65E-tx-o9e.headerTitle" = "password confirmation";
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "CA6-YZ-6ds"; */
+"CA6-YZ-6ds.title" = "Friends";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "EyY-4s-b6U"; */
+"EyY-4s-b6U.normalTitle" = "Sign Up";
+
+/* Class = "UITableViewSection"; headerTitle = "Nome"; ObjectID = "HEU-eQ-1GA"; */
+"HEU-eQ-1GA.headerTitle" = "Nome";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "He5-WL-7k9"; */
+"He5-WL-7k9.normalTitle" = "Done";
+
+/* Class = "UIButton"; normalTitle = "Play"; ObjectID = "IiP-eF-TnT"; */
+"IiP-eF-TnT.normalTitle" = "Play";
+
+/* Class = "UIButton"; normalTitle = "edit"; ObjectID = "Jca-Ux-cfk"; */
+"Jca-Ux-cfk.normalTitle" = "edit";
+
+/* Class = "UIBarButtonItem"; title = "Sign Up"; ObjectID = "ONH-Yh-33f"; */
+"ONH-Yh-33f.title" = "Sign Up";
+
+/* Class = "UITableViewSection"; headerTitle = "photo"; ObjectID = "S8x-dJ-Tym"; */
+"S8x-dJ-Tym.headerTitle" = "photo";
+
+/* Class = "UITableViewSection"; headerTitle = "description"; ObjectID = "SSM-zj-Ezs"; */
+"SSM-zj-Ezs.headerTitle" = "description";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "VB2-xk-kXy"; */
+"VB2-xk-kXy.normalTitle" = "Send";
+
+/* Class = "UIButton"; normalTitle = "Library"; ObjectID = "VSG-tO-4ur"; */
+"VSG-tO-4ur.normalTitle" = "Library";
+
+/* Class = "UITabBarItem"; title = "F. Alarms"; ObjectID = "XrK-Uy-QM5"; */
+"XrK-Uy-QM5.title" = "F. Alarms";
+
+/* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "YVL-y9-rbo"; */
+"YVL-y9-rbo.normalTitle" = "Forgot your password?";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "bpe-aB-MIC"; */
+"bpe-aB-MIC.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Record"; ObjectID = "dnU-OU-RzJ"; */
+"dnU-OU-RzJ.normalTitle" = "Record";
+
+/* Class = "UITableViewSection"; headerTitle = "email"; ObjectID = "eoJ-kc-uZr"; */
+"eoJ-kc-uZr.headerTitle" = "email";
+
+/* Class = "UITabBarItem"; title = "Alarms"; ObjectID = "h2A-5p-uQW"; */
+"h2A-5p-uQW.title" = "Alarms";
+
+/* Class = "UILabel"; text = "Escolha um titulo para seu audio"; ObjectID = "jPi-RH-j29"; */
+"jPi-RH-j29.text" = "Escolha um titulo para seu audio";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "jSi-tj-luJ"; */
+"jSi-tj-luJ.normalTitle" = "Log In";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "jdq-9j-DJD"; */
+"jdq-9j-DJD.placeholder" = "Email";
+
+/* Class = "UIBarButtonItem"; title = "Set"; ObjectID = "jfX-4O-HZs"; */
+"jfX-4O-HZs.title" = "Set";
+
+/* Class = "UIButton"; normalTitle = "Profile"; ObjectID = "jiJ-dD-OaN"; */
+"jiJ-dD-OaN.normalTitle" = "Profile";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "pa4-wR-sH8"; */
+"pa4-wR-sH8.normalTitle" = "Submit";
+
+/* Class = "UIButton"; normalTitle = "Adicionar"; ObjectID = "q3h-jQ-piA"; */
+"q3h-jQ-piA.normalTitle" = "Adicionar";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "qkb-hy-Kqd"; */
+"qkb-hy-Kqd.placeholder" = "Password";
+
+/* Class = "UISegmentedControl"; s25-Eu-Tq9.segmentTitles[0] = "First"; ObjectID = "s25-Eu-Tq9"; */
+"s25-Eu-Tq9.segmentTitles[0]" = "First";
+
+/* Class = "UISegmentedControl"; s25-Eu-Tq9.segmentTitles[1] = "Second"; ObjectID = "s25-Eu-Tq9"; */
+"s25-Eu-Tq9.segmentTitles[1]" = "Second";
+
+/* Class = "UITableViewSection"; headerTitle = "password"; ObjectID = "tQz-N9-ibG"; */
+"tQz-N9-ibG.headerTitle" = "password";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "tpq-Jh-Yjs"; */
+"tpq-Jh-Yjs.title" = "Settings";
+
+/* Class = "UIButton"; normalTitle = "Log Out"; ObjectID = "xmK-2Z-jnC"; */
+"xmK-2Z-jnC.normalTitle" = "Log Out";

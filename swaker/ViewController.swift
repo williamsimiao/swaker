@@ -11,10 +11,14 @@ import Parse
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var testeInter: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.testeInter.text = NSLocalizedString("Teste", tableName: nil, bundle:  NSBundle.mainBundle(), value: "", comment: "")
+        
         let path = NSBundle.mainBundle().pathForResource("paidefamilia", ofType: "mp3")!
         println(path)
         if NSFileManager.defaultManager().fileExistsAtPath(path) {

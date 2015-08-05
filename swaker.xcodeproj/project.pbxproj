@@ -18,6 +18,7 @@
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
 		45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E824D61B66B72100F0F404 /* UserDAO.swift */; };
 		45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */; };
+		45EBD7D41B729E5F0035C2BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45EBD7D61B729E5F0035C2BA /* Localizable.strings */; };
 		45ED4CB21B6ABECD00F07C6F /* RequestPermissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */; };
 		4C1111A91B66AE6500163A05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111A81B66AE6500163A05 /* User.swift */; };
 		4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AA1B66AFE400163A05 /* Audio.swift */; };
@@ -76,6 +77,10 @@
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
 		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPTableViewCell.swift; sourceTree = "<group>"; };
+		45EBD7CE1B729B530035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Main.strings; sourceTree = "<group>"; };
+		45EBD7CF1B729B530035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		45EBD7D51B729E5F0035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		45EBD7D71B729E7A0035C2BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPermissionTableViewController.swift; sourceTree = "<group>"; };
 		4C1111A81B66AE6500163A05 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C1111AA1B66AFE400163A05 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
@@ -183,6 +188,7 @@
 		3DB058D91B62B0D800DEC2CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45EBD7D81B72A5EF0035C2BA /* Internationalization */,
 				3D07BBFD1B69D24600FD5620 /* Default Sounds */,
 				3DB058DA1B62B0D800DEC2CB /* Info.plist */,
 			);
@@ -235,6 +241,14 @@
 				3D90402E1B6EC4E5005E9991 /* AudioCell.swift */,
 			);
 			name = CustomCells;
+			sourceTree = "<group>";
+		};
+		45EBD7D81B72A5EF0035C2BA /* Internationalization */ = {
+			isa = PBXGroup;
+			children = (
+				45EBD7D61B729E5F0035C2BA /* Localizable.strings */,
+			);
+			name = Internationalization;
 			sourceTree = "<group>";
 		};
 		4C217ECD1B695CB800E08424 /* ViewControllers */ = {
@@ -356,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */,
+				45EBD7D41B729E5F0035C2BA /* Localizable.strings in Resources */,
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
 				3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */,
@@ -428,6 +443,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3DB058E01B62B0D800DEC2CB /* Base */,
+				45EBD7CE1B729B530035C2BA /* pt */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -436,8 +452,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				3DB058E51B62B0D800DEC2CB /* Base */,
+				45EBD7CF1B729B530035C2BA /* pt */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		45EBD7D61B729E5F0035C2BA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45EBD7D51B729E5F0035C2BA /* pt */,
+				45EBD7D71B729E7A0035C2BA /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
