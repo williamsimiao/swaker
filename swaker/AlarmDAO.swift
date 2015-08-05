@@ -27,6 +27,7 @@ class AlarmDAO: NSObject {
         }
     }
     
+    var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
     var idsPath:String!
     var userAlarmsIdsToDelete = [String]()
     var userAlarms = [Alarm]()
@@ -144,10 +145,10 @@ class AlarmDAO: NSObject {
             let alarmNotification = UILocalNotification()
             
             alarmNotification.alertBody = alarm.alarmDescription
-            alarmNotification.fireDate = NSDate(timeInterval: NSTimeInterval(0), sinceDate: alarm.fireDate)
+            alarmNotification.fireDate = NSDate(timeInterval: -NSTimeInterval(NSTimeZone.systemTimeZone().secondsFromGMT), sinceDate: alarm.fireDate)
             alarmNotification.userInfo = ["alarmId":alarm.objectId]
             alarmNotification.category = AppDelegate.categoriesIdentifiers.newAlarm.rawValue
-            alarmNotification.soundName = "/Users/andreanmasiro/Library/Developer/CoreSimulator/Devices/502A5089-00A3-420F-8C0D-3C12E30F6A32/data/Containers/Data/Application/549E3C99-CCFD-4FF5-B3CD-A6DE9BBB9FA4/Documents/pai.mp3"
+            alarmNotification.soundName = "paidefamilia.mp3"
             UIApplication.sharedApplication().scheduleLocalNotification(alarmNotification)
             
             return true

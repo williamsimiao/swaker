@@ -33,6 +33,7 @@
 		4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED61B69868500E08424 /* SettingsTableViewController.swift */; };
 		4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */; };
 		4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */; };
+		4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -47,7 +48,6 @@
 		4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */; };
 		4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCB8D791B700DF0005B243C /* userDefault.png */; };
 		4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE549C81B6917B600CDB267 /* AudioDAO.swift */; };
-		4CF17EB71B716F160058B7F9 /* paidefamilia.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4CF17EB61B716F160058B7F9 /* paidefamilia.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +91,7 @@
 		4C217ED61B69868500E08424 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsTableViewController.swift; sourceTree = "<group>"; };
 		4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAddingTableViewController.swift; sourceTree = "<group>"; };
 		4CCB8D791B700DF0005B243C /* userDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userDefault.png; sourceTree = "<group>"; };
 		4CE549C81B6917B600CDB267 /* AudioDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDAO.swift; sourceTree = "<group>"; };
-		4CF17EB61B716F160058B7F9 /* paidefamilia.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = paidefamilia.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +166,6 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
-				4CF17EB61B716F160058B7F9 /* paidefamilia.mp3 */,
 				4CCB8D791B700DF0005B243C /* userDefault.png */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
@@ -254,6 +253,7 @@
 				4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */,
 				4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */,
 				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
+				4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -355,7 +355,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CF17EB71B716F160058B7F9 /* paidefamilia.mp3 in Resources */,
 				3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */,
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
@@ -379,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */,
+				4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,
 				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,

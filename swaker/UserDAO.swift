@@ -94,19 +94,17 @@ class UserDAO: NSObject {
         Parâmetros : Usuario com dados alterados
         Retorno    : True ou false para o update dos dados
     ****************************************************************************************************/
-    func updateUser(user:User!) -> Bool {
+    func updateUser(user:User!) {
         
         var sucess = Bool()
         
-        let userDAO = PFUser(withoutDataWithClassName: "User", objectId: user.objectId)
+        let userDAO = PFUser.currentUser()!
         
         userDAO.setObject(user.name, forKey: "name")
-        userDAO.setObject(user.password, forKey: "password")
         if user.photo != nil {
-            userDAO.setObject(user.photo!, forKey: "photo")
+            userDAO.setObject(PFFile(data: user.photo!), forKey: "photo")
         }
-        
-        return userDAO.save()
+        userDAO.saveEventually()
     }
     
     /****************************************************************************************************
