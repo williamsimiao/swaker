@@ -21,6 +21,7 @@ class AudioDAO: NSObject {
     //var audioAttemptArray: Array<AudioAttempt>?
     
     var path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+    
     var receivedPath:String!
     var createdPath:String!
     var temporaryPath:String!
@@ -28,9 +29,9 @@ class AudioDAO: NSObject {
     static func sharedInstance() -> AudioDAO{
         if Instance == nil {
             Instance = AudioDAO()
-            Instance?.receivedPath = Instance!.path.stringByAppendingPathComponent("Received")
-            Instance?.createdPath = Instance!.path.stringByAppendingPathComponent("Created")
-            Instance?.temporaryPath = Instance!.path.stringByAppendingPathComponent("Temporary")
+            Instance?.receivedPath = Instance!.checkDirectory("Received")
+            Instance?.createdPath = Instance!.checkDirectory("Created")
+            Instance?.temporaryPath = Instance!.checkDirectory("Temporary")
             Instance?.loadAllAudios()
 
         }
@@ -40,6 +41,7 @@ class AudioDAO: NSObject {
     /*
         Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
         CARREGA DO BANCO
+        Medodo usado quando o usuario fizer login num novo device
     */
     func loadSavedAudios() {
         let AudioQuery = PFQuery(className: "AudioSaved")
@@ -59,19 +61,48 @@ class AudioDAO: NSObject {
     }
     
     /*
+    Checa se existe um driretorio 'directoryPath' na pasta documents, caso nao exista cria
+    */
+    
+    func checkDirectory(directoryPath: String) -> String {
+        var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+        let fullPath = docs.stringByAppendingPathComponent(directoryPath)
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(fullPath) {
+            var error:NSError?
+            NSFileManager.defaultManager().createDirectoryAtPath(fullPath, withIntermediateDirectories: false, attributes: nil, error: &error)
+            println("criando \(directoryPath)")
+            if error != nil {
+                println(error?.localizedDescription)
+            }
+        }
+        println("\(fullPath)")
+        return fullPath
+    }
+
+    
+    /*
+        carrega os dois
     */
     func loadAllAudios() {
         loadReceivedAudios()
         loadCreatedAudios()
     }
-    
+       
     func loadReceivedAudios() {
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(receivedPath)
         while let fileName:String = enumerator?.nextObject() as? String {
             if fileName.hasSuffix("auf") {
                 let filePath = receivedPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
-                var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
+                
+                /// MUDEI
+                
+                //var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
+                var anAudioAttempt = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioAttempt
+                var anAudio = AudioSaved(myAudioAttempt: anAudioAttempt)
+                
+
                 audioReceivedArray.append(anAudio)
             }
         }
@@ -103,6 +134,24 @@ class AudioDAO: NSObject {
         }
     }
     
+    
+    /*
+        Movendo um audio do attempt para a o received
+    */
+    
+    func moveToReceivedDir(audioId: String) {
+        var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+        println("movendo")
+        let origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).auf")
+        let destinationPath = docs.stringByAppendingPathComponent("Received/\(audioId).auf")
+        let manager = NSFileManager.defaultManager()
+        //copiando e edeletando em seguida
+        var error:NSError?
+        manager.copyItemAtPath(origemPath, toPath: destinationPath, error: &error)
+        manager.removeItemAtPath(origemPath, error: &error)
+        
+    }
+    
     /*
         Adiciona um novo audioAttempt ao banco
         Parametro: Classe AudioAttempt
@@ -110,7 +159,7 @@ class AudioDAO: NSObject {
     func addAudioAttempt(anAudio:AudioAttempt) -> PFObject? {
         let PFAttempt = PFObject(className: "AudioAttempt")
         PFAttempt.setObject(anAudio.alarmId!, forKey: "alarmId")
-        let file = PFFile(name: anAudio.audioName, data: anAudio.audio)
+        let file = PFFile(name: "nao_importa", data: anAudio.audio)
         PFAttempt.setObject(file, forKey: "audio")
         PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
@@ -167,19 +216,24 @@ class AudioDAO: NSObject {
     }
     
     func acceptAudioAttempt(audio:AudioAttempt) {
+        
         audio.SaveAudioInToTemporaryDir()
         //just to be shure
         println("audioDescription:\(audio.audioDescription!)")
         
         for notif in UIApplication.sharedApplication().scheduledLocalNotifications {
             let notif = notif as! UILocalNotification
+            //nem precisa checar a categoria aqui pq so mostra a action de accept pra essa categoria
             if notif.category == AppDelegate.categoriesIdentifiers.newAlarm.rawValue {
                 UIApplication.sharedApplication().cancelLocalNotification(notif)
                 let notifUserInfo = notif.userInfo as! [String:String!]
+                
+                ////////NAO FUNCIONA //////////MALDITO BUNDLE
                 if notifUserInfo["alarmId"] == audio.alarmId {
-                    notif.soundName = path.stringByAppendingPathComponent("Temporary").stringByAppendingPathComponent(audio.alarmId + ".caf")
+                    notif.soundName = path.stringByAppendingPathComponent("Received").stringByAppendingPathComponent(audio.alarmId + ".caf")
                     UIApplication.sharedApplication().scheduleLocalNotification(notif)
                 }
+                ///////////////////////////////////
             }
         }
     }

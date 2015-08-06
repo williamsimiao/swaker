@@ -12,7 +12,7 @@ class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AlarmDAO.sharedInstance().delegate = self
+        AlarmDAO.sharedInstance().friendsAlarmsDelegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

@@ -11,12 +11,20 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    var gradientLayer:CAGradientLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicator.hidesWhenStopped = true
     }
     
     override func viewDidAppear(animated: Bool) {
+        
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
+        view.layer.insertSublayer(gradientLayer, atIndex: 0)
+        
         if UserDAO.sharedInstance().currentUser == nil {
             performSegueWithIdentifier("loginScreen", sender: self)
         } else {
@@ -26,6 +34,8 @@ class ViewController: UIViewController {
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 AlarmDAO.sharedInstance().loadFriendsAlarms()
                 AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
+                //audio load acrescentado abaixo
+                AudioDAO.sharedInstance().loadAllAudios()
                 self.indicator.stopAnimating()
                 self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
             })

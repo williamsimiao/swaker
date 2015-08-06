@@ -86,8 +86,14 @@
                                 <action selector="indexChanged:" destination="Zq6-Uj-AUh" eventType="valueChanged" id="2Kc-06-hyX"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="A8Q-KH-eZG">
+                            <connections>
+                                <action selector="CancelAction:" destination="Zq6-Uj-AUh" id="lxT-FF-7zm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="CancelButton" destination="A8Q-KH-eZG" id="Y6p-Uv-Poh"/>
                         <outlet property="segmentControl" destination="s25-Eu-Tq9" id="gzC-C5-jvX"/>
                     </connections>
                 </tableViewController>
@@ -272,7 +278,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Wdn-Cf-ew1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Nome" id="HEU-eQ-1GA">
                                 <cells>
@@ -627,13 +633,14 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="Library:" destination="jqG-Oc-daE" eventType="touchUpInside" id="Z5t-5L-HCX"/>
                                     <segue destination="n3j-Ql-gwp" kind="presentation" id="sKr-3T-2iE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Escolha um titulo para seu audio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPi-RH-j29">
                                 <rect key="frame" x="174" y="310" width="251" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -676,6 +683,10 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="Pyu-94-1vq"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="DescriptionField" destination="Cun-NO-2qr" id="xU2-X5-6PZ"/>
                         <outlet property="PleaseLabel" destination="jPi-RH-j29" id="bwa-j9-RvK"/>
@@ -918,7 +929,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="PCp-b3-bXg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="n3P-GP-8CJ">
                                 <cells>
@@ -993,7 +1004,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yPX-Tp-DIn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="vsy-gU-RMw">
                                 <cells>
@@ -1196,7 +1207,7 @@
         <image name="userDefault.png" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="51m-G4-d1D"/>
-        <segue reference="uCa-Cg-UVb"/>
+        <segue reference="vP4-3B-5KR"/>
+        <segue reference="sKr-3T-2iE"/>
     </inferredMetricsTieBreakers>
 </document>

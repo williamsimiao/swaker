@@ -45,7 +45,7 @@ class AudioAttempt: Audio {
         let audioData = audioPFFile.getData()! as NSData
         super.init(audio: audioData, audioDescription: PFAudioAttempt["description"] as? String, senderId: PFAudioAttempt["senderId"] as! String)
         self.alarmId = PFAudioAttempt["alarmId"] as! String
-        self.audioName = audioPFFile.name
+        self.audioName = self.alarmId
     }
 
 
@@ -59,21 +59,22 @@ class AudioAttempt: Audio {
              hx2311jbfda423
     */
     func SaveAudioInToTemporaryDir() -> Bool {
-        let path = checkDirectory("Temporary").stringByAppendingPathComponent(self.audioName)
+        // MUDEI
+        let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(self.audioName)
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
         self.audio.writeToFile(path + ".caf", atomically: true)
         return success
     }
     
     /*
-        deletando audio da pasta Attempts
+        deletando audio da pasta Temporary
     */
     
     func deleteAudioLocaly() -> Bool {
         
         var error:NSError?
         
-        let pasta = checkDirectory("Attempts")
+        let pasta = AudioDAO.sharedInstance().temporaryPath
         let path = pasta.stringByAppendingPathComponent(self.audioName)
         let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         

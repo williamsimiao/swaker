@@ -65,7 +65,7 @@ class AudioSaved: Audio {
         Esse sufixo sera o nome do arquivo de audio
     */
     func checkAudioSufix() -> String {
-        let path = checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
+        let path = AudioDAO.sharedInstance().checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
         
         if (!NSFileManager.defaultManager().fileExistsAtPath(path)) {
             let audioSufixCounter = "1"
@@ -100,7 +100,7 @@ class AudioSaved: Audio {
         //tirei a extensao auf
         let manager = NSFileManager.defaultManager()
         //aqui ja faz a checagem se o path existe, se nao existir cria
-        var path = checkDirectory(directory) as String
+        var path = AudioDAO.sharedInstance().checkDirectory(directory) as String
 //        var error:NSError?
 //        if !manager.fileExistsAtPath(path) {
 //            manager.createDirectoryAtPath(path, withIntermediateDirectories: false, attributes: nil, error: &error)        }
@@ -118,7 +118,7 @@ class AudioSaved: Audio {
         
         var error:NSError?
         
-        let pasta = checkDirectory("Saved")
+        let pasta = AudioDAO.sharedInstance().checkDirectory("Saved")
         let path = pasta.stringByAppendingPathComponent("\(self.audioName).auf")
         let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         

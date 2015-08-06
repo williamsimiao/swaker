@@ -13,6 +13,7 @@ class Audio: NSObject {
     var audioDescription:String?
     var senderId:String!
     var audioName: String!
+    var duration: ()
     
     init(audio:NSData!, audioDescription:String?, senderId:String!) {
         
@@ -22,23 +23,4 @@ class Audio: NSObject {
         
     }
     
-    /*
-        Checa se existe um driretorio 'directoryPath' na pasta documents, caso nao exista cria
-    */
-    
-    func checkDirectory(directoryPath: String) -> String {
-        var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-        let fullPath = docs.stringByAppendingPathComponent(directoryPath)
-        
-        if !NSFileManager.defaultManager().fileExistsAtPath(fullPath) {
-            var error:NSError?
-            NSFileManager.defaultManager().createDirectoryAtPath(fullPath, withIntermediateDirectories: false, attributes: nil, error: &error)
-            println("criando \(directoryPath)")
-            if error != nil {
-                println(error?.localizedDescription)
-            }
-        }
-        println("\(fullPath)")
-        return fullPath
-    }
 }
