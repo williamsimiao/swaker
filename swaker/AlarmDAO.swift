@@ -11,38 +11,10 @@ import Parse
 
 class AlarmDAO: NSObject {
     
-
-    /***************************************************************************
-        didSet: Verifica se a pasta existe e, caso ela não exista, cria-a.
-    ***************************************************************************/
-    var alarmsPath:String! {
-        didSet {
-            if !NSFileManager.defaultManager().fileExistsAtPath(self.alarmsPath) {
-                var error:NSError?
-                NSFileManager.defaultManager().createDirectoryAtPath(self.alarmsPath, withIntermediateDirectories: false, attributes: nil, error: &error)
-                if error != nil {
-                    println(error?.localizedDescription)
-                }
-            }
-        }
-    }
-    
+/*//////////////////////////////CLASS ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+    //MARK: Class atts and functions
     static let friendsAlarmsUpdated = "friendsAlarmsUpdated"
-    var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-    var idsPath:String!
-    var userAlarmsIdsToDelete = [String]()
-    var userAlarms = [Alarm]()
-    var friendsAlarms = [Alarm]() {
-        didSet {
-            if delegate != nil {
-                delegate!.reloadData()
-            }
-        }
-    }
-    var delegate: AlarmDAODataUpdating?
-    
     static var instance:AlarmDAO?
-    
     static func sharedInstance() -> AlarmDAO {
         if instance == nil {
             instance = AlarmDAO()
@@ -57,6 +29,44 @@ class AlarmDAO: NSObject {
         return instance!
     }
     
+    static func unload() {
+        if instance != nil {
+            self.instance = nil
+        }
+    }
+    
+    /*//////////////////////////////INSTANCE ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+    
+    //MARK: Properties
+    var delegate: AlarmDAODataUpdating?
+    
+    //MARK: Paths
+    let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+    var idsPath:String!
+    var alarmsPath:String! {
+        didSet {
+            if !NSFileManager.defaultManager().fileExistsAtPath(self.alarmsPath) {
+                var error:NSError?
+                NSFileManager.defaultManager().createDirectoryAtPath(self.alarmsPath, withIntermediateDirectories: false, attributes: nil, error: &error)
+                if error != nil {
+                    println(error?.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    //MARK: Alarms properties
+    var userAlarmsIdsToDelete = [String]()
+    var userAlarms = [Alarm]()
+    var friendsAlarms = [Alarm]() {
+        didSet {
+            if delegate != nil {
+                delegate!.reloadData()
+            }
+        }
+    }
+    
+    //MARK: Functions
     /***************************************************************************
         Função que carrega todos os alarmes para o usuário logado.
         Devolve um array de alarmes para a propriedade self.userAlarms
@@ -132,26 +142,24 @@ class AlarmDAO: NSObject {
     ***************************************************************************/
     func loadFriendsAlarms() {
         self.friendsAlarms.removeAll(keepCapacity: false)
-
+        
         let user = UserDAO.sharedInstance().currentUser!
-        if user.friends != nil {
-            var ids = [String]()
-            for friend in user.friends! {
-                ids.append(friend.objectId)
-            }
-            let query = PFQuery(className: "Alarm").whereKey("setterId", containedIn: ids)
-            query.cachePolicy = PFCachePolicy.CacheThenNetwork
-            query.findObjectsInBackgroundWithBlock({ (alarms, error) -> Void in
-                if error == nil {
-                    var fAlarms = [Alarm]()
-                    let alarms = alarms as! [PFObject]
-                    for alarm in alarms {
-                        fAlarms.append(Alarm(PFAlarm: alarm))
-                    }
-                    self.friendsAlarms = fAlarms
-                }
-            })
+        var ids = [String]()
+        for friend in user.friends {
+            ids.append(friend.objectId)
         }
+        let query = PFQuery(className: "Alarm").whereKey("setterId", containedIn: ids)
+        query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        query.findObjectsInBackgroundWithBlock({ (alarms, error) -> Void in
+            if error == nil {
+                var fAlarms = [Alarm]()
+                let alarms = alarms as! [PFObject]
+                for alarm in alarms {
+                    fAlarms.append(Alarm(PFAlarm: alarm))
+                }
+                self.friendsAlarms = fAlarms
+            }
+        })
     }
     
     /***************************************************************************
@@ -205,14 +213,9 @@ class AlarmDAO: NSObject {
         }
         PFInstallation.currentInstallation().save()
     }
-    
-    static func unload() {
-        if instance != nil {
-            self.instance = nil
-        }
-    }
 }
 
+//MARK: Data Updating Protocol
 protocol AlarmDAODataUpdating {
     func reloadData()
 }

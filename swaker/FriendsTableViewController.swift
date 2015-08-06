@@ -36,7 +36,7 @@ class FriendsTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        friends = UserDAO.sharedInstance().currentUserFriends
+        friends = UserDAO.sharedInstance().currentUser!.friends
         tableView.reloadData()
     }
     
@@ -66,9 +66,9 @@ class FriendsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUserFriends[indexPath.row]) {
+            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUser!.friends[indexPath.row]) {
             UserDAO.sharedInstance().loadFriendsForCurrentUser()
-            friends = UserDAO.sharedInstance().currentUserFriends
+            friends = UserDAO.sharedInstance().currentUser!.friends
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             tableView.reloadData()
             } else {

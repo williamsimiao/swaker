@@ -42,7 +42,6 @@ class AudioDAO: NSObject {
         CARREGA DO BANCO
     */
     func loadSavedAudios() {
-        
         let AudioQuery = PFQuery(className: "AudioSaved")
         let ArrayPFobjectsReceived = AudioQuery.whereKey("receiverId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!
         

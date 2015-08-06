@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 
 class ViewController: UIViewController {
 
@@ -18,7 +17,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        if PFUser.currentUser()?.username == nil {
+        if UserDAO.sharedInstance().currentUser == nil {
             performSegueWithIdentifier("loginScreen", sender: self)
         } else {
             indicator.startAnimating()
@@ -36,6 +35,12 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "userAlreadyLoggedIn" {
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
     }
 }
 

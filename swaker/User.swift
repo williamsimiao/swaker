@@ -17,7 +17,7 @@ class User: NSObject {
     var name:String!
     var photo:NSData?
     var submissionDate:NSDate?
-    var friends:Array<User>?
+    var friends = [User]()
     
     
     

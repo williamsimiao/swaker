@@ -11,10 +11,9 @@ import Parse
 
 class UserDAO: NSObject {
     
-    var currentUserFriends = [User]()
-    var currentUser:User?
+    /*//////////////////////////////CLASS ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+    //MARK: Class atts and functions
     static var instance:UserDAO?
-    
     static func sharedInstance() -> UserDAO {
         if instance == nil {
             instance = UserDAO()
@@ -25,6 +24,19 @@ class UserDAO: NSObject {
         return instance!
     }
     
+    static func unload() {
+        self.instance = nil
+        PFInstallation.currentInstallation().setObject([], forKey: "channels")
+        PFInstallation.currentInstallation().removeObjectForKey("user")
+        PFInstallation.currentInstallation().save()
+    }
+    
+    /*//////////////////////////////INSTANCE ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+    //MARK: Current User Property
+    var currentUser:User?
+    
+    //MARK: Functions
+    //MARK: User Functions
     /****************************************************************************************************
         Função de login do usuario
         Parâmetros: Usuário com username e senha
@@ -36,8 +48,7 @@ class UserDAO: NSObject {
                 if currentUser == nil {
                     currentUser = User(user: userDAO)
                     PFInstallation.currentInstallation().setObject(userDAO, forKey: "user")
-                    PFInstallation.currentInstallation().save()
-
+                    PFInstallation.currentInstallation().saveInBackground()
                 }
                 return true
             }
@@ -56,9 +67,7 @@ class UserDAO: NSObject {
         userDAO.password = user.password
         userDAO.email = user.email
         userDAO.setObject(user.name, forKey: "name")
-        if user.photo != nil {
-            userDAO.setObject(PFFile(data:user.photo!), forKey: "photo")
-        }
+        userDAO.setObject(PFFile(data:user.photo!), forKey: "photo")
         if userDAO.signUp() {
             self.logout()
             return true
@@ -73,8 +82,8 @@ class UserDAO: NSObject {
     ****************************************************************************************************/
     func logout() {
         PFUser.logOut()
-        UserDAO.unload()
         AlarmDAO.unload()
+        UserDAO.unload()
     }
     
     
@@ -97,16 +106,22 @@ class UserDAO: NSObject {
     func updateUser(user:User!) {
         
         var sucess = Bool()
-        
         let userDAO = PFUser.currentUser()!
-        
         userDAO.setObject(user.name, forKey: "name")
-        if user.photo != nil {
-            userDAO.setObject(PFFile(data: user.photo!), forKey: "photo")
-        }
+        userDAO.setObject(PFFile(data: user.photo!), forKey: "photo")
         userDAO.saveEventually()
     }
     
+    /****************************************************************************************************
+    Função que reseta a senha do usuário
+    Parâmetros : email do usuário
+    Retorno    : true = resetado, false = não resetado
+    ****************************************************************************************************/
+    func resetPasswordForEmail(email:String!) -> Bool {
+        return PFUser.requestPasswordResetForEmail(email)
+    }
+    
+    //MARK: Friends Functions
     /****************************************************************************************************
         Função que retorna os amigos de um usuário para a propriedade self.currentUserFriends
         Parâmetros : void
@@ -121,12 +136,11 @@ class UserDAO: NSObject {
         if objects != nil {
             for obj in objects! {
                 let user = PFUser.query()?.whereKey("objectId", equalTo: obj["friendId"] as! String).findObjects()!.first as! PFUser
-                PFInstallation.currentInstallation().addObject("f" + (user.objectId!), forKey: "channels")
                 friends.append(User(user: user))
+                PFInstallation.currentInstallation().addObject("f" + (user.objectId!), forKey: "channels")
             }
         }
-        currentUserFriends = friends
-        currentUser?.friends = friends
+        currentUser!.friends = friends
     }
     
     /****************************************************************************************************
@@ -187,21 +201,5 @@ class UserDAO: NSObject {
             return false
         }
         return true
-    }
-    
-    /****************************************************************************************************
-        Função que reseta a senha do usuário
-        Parâmetros : email do usuário
-        Retorno    : true = resetado, false = não resetado
-    ****************************************************************************************************/
-    func resetPasswordForEmail(email:String!) -> Bool {
-        return PFUser.requestPasswordResetForEmail(email)
-    }
-    
-    static func unload() {
-        self.instance = nil
-        PFInstallation.currentInstallation().setObject([], forKey: "channels")
-        PFInstallation.currentInstallation().removeObjectForKey("user")
-        PFInstallation.currentInstallation().save()
     }
 }
