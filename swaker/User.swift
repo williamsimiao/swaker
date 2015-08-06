@@ -52,4 +52,8 @@ class User: NSObject {
             self.photo = photo.getData()
         }
     }
+    
+    init(userId:String!) {
+        self.objectId = userId
+    }
 }

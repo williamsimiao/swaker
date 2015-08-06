@@ -58,6 +58,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
         photoImageView.image = image
         dismissViewControllerAnimated(true, completion: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "updateUser")
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -68,6 +70,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     func cancel() {
         nameTextField.resignFirstResponder()
         nameTextField.text = UserDAO.sharedInstance().currentUser!.name
+        photoImageView.image = UIImage(data: UserDAO.sharedInstance().currentUser!.photo!)
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = nil
     }

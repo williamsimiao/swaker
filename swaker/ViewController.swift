@@ -15,14 +15,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let path = NSBundle.mainBundle().pathForResource("paidefamilia", ofType: "mp3")!
-        println(path)
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
-        
         if PFUser.currentUser()?.username == nil {
             performSegueWithIdentifier("loginScreen", sender: self)
         } else {

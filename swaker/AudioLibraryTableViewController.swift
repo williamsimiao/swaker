@@ -23,7 +23,6 @@ class AudioLibraryTableViewController: UITableViewController {
         segmentControl.setTitle("Received", forSegmentAtIndex: 0)
         segmentControl.setTitle("Created", forSegmentAtIndex: 1)
         //setei para a segunda ser a defult
-
         navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

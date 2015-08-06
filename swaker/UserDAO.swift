@@ -121,7 +121,7 @@ class UserDAO: NSObject {
         if objects != nil {
             for obj in objects! {
                 let user = PFUser.query()?.whereKey("objectId", equalTo: obj["friendId"] as! String).findObjects()!.first as! PFUser
-                PFInstallation.currentInstallation().addObject("f" + user.objectId!, forKey: "channels")
+                PFInstallation.currentInstallation().addObject("f" + (user.objectId!), forKey: "channels")
                 friends.append(User(user: user))
             }
         }
