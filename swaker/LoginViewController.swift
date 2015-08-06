@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -18,6 +18,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var textFieldsView: UIView!
     var gradientLayer:CAGradientLayer!
+    
+    @IBOutlet weak var loginButtonYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var forgotPasswordButtonYConstraint: NSLayoutConstraint!
     
     
     override func viewDidLoad() {
@@ -31,6 +34,8 @@ class LoginViewController: UIViewController {
         logInButton.clipsToBounds = true
         textFieldsView.layer.cornerRadius = 4
         textFieldsView.clipsToBounds = true
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
         // Do any additional setup after loading the view.
         indicator.hidden = true
         indicator.startAnimating()
@@ -41,8 +46,13 @@ class LoginViewController: UIViewController {
         self.logInButton.alpha = 1
         self.forgotPasswordButton.alpha = 1
         self.signUpButton.alpha = 1
+
     }
 
+    override func viewDidAppear(animated: Bool) {
+        println(logInButton.frame)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -53,6 +63,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func login(sender: AnyObject) {
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
         let indicator = self.indicator
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
         indicator.hidden = false
@@ -64,6 +76,7 @@ class LoginViewController: UIViewController {
                     AlarmDAO.sharedInstance().loadUserAlarms()
                     AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
                     AlarmDAO.sharedInstance().subscribeToAlarms()
+                    self.clearTextFields()
                 })
             } else {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -80,6 +93,11 @@ class LoginViewController: UIViewController {
         })
     }
     
+    func clearTextFields() {
+        self.usernameTextField.text = ""
+        self.passwordTextField.text = ""
+    }
+    
     @IBAction func forgotYourPassword(sender:AnyObject) {
         let delaytime = NSTimeInterval(0.2)
         UIView.animateWithDuration(delaytime, animations: { () -> Void in
@@ -90,6 +108,32 @@ class LoginViewController: UIViewController {
         })
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delaytime * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
             self.performSegueWithIdentifier("forgotPassword", sender: self)
+        }
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if loginButtonYConstraint.constant != view.frame.height * 0.15 {
+            loginButtonYConstraint.constant = view.frame.height * 0.15
+            forgotPasswordButtonYConstraint.constant += view.frame.height * 2/5
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        loginButtonYConstraint.constant = 0
+        forgotPasswordButtonYConstraint.constant -= view.frame.height * 2/5
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @IBAction func clickOnBackground(sender:AnyObject) {
+        if usernameTextField.isFirstResponder() {
+            usernameTextField.resignFirstResponder()
+        } else if passwordTextField.isFirstResponder() {
+            passwordTextField.resignFirstResponder()
         }
     }
     

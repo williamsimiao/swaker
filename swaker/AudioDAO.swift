@@ -16,16 +16,23 @@ class AudioDAO: NSObject {
     
     var audioCreatedArray = [AudioSaved]()
     var audioReceivedArray = [AudioSaved]()
-    var audioAttemptArray = [AudioAttempt]()
+    var audioTemporaryArray = [AudioAttempt]()
+
     //var audioAttemptArray: Array<AudioAttempt>?
     
     var path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
     
+    var receivedPath:String!
+    var createdPath:String!
+    var temporaryPath:String!
+    
     static func sharedInstance() -> AudioDAO{
         if Instance == nil {
             Instance = AudioDAO()
-            Instance?.loadCreatedAudios()
-            Instance?.loadReceivedAudios()
+            Instance?.receivedPath = Instance!.checkDirectory("Received")
+            Instance?.createdPath = Instance!.checkDirectory("Created")
+            Instance?.temporaryPath = Instance!.checkDirectory("Temporary")
+            Instance?.loadAllAudios()
 
         }
         return Instance!
@@ -34,9 +41,9 @@ class AudioDAO: NSObject {
     /*
         Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
         CARREGA DO BANCO
+        Medodo usado quando o usuario fizer login num novo device
     */
     func loadSavedAudios() {
-        
         let AudioQuery = PFQuery(className: "AudioSaved")
         let ArrayPFobjectsReceived = AudioQuery.whereKey("receiverId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!
         
@@ -54,52 +61,95 @@ class AudioDAO: NSObject {
     }
     
     /*
-        CARREGA DA PASTA "Received"
+    Checa se existe um driretorio 'directoryPath' na pasta documents, caso nao exista cria
     */
+    
+    func checkDirectory(directoryPath: String) -> String {
+        var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+        let fullPath = docs.stringByAppendingPathComponent(directoryPath)
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(fullPath) {
+            var error:NSError?
+            NSFileManager.defaultManager().createDirectoryAtPath(fullPath, withIntermediateDirectories: false, attributes: nil, error: &error)
+            println("criando \(directoryPath)")
+            if error != nil {
+                println(error?.localizedDescription)
+            }
+        }
+        println("\(fullPath)")
+        return fullPath
+    }
+
+    
+    /*
+        carrega os dois
+    */
+    func loadAllAudios() {
+        loadReceivedAudios()
+        loadCreatedAudios()
+    }
+       
     func loadReceivedAudios() {
-        //path to de directory "received"
-        let receivedPath = path.stringByAppendingPathComponent("Received")
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(receivedPath)
-        while let fileName:String = enumerator?.nextObject() as? String{
+        while let fileName:String = enumerator?.nextObject() as? String {
             if fileName.hasSuffix("auf") {
                 let filePath = receivedPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
-                var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
+                
+                /// MUDEI
+                
+                //var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
+                var anAudioAttempt = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioAttempt
+                var anAudio = AudioSaved(myAudioAttempt: anAudioAttempt)
+                
+
                 audioReceivedArray.append(anAudio)
             }
         }
     }
     
-    /*
-        CARREGA DA PASTA "Created"
-    */
     func loadCreatedAudios() {
-        //path to de directory "created"
-        let createdPath = path.stringByAppendingPathComponent("Received")
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(createdPath)
-        while let fileName:String = enumerator?.nextObject() as? String{
+        while let fileName:String = enumerator?.nextObject() as? String {
             if fileName.hasSuffix("auf") {
-                let filePath = createdPath.stringByAppendingPathComponent(fileName)
+                let filePath = receivedPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
                 var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
                 audioCreatedArray.append(anAudio)
             }
         }
     }
-
     
     /*
-        Carrega todos os audios que possuem alarmId como o parametro alarmId
-        Parametro: ID do alarme
+        Carrega do BANCO todos os audios que possuem alarmId como o parametro alarmId
+        Parametro: alarme
     */
-    func loadAudiosFromAlarm(alarmId: String) {
-        audioAttemptArray.removeAll(keepCapacity: false)
+    func loadAudiosFromAlarm(alarm:Alarm) {
+        audioTemporaryArray.removeAll(keepCapacity: false)
         let AudioQuery = PFQuery(className: "AudioAttempt")
-        let ArrayPFobjectsAttempt = AudioQuery.whereKey("alarmId", equalTo: alarmId).findObjects()!
+        let ArrayPFobjectsAttempt = AudioQuery.whereKey("alarmId", equalTo: alarm.objectId).findObjects()!
         for aPFobject in ArrayPFobjectsAttempt {
-            var anAudio = AudioAttempt(alarmId: alarmId as String, audio: (aPFobject["audio"] as! PFFile).getData()!, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
-            audioAttemptArray.append(anAudio)
+            var anAudio = AudioAttempt(alarmId: alarm.objectId as String, audio: (aPFobject["audio"] as! PFFile).getData()!, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
+            audioTemporaryArray.append(anAudio)
         }
+    }
+    
+    
+    /*
+        Movendo um audio do attempt para a o received
+    */
+    
+    func moveToReceivedDir(audioId: String) {
+        var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+        println("movendo")
+        let origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).auf")
+        let destinationPath = docs.stringByAppendingPathComponent("Received/\(audioId).auf")
+        let manager = NSFileManager.defaultManager()
+        //copiando e edeletando em seguida
+        var error:NSError?
+        manager.copyItemAtPath(origemPath, toPath: destinationPath, error: &error)
+        manager.removeItemAtPath(origemPath, error: &error)
+        
     }
     
     /*
@@ -109,7 +159,7 @@ class AudioDAO: NSObject {
     func addAudioAttempt(anAudio:AudioAttempt) -> PFObject? {
         let PFAttempt = PFObject(className: "AudioAttempt")
         PFAttempt.setObject(anAudio.alarmId!, forKey: "alarmId")
-        let file = PFFile(name: anAudio.audioName, data: anAudio.audio)
+        let file = PFFile(name: "nao_importa", data: anAudio.audio)
         PFAttempt.setObject(file, forKey: "audio")
         PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
@@ -165,6 +215,26 @@ class AudioDAO: NSObject {
         return receivedAudio
     }
     
-    
-    
+    func acceptAudioAttempt(audio:AudioAttempt) {
+        
+        audio.SaveAudioInToTemporaryDir()
+        //just to be shure
+        println("audioDescription:\(audio.audioDescription!)")
+        
+        for notif in UIApplication.sharedApplication().scheduledLocalNotifications {
+            let notif = notif as! UILocalNotification
+            //nem precisa checar a categoria aqui pq so mostra a action de accept pra essa categoria
+            if notif.category == AppDelegate.categoriesIdentifiers.newAlarm.rawValue {
+                UIApplication.sharedApplication().cancelLocalNotification(notif)
+                let notifUserInfo = notif.userInfo as! [String:String!]
+                
+                ////////NAO FUNCIONA //////////MALDITO BUNDLE
+                if notifUserInfo["alarmId"] == audio.alarmId {
+                    notif.soundName = path.stringByAppendingPathComponent("Received").stringByAppendingPathComponent(audio.alarmId + ".caf")
+                    UIApplication.sharedApplication().scheduleLocalNotification(notif)
+                }
+                ///////////////////////////////////
+            }
+        }
+    }
 }

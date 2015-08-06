@@ -51,6 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //--------------------------------------
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let sett = UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(sett)
+        
+        //getRecordViewController()
+        
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         //        Parse.enableLocalDatastore()
@@ -61,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Uncomment and fill in with your Parse credentials:
         Parse.setApplicationId("eKtqynNoZEzvVKyz1FF7c5P2AnZabIH2iFDxROlf", clientKey: "BWNFwG2GyaN9sWywej6Pzh5iyCYHedTOcJUyZ4oW")
-        println("LAUNCH")
         //
         // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
         // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
@@ -175,6 +180,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        println("aeee")
+    }
+    
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
             println("Push notifications are not supported in the iOS Simulator.")
@@ -198,13 +207,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     */
     
     func getRecordViewController() {
-        let tabController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
-        let navigation = tabController.viewControllers![3] as! UINavigationController
-        
-        let friendsAlarmsController = navigation.storyboard?.instantiateViewControllerWithIdentifier("FriendsAlarmsController") as! UITableViewController
-        let recordController = friendsAlarmsController.storyboard?.instantiateViewControllerWithIdentifier("RecordController") as! UIViewController
-        
-        navigation.pushViewController(recordController, animated: true)
+        let storiboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
+        //let recordController = storiboard.instantiateViewControllerWithIdentifier("RecordController") as! RecordViewController
+        let root = self.window?.rootViewController as! UITabBarController
+        root.selectedIndex = 3
+        //root.presentViewController(RecordViewController(), animated: true, completion: nil)
     }
     
     func getAlarmsViewController() {
@@ -212,6 +219,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigation = tabController.viewControllers![3] as! UINavigationController
         
         let MyAlarmsController = navigation.storyboard?.instantiateViewControllerWithIdentifier("MyAlarmsController") as! UITableViewController
+        navigation.presentViewController(MyAlarmsController, animated: true, completion: nil)
+        
     }
 
     /*
@@ -221,7 +230,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let notificationPayload = userInfo["aps"] as! NSDictionary
         
-         if application.applicationState == UIApplicationState.Background {
+         if application.applicationState.rawValue == 1 {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
             let notificationCategory = notificationPayload["category"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
@@ -233,6 +242,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
          }
+         else {
+            println("NUNCA VAI IMPRIMIR ISSO")
+        }
         
         if application.applicationState == UIApplicationState.Inactive {
             //ta 
@@ -256,25 +268,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let notificationPayload = userInfo["aps"] as! NSDictionary
             
             // Create a pointer to the audio object
-            let audio = userInfo["a"] as! String
-            println("Buscando pelo audio de ID: \(audio)")
+            let audioId = userInfo["a"] as! String
             if identifier == ActionsIdentifiers.accept.rawValue {
-                if let audioObject = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audio).getFirstObject(){
-                    println("achou")
-                    let receivedAudio = AudioSaved(PFAudioSaved: audioObject)
-                    receivedAudio.SaveAudioInToDirectoy("Received")
-                    //just to be shure
-                    println("audioDescription:\(receivedAudio.audioDescription!)")
-                    
-                    for notif in UIApplication.sharedApplication().scheduledLocalNotifications {
-                        let notif = notif as! UILocalNotification
-                    }
-                    
-                }
-                else {
-                    println("nao achou")
-                }
                 
+                let audioQuery = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audioId)
+                let audioLoco = audioQuery.findObjects()?.first as! PFObject
+                let myAttemp = AudioAttempt(PFAudioAttempt: audioLoco)
+                AudioDAO.sharedInstance().acceptAudioAttempt(myAttemp)
+
             }
             if identifier == ActionsIdentifiers.refuse.rawValue {
                 //deletando o audio do audio attempt

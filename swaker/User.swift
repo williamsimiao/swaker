@@ -17,7 +17,7 @@ class User: NSObject {
     var name:String!
     var photo:NSData?
     var submissionDate:NSDate?
-    var friends:Array<User>?
+    var friends = [User]()
     
     
     
@@ -48,6 +48,12 @@ class User: NSObject {
         self.email = user.email
         self.username = user.username
         self.name = user["name"] as! String
-        self.photo = user["photo"] as? NSData
+        if let photo = user["photo"] as? PFFile {
+            self.photo = photo.getData()
+        }
+    }
+    
+    init(userId:String!) {
+        self.objectId = userId
     }
 }

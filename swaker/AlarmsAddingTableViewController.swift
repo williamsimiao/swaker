@@ -7,12 +7,24 @@
 //
 
 import UIKit
+import Parse
+
 
 class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var datePicker: UIPickerView!
     var currentCalendar = NSCalendar.currentCalendar()
+    
+    enum categoriesIdentifiers:String{
+        //notificacao de nova proposta de audio
+        case proposal = "PROPOSAL_CATEGORY"
+        //notificacao de amigo setou novo alarme, nao necessita de actions
+        case newAlarm = "NEWALARM_CATEGORY"
+        
+        // nao precisa de category pra notification de audio aceito
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +58,26 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
         
         let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: fireDate , setterId: UserDAO.sharedInstance().currentUser!.objectId)
         AlarmDAO.sharedInstance().addAlarm(alarm)
+        
+        ///dando o push pro setter receber a notificacao
+        let myUserDAO = UserDAO.sharedInstance()
+        let data = [
+            "category" : categoriesIdentifiers.newAlarm.rawValue,
+            "alert" : "Novo alarme de \(myUserDAO.currentUser!.name)",
+            "badge" : "Increment",
+            "sounds" : "paidefamilia.mp3",
+        ]
+        
+        let push = PFPush()
+        push.expireAtDate(alarm.fireDate)
+        push.setChannel("a" + alarm.objectId)
+        push.setData(data)
+        push.sendPushInBackground()
+        /////fim do push
+        
+        
+        
+        
         navigationController?.popViewControllerAnimated(true)
     }
     

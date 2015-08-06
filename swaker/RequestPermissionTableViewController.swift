@@ -15,7 +15,7 @@ class RequestPermissionTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        audioDAO.loadAudiosFromAlarm(alarm!.objectId)
+        audioDAO.loadAudiosFromAlarm(alarm!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,15 +30,16 @@ class RequestPermissionTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  audioDAO.audioAttemptArray.count
+        return  audioDAO.audioTemporaryArray.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RequestPTableViewCell
-        cell.textLabel?.text = "\(audioDAO.audioAttemptArray[indexPath.row].audioName)"
+        cell.textLabel?.text = "\(audioDAO.audioTemporaryArray[indexPath.row].audioName)"
+        cell.audioAttempt = audioDAO.audioTemporaryArray[indexPath.row]
+        
         return cell
-
     }
     
 }
