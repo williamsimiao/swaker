@@ -13,8 +13,15 @@ import AVFoundation
 class AudioLibraryTableViewController: UITableViewController {
     
     var audioPlayer:AVAudioPlayer!
-    var allowAudioSelection: Bool!
-
+    //a boleana abaixo serve para identificar de a view foi chamada a partir da RecordViewController
+    //significando que deve ser permitido a selecao
+    var allowAudioSelection = false
+    var selectedAudio:NSData!
+    //este pode ser o array de audio recebidos ou de criados, depende da segment control
+    var currentArray = [AudioSaved]()
+    var cellArray = [AudioCell]()
+    
+    @IBOutlet weak var CancelButton: UIBarButtonItem!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     
@@ -22,35 +29,48 @@ class AudioLibraryTableViewController: UITableViewController {
         super.viewDidLoad()
         segmentControl.setTitle("Received", forSegmentAtIndex: 0)
         segmentControl.setTitle("Created", forSegmentAtIndex: 1)
-        //setei para a segunda ser a defult
-
+        //setei para a segunda ser a default no storyboard
+        
+        
+        
         navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func CancelAction(sender: AnyObject) {
+        allowAudioSelection = false
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     @IBAction func indexChanged(sender: AnyObject) {
+        if segmentControl.selectedSegmentIndex == 0 {
+            currentArray = AudioDAO.sharedInstance().audioReceivedArray
+        }
+        else {
+            currentArray = AudioDAO.sharedInstance().audioCreatedArray
+        }
         
+        tableView.reloadData()
     }
     
-
+    
     @IBAction func play(sender:AnyObject) {
         let cell = sender.superview as! AudioCell
         audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
@@ -59,48 +79,54 @@ class AudioLibraryTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         AudioDAO.sharedInstance().loadAllAudios()
+        if segmentControl.selectedSegmentIndex == 0 {
+            currentArray = AudioDAO.sharedInstance().audioReceivedArray
+        }
+        else {
+            currentArray = AudioDAO.sharedInstance().audioCreatedArray
+        }
         tableView.reloadData()
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if segmentControl.selectedSegmentIndex == 0 {
-            return AudioDAO.sharedInstance().audioReceivedArray.count
-        }
-        else {
-            return AudioDAO.sharedInstance().audioCreatedArray.count
-        }
+        return currentArray.count
     }
-
-
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! AudioCell
+        
         if (segmentControl.selectedSegmentIndex == 0) {
             cell.textLabel?.text = AudioDAO.sharedInstance().audioReceivedArray[indexPath.row].audioDescription
             cell.audio = AudioDAO.sharedInstance().audioReceivedArray[indexPath.row].audio
-
+            
         }
         else {
             cell.textLabel?.text = AudioDAO.sharedInstance().audioCreatedArray[indexPath.row].audioDescription
             cell.audio = AudioDAO.sharedInstance().audioCreatedArray[indexPath.row].audio
-
+            
         }
         
+        if allowAudioSelection == false {
+            cell.selectionStyle = .None
+        }
         
         return cell
     }
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    // Return NO if you do not want the specified item to be editable.
+    return true
     }
     */
     
     // Override to support editing the table view.
-
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         
@@ -110,7 +136,7 @@ class AudioLibraryTableViewController: UITableViewController {
             //nao precisa recarregar acho
             if segmentControl.selectedSegmentIndex == 0 {
                 AudioDAO.sharedInstance().audioReceivedArray.removeAtIndex(indexPath.row)
-
+                
             }
             else {
                 AudioDAO.sharedInstance().audioCreatedArray.removeAtIndex(indexPath.row)
@@ -118,32 +144,44 @@ class AudioLibraryTableViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
-
     
-
+    
+    /*
+    Metodo para atribuir o audio associado a cell selecionada para a variavel selectedAudio
+    Por fim retorna a RecordViewController
+    Retorno: Void
+    
+    */
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let theAudio = currentArray[indexPath.row]
+        selectedAudio = theAudio.audio
+    }
+    
+    
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
     }
     */
-
+    
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
+    // Return NO if you do not want the item to be re-orderable.
+    return true
     }
     */
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

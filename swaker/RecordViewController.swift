@@ -23,6 +23,7 @@ class RecordViewController: UIViewController {
     let MyuserDAO = UserDAO.sharedInstance()
     let MyaudioDAO = AudioDAO.sharedInstance()
     var alarm:Alarm!
+    var audioToGo: NSData!
     
     enum categoriesIdentifiers:String{
         //notificacao de nova proposta de audio
@@ -50,7 +51,7 @@ class RecordViewController: UIViewController {
         PleaseLabel.hidden = false
         DescriptionField.hidden = false
         SendButton.hidden = false
-
+        
     }
     
     //MARK: play
@@ -71,8 +72,7 @@ class RecordViewController: UIViewController {
         let data = [
             "category" : categoriesIdentifiers.proposal.rawValue,
             "alert" : "Proposta de audio de \(MyuserDAO.currentUser!.name)",
-            "badge" : "Increment",
-            //"sounds" : "cheering.caf",
+            "sounds" : "paidefamilia.mp3",
             "a" : objectId!
         ]
         
@@ -101,13 +101,13 @@ class RecordViewController: UIViewController {
         
         let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let docsDir = dirPaths[0] as! String
-        var soundFilePath = docsDir.stringByAppendingPathComponent("Saved")
+        var soundFilePath = AudioDAO.sharedInstance().createdPath
         
         let manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(soundFilePath) {
             manager.createDirectoryAtPath(soundFilePath, withIntermediateDirectories: false, attributes: nil, error: nil)
         }
-        soundFilePath = soundFilePath.stringByAppendingPathComponent("record.caf")
+        soundFilePath = soundFilePath.stringByAppendingPathComponent(PleaseLabel.text! + "caf")
         
         let recordSettings =
         [AVEncoderAudioQualityKey: AVAudioQuality.Max.rawValue,
@@ -128,6 +128,14 @@ class RecordViewController: UIViewController {
         audioRecorder.prepareToRecord()
         
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "AudioLibrarySegue" {
+            let aLibrary = segue.destinationViewController as! AudioLibraryTableViewController
+            aLibrary.allowAudioSelection = true
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {

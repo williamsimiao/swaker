@@ -15,10 +15,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let path = NSBundle.mainBundle().pathForResource("paidefamilia", ofType: "mp3")!
-        println(path)
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
-        }
+//        //let path = NSBundle.mainBundle().pathForResource("paidefamilia", ofType: "mp3")!
+//        println(path)
+//        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+//        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -32,6 +32,8 @@ class ViewController: UIViewController {
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 AlarmDAO.sharedInstance().loadFriendsAlarms()
                 AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
+                //audio load acrescentado abaixo
+                AudioDAO.sharedInstance().loadAllAudios()
                 self.indicator.stopAnimating()
                 self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
             })
