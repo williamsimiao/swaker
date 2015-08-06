@@ -38,7 +38,7 @@ class AlarmDAO: NSObject {
     /*//////////////////////////////INSTANCE ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     
     //MARK: Properties
-    var delegate: AlarmDAODataUpdating?
+    var friendsAlarmsDelegate: AlarmDAODataUpdating?
     
     //MARK: Paths
     let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
@@ -60,8 +60,8 @@ class AlarmDAO: NSObject {
     var userAlarms = [Alarm]()
     var friendsAlarms = [Alarm]() {
         didSet {
-            if delegate != nil {
-                delegate!.reloadData()
+            if friendsAlarmsDelegate != nil {
+                friendsAlarmsDelegate!.reloadData()
             }
         }
     }
@@ -86,7 +86,6 @@ class AlarmDAO: NSObject {
                         userAlarms.append(anAlarm)
                     } else {
                         // Move os audios ja tocados pra pasta certa
-                        println("passouu")
                         self.deleteAlarm(anAlarm)
                     }
                 }

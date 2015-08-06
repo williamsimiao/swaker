@@ -22,11 +22,6 @@ class AudioCell: UITableViewCell {
         controller.audioPlayer.play()
     }
     
-//    override init(style: UITableViewCellStyle, reuseIdentifier: String?, path: String) {
-//        let decoder = 
-//        let audio = AudioSaved()
-//    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
