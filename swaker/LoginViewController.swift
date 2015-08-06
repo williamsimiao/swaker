@@ -63,8 +63,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func login(sender: AnyObject) {
-        usernameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
+        lowerViews()
         let indicator = self.indicator
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
         indicator.hidden = false
@@ -121,20 +120,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    @IBAction func clickOnBackground(sender:AnyObject) {
+        lowerViews()
+    }
+    
+    func lowerViews() {
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
         loginButtonYConstraint.constant = 0
         forgotPasswordButtonYConstraint.constant -= view.frame.height * 2/5
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
-    }
-    
-    @IBAction func clickOnBackground(sender:AnyObject) {
-        if usernameTextField.isFirstResponder() {
-            usernameTextField.resignFirstResponder()
-        } else if passwordTextField.isFirstResponder() {
-            passwordTextField.resignFirstResponder()
-        }
     }
     
     // MARK: - Navigation
