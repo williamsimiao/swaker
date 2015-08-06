@@ -62,7 +62,6 @@ class UserDAO: NSObject {
     ****************************************************************************************************/
     func signup(user:User!) -> Bool {   
         var userDAO = PFUser()
-        
         userDAO.username = user.username
         userDAO.password = user.password
         userDAO.email = user.email
@@ -104,7 +103,6 @@ class UserDAO: NSObject {
         Retorno    : True ou false para o update dos dados
     ****************************************************************************************************/
     func updateUser(user:User!) {
-        
         var sucess = Bool()
         let userDAO = PFUser.currentUser()!
         userDAO.setObject(user.name, forKey: "name")
@@ -129,18 +127,23 @@ class UserDAO: NSObject {
     ****************************************************************************************************/
     func loadFriendsForCurrentUser() {
         println("Loading friends")
-        var friends = [User]()
+        var friendsIds = [String]()
+        for friend in currentUser!.friends {
+            friendsIds.append(friend.objectId)
+        }
         let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: currentUser!.objectId)
-        let anyObjects = query.findObjects()
-        let objects = anyObjects as? [PFObject]
-        if objects != nil {
-            for obj in objects! {
-                let user = PFUser.query()?.whereKey("objectId", equalTo: obj["friendId"] as! String).findObjects()!.first as! PFUser
-                friends.append(User(user: user))
-                PFInstallation.currentInstallation().addObject("f" + (user.objectId!), forKey: "channels")
+        query.findObjectsInBackgroundWithBlock { (friendListObjects, error) -> Void in
+            if error == nil {
+                var friends = [User]()
+                let friendListObjects = friendListObjects as! [PFObject]
+                for object in friendListObjects {
+                    let friend = PFUser(withoutDataWithObjectId: object["friendId"] as! String)
+                    friend.fetch()
+                    friends.append(User(user: friend))
+                }
+                self.currentUser!.friends = friends
             }
         }
-        currentUser!.friends = friends
     }
     
     /****************************************************************************************************
@@ -200,6 +203,7 @@ class UserDAO: NSObject {
             PFObject(className: "FriendList", dictionary: ["userId":currentUser!.objectId, "friendId":friend.objectId]).saveEventually()
             return false
         }
+        currentUser!.friends.removeAtIndex(find(currentUser!.friends, friend)!)
         return true
     }
 }

@@ -22,21 +22,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginButtonYConstraint: NSLayoutConstraint!
     @IBOutlet weak var forgotPasswordButtonYConstraint: NSLayoutConstraint!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNeedsStatusBarAppearanceUpdate()
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
-        view.layer.insertSublayer(gradientLayer, atIndex: 0)
-        logInButton.layer.cornerRadius = 4
-        logInButton.clipsToBounds = true
-        textFieldsView.layer.cornerRadius = 4
-        textFieldsView.clipsToBounds = true
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
-        // Do any additional setup after loading the view.
+        setUpViews()
         indicator.hidden = true
         indicator.startAnimating()
     }
@@ -51,6 +39,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidAppear(animated: Bool) {
         println(logInButton.frame)
+    }
+    
+    func setUpViews() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
+        view.layer.insertSublayer(gradientLayer, atIndex: 0)
+        logInButton.layer.cornerRadius = 4
+        logInButton.clipsToBounds = true
+        textFieldsView.layer.cornerRadius = 4
+        textFieldsView.clipsToBounds = true
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {

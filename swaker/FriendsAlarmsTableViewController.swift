@@ -10,8 +10,11 @@ import UIKit
 
 class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdating {
     
+    var friendsAlarms = [Alarm]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        friendsAlarms = AlarmDAO.sharedInstance().friendsAlarms
         AlarmDAO.sharedInstance().friendsAlarmsDelegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -21,6 +24,7 @@ class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdat
     }
     
     func reloadData() {
+        friendsAlarms = AlarmDAO.sharedInstance().friendsAlarms
         tableView.reloadData()
     }
     
@@ -44,12 +48,12 @@ class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdat
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return AlarmDAO.sharedInstance().friendsAlarms.count
+        return friendsAlarms.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = "\(AlarmDAO.sharedInstance().friendsAlarms[indexPath.row].alarmDescription)"
+        cell.textLabel?.text = "\(friendsAlarms[indexPath.row].alarmDescription)"
         // Configure the cell...
         return cell
     }

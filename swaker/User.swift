@@ -17,28 +17,34 @@ class User: NSObject {
     var name:String!
     var photo:NSData?
     var submissionDate:NSDate?
-    var friends = [User]()
+    var friends = [User]() {
+        didSet {
+            if self.friendsDelegate != nil {
+                self.friendsDelegate!.reloadData()
+            }
+        }
+    }
     
-    
+    var friendsDelegate:FriendsDataUpdating?
     
     init(username:String!, password:String!) {
-        self.username = username
+        self.username = username.lowercaseString
         self.password = password
     }
     
     init(objectId:String!, username:String!, password:String?, email:String!, name:String!, photo:NSData?) {
         self.objectId = objectId
-        self.username = username
+        self.username = username.lowercaseString
         self.password = password
-        self.email = email
+        self.email = email.lowercaseString
         self.name = name
         self.photo = photo
     }
     
     init(username:String!, password:String?, email:String!, name:String!, photo:NSData?) {
-        self.username = username
+        self.username = username.lowercaseString
         self.password = password
-        self.email = email
+        self.email = email.lowercaseString
         self.name = name
         self.photo = photo
     }
@@ -53,7 +59,14 @@ class User: NSObject {
         }
     }
     
-    init(userId:String!) {
-        self.objectId = userId
-    }
+//    func toPFUser() -> PFUser {
+//        let pfUser = PFUser(withoutDataWithObjectId: self.objectId)
+//        pfUser.username = self.username
+//        pfUser.email = self.email
+//        pfUser.fetch()
+//    }
+}
+
+protocol FriendsDataUpdating {
+    func reloadData()
 }

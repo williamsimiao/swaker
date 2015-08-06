@@ -134,7 +134,6 @@ class RecordViewController: UIViewController {
         if segue.identifier == "AudioLibrarySegue" {
             let aLibrary = segue.destinationViewController as! AudioLibraryTableViewController
             aLibrary.allowAudioSelection = true
-            
         }
     }
     
