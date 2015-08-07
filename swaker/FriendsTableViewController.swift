@@ -12,12 +12,19 @@ class FriendsTableViewController: UITableViewController, FriendsDataUpdating {
 
     var friends = [User]()
     var isDeleting = false
+    var hasLoaded = false {
+        didSet {
+            if hasLoaded {
+                navigationItem.titleView = nil
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Friends"
         friends = UserDAO.sharedInstance().currentUser!.friends
         UserDAO.sharedInstance().currentUser!.friendsDelegate = self
-        navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

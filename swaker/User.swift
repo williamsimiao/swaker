@@ -10,6 +10,7 @@ import UIKit
 import Parse
 
 class User: NSObject {
+    
     var objectId:String!
     var username:String!
     var password:String!
@@ -17,15 +18,27 @@ class User: NSObject {
     var name:String!
     var photo:NSData?
     var submissionDate:NSDate?
+    
+    var hasLoadedFriends = false {
+        didSet {
+           self.friendsDelegate?.hasLoaded = hasLoadedFriends
+        }
+    }
+    
     var friends = [User]() {
         didSet {
+            hasLoadedFriends = true
             if self.friendsDelegate != nil {
                 self.friendsDelegate!.reloadData()
             }
         }
     }
     
-    var friendsDelegate:FriendsDataUpdating?
+    var friendsDelegate:FriendsDataUpdating? {
+        didSet {
+            friendsDelegate!.hasLoaded = hasLoadedFriends
+        }
+    }
     
     init(username:String!, password:String!) {
         self.username = username.lowercaseString
@@ -68,5 +81,6 @@ class User: NSObject {
 }
 
 protocol FriendsDataUpdating {
+    var hasLoaded:Bool {get set}
     func reloadData()
 }

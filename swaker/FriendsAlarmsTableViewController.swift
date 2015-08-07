@@ -14,6 +14,7 @@ class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Friends' Alarms"
         friendsAlarms = AlarmDAO.sharedInstance().friendsAlarms
         AlarmDAO.sharedInstance().friendsAlarmsDelegate = self
         // Uncomment the following line to preserve selection between presentations

@@ -57,28 +57,33 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
         let fireDate = currentCalendar.dateFromComponents(components)!
         
         let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: fireDate , setterId: UserDAO.sharedInstance().currentUser!.objectId)
-        AlarmDAO.sharedInstance().addAlarm(alarm)
         
-        ///dando o push pro setter receber a notificacao
-        let myUserDAO = UserDAO.sharedInstance()
-        let data = [
-            "category" : categoriesIdentifiers.newAlarm.rawValue,
-            "alert" : "Novo alarme de \(myUserDAO.currentUser!.name)",
-            "badge" : "Increment",
-            "sounds" : "paidefamilia.mp3",
-        ]
-        
-        let push = PFPush()
-        push.expireAtDate(alarm.fireDate)
-        push.setChannel("a" + alarm.objectId)
-        push.setData(data)
-        push.sendPushInBackground()
-        /////fim do push
-        
-        
-        
-        
-        navigationController?.popViewControllerAnimated(true)
+        let addAlarmResult = AlarmDAO.sharedInstance().addAlarm(alarm)
+        if addAlarmResult.success {
+            ///dando o push pro setter receber a notificacao
+            let myUserDAO = UserDAO.sharedInstance()
+            let data = [
+                "category" : categoriesIdentifiers.newAlarm.rawValue,
+                "alert" : "Novo alarme de \(myUserDAO.currentUser!.name)",
+                "badge" : "Increment",
+                "sounds" : "paidefamilia.mp3",
+            ]
+            
+            let push = PFPush()
+            push.expireAtDate(alarm.fireDate)
+            push.setChannel("a" + alarm.objectId)
+            push.setData(data)
+            push.sendPushInBackground()
+            navigationController?.popViewControllerAnimated(true)
+        }
+        else {
+            let alert = UIAlertController(title: "Error", message: "It was not possible to set the alarm. Try again later.", preferredStyle: UIAlertControllerStyle.Alert)
+            let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+            alert.addAction(action)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -97,19 +102,6 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
         }
         return 0
     }
-
-//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-//        var title = String()
-//        
-//        if component == 0 {
-//            let hours = (row + 1) % 24
-//            title = String(format: "%02d", hours)
-//        } else {
-//            let minutes = row % 60
-//            title = String(format: "%02d", minutes)
-//        }
-//        return title
-//    }
     
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let pStyle = NSMutableParagraphStyle()
@@ -127,16 +119,6 @@ class AlarmsAddingTableViewController: UITableViewController, UIPickerViewDataSo
         return NSAttributedString(string: title, attributes: [NSParagraphStyleAttributeName:pStyle])
     }
     
-//    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-//        println(view.frame.size)
-//        let total = view.frame.size.width
-//        let mid:CGFloat = 10
-//        let firstAndLast = (total - mid) / 2
-//        if component == 1 {
-//            return mid
-//        }
-//        return firstAndLast
-//    }
     // MARK: - Table view data source
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

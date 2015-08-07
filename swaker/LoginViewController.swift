@@ -74,6 +74,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.performSegueWithIdentifier("loginSucceeded", sender: self)
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
                     AlarmDAO.sharedInstance().loadUserAlarms()
+                    AlarmDAO.sharedInstance().loadFriendsAlarms()
                     AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
                     AlarmDAO.sharedInstance().subscribeToAlarms()
                     self.clearTextFields()
@@ -126,10 +127,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func lowerViews() {
+        if usernameTextField.isFirstResponder() || passwordTextField.isFirstResponder() {
+            forgotPasswordButtonYConstraint.constant -= view.frame.height * 2/5
+        }
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         loginButtonYConstraint.constant = 0
-        forgotPasswordButtonYConstraint.constant -= view.frame.height * 2/5
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })

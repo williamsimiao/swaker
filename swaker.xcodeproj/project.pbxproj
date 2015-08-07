@@ -240,12 +240,28 @@
 		4C217ECD1B695CB800E08424 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
-				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
+				4C8153841B747409002BB7F3 /* Before LogIn */,
+				4C8153851B747771002BB7F3 /* After LogIn */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4C8153841B747409002BB7F3 /* Before LogIn */ = {
+			isa = PBXGroup;
+			children = (
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
 				4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */,
 				4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */,
+			);
+			name = "Before LogIn";
+			sourceTree = "<group>";
+		};
+		4C8153851B747771002BB7F3 /* After LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
+				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
 				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
 				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
 				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
@@ -255,7 +271,7 @@
 				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
 				4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */,
 			);
-			name = ViewControllers;
+			name = "After LogIn";
 			sourceTree = "<group>";
 		};
 		4CC5F1011B62B5AF00ADEC8B /* Frameworks */ = {

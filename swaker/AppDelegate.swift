@@ -159,6 +159,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             application.registerForRemoteNotifications()
         }
+        
+        PFInstallation.currentInstallation().saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                println(PFInstallation.currentInstallation().objectId)
+            }
+        }
+        
         return true
     }
     

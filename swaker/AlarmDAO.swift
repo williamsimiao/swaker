@@ -24,7 +24,6 @@ class AlarmDAO: NSObject {
             if let idsToDelete = NSKeyedUnarchiver.unarchiveObjectWithFile(instance!.idsPath) as? [String] {
                 instance?.userAlarmsIdsToDelete = idsToDelete
             }
-            println(instance?.alarmsPath)
         }
         return instance!
     }
@@ -166,17 +165,18 @@ class AlarmDAO: NSObject {
         Parâmetro: o alarme a ser salvo: Alarm
         Retorno: Void
     ***************************************************************************/
-    func addAlarm(alarm:Alarm) -> Bool {
+    func addAlarm(alarm:Alarm) -> (success:Bool, error:NSError?) {
         let PFAlarm = alarm.toPFObject()
-        if PFAlarm.save() {
+        var error:NSError?
+        if PFAlarm.save(&error) {
             alarm.objectId = PFAlarm.objectId
             alarm.save()
             PFInstallation.currentInstallation().addObject("a"+alarm.objectId, forKey: "channels")
             PFInstallation.currentInstallation().save()
             alarm.schedule()
-            return true
+            return (true, error)
         }
-        return false
+        return (false, error)
     }
     
     /***************************************************************************

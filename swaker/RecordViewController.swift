@@ -87,7 +87,6 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         settingRecorder()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
