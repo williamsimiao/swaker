@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class AlarmDAO: NSObject {
+class AlarmDAO: NSObject, FriendsDataUpdating {
     
 /*//////////////////////////////CLASS ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     //MARK: Class atts and functions
@@ -24,6 +24,9 @@ class AlarmDAO: NSObject {
             if let idsToDelete = NSKeyedUnarchiver.unarchiveObjectWithFile(instance!.idsPath) as? [String] {
                 instance?.userAlarmsIdsToDelete = idsToDelete
             }
+            if let user = UserDAO.sharedInstance().currentUser {
+                user.friendsDelegate.append(instance!)
+            }
         }
         return instance!
     }
@@ -37,8 +40,8 @@ class AlarmDAO: NSObject {
     /*//////////////////////////////INSTANCE ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     
     //MARK: Properties
-    var friendsAlarmsDelegate: AlarmDAODataUpdating?
-    
+    var friendsAlarmsDelegate = [AlarmDAODataUpdating]()
+    var hasLoaded: Bool = true
     //MARK: Paths
     let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
     var idsPath:String!
@@ -59,8 +62,8 @@ class AlarmDAO: NSObject {
     var userAlarms = [Alarm]()
     var friendsAlarms = [Alarm]() {
         didSet {
-            if friendsAlarmsDelegate != nil {
-                friendsAlarmsDelegate!.reloadData()
+            for delegate in friendsAlarmsDelegate {
+                delegate.reloadData()
             }
         }
     }
@@ -140,6 +143,7 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func loadFriendsAlarms() {
+        println("CARREGANDO ALARMES DOS AMIGOS")
         self.friendsAlarms.removeAll(keepCapacity: false)
         
         let user = UserDAO.sharedInstance().currentUser!
@@ -152,13 +156,18 @@ class AlarmDAO: NSObject {
         query.findObjectsInBackgroundWithBlock({ (alarms, error) -> Void in
             if error == nil {
                 var fAlarms = [Alarm]()
-                let alarms = alarms as! [PFObject]
-                for alarm in alarms {
-                    fAlarms.append(Alarm(PFAlarm: alarm))
+//                let alarms = alarms as! [PFObject]
+                for alarm in alarms! {
+                    fAlarms.append(Alarm(PFAlarm: alarm as! PFObject))
                 }
                 self.friendsAlarms = fAlarms
+                println("\(fAlarms.count) ALARMES ACHADOS")
             }
         })
+    }
+    
+    func reloadData() {
+        loadFriendsAlarms()
     }
     
     /***************************************************************************

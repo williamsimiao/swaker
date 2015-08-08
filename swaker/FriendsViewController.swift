@@ -1,5 +1,5 @@
 //
-//  AlarmsViewController.swift
+//  FriendsViewController.swift
 //  swaker
 //
 //  Created by André Marques da Silva Rodrigues on 08/08/15.
@@ -8,23 +8,29 @@
 
 import UIKit
 
-class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FriendsDataUpdating, AlarmDAODataUpdating {
 
     @IBOutlet weak var tableView: UITableView!
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.title = "Alarms"
-        tabBarController?.tabBar.tintColor = selectedTintColor
-        setUpViews()
-        // Do any additional setup after loading the view.
+    var friends = [User]()
+    var isDeleting = false
+    var hasLoaded = false {
+        didSet {
+            if hasLoaded {
+                navigationItem.titleView = nil
+            }
+        }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        AlarmDAO.sharedInstance().loadUserAlarms()
-        tableView.reloadData()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Friends"
+        friends = UserDAO.sharedInstance().currentUser!.friends
+        UserDAO.sharedInstance().currentUser!.friendsDelegate.append(self)
+        AlarmDAO.sharedInstance().friendsAlarmsDelegate.append(self)
+        setUpViews()
     }
     
     func setUpViews() {
@@ -51,11 +57,19 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         separator.backgroundColor = separatorColor
         naviBar.addSubview(separator)
     }
-
+    
+    func reloadData() {
+        friends = UserDAO.sharedInstance().currentUser!.friends
+        if !isDeleting {
+            tableView.reloadData()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
@@ -63,16 +77,26 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return 1
     }
     
+    override func viewWillAppear(animated: Bool) {
+        AlarmDAO.sharedInstance().loadFriendsAlarms()
+        tableView.reloadData()
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return AlarmDAO.sharedInstance().userAlarms.count
+        return friends.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = AlarmDAO.sharedInstance().userAlarms[indexPath.row].fireDate.description
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! FriendsCell
+        let friend = friends[indexPath.row]
+        cell.nameLabel.text = friend.name
+        cell.friend = friend
+        cell.loadFriendInfo()
+        cell.accessoryType = .DisclosureIndicator
         // Configure the cell...
+        
         return cell
     }
     
@@ -87,23 +111,26 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // Override to support editing the table view.
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            AlarmDAO.sharedInstance().loadUserAlarms()
-            if AlarmDAO.sharedInstance().deleteAlarm(AlarmDAO.sharedInstance().userAlarms[indexPath.row]) {
-                AlarmDAO.sharedInstance().loadUserAlarms()
+            isDeleting = true
+            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUser!.friends[indexPath.row]) {
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.reloadData()
+                isDeleting = false
+            } else {
+                println("failed to delete friend")
             }
         }
     }
-    
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "requestPermission" {
-            let requestP = segue.destinationViewController as! RequestPermissionTableViewController
-            
-            let indexPath = self.tableView.indexPathForSelectedRow()
-            
-            requestP.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
-            println("ALAREM ID"+requestP.alarm!.objectId)
+        if segue.identifier == "friendsAlarms" {
+            (segue.destinationViewController as! FriendsAlarmsViewController).friend = friends[tableView.indexPathForSelectedRow()!.row]
         }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
+
 }

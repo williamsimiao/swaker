@@ -24,7 +24,7 @@ class FriendsTableViewController: UITableViewController, FriendsDataUpdating {
         super.viewDidLoad()
         navigationItem.title = "Friends"
         friends = UserDAO.sharedInstance().currentUser!.friends
-        UserDAO.sharedInstance().currentUser!.friendsDelegate = self
+        UserDAO.sharedInstance().currentUser!.friendsDelegate.append(self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

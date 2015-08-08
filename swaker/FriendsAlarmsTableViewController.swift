@@ -16,7 +16,7 @@ class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdat
         super.viewDidLoad()
         navigationItem.title = "Friends' Alarms"
         friendsAlarms = AlarmDAO.sharedInstance().friendsAlarms
-        AlarmDAO.sharedInstance().friendsAlarmsDelegate = self
+        AlarmDAO.sharedInstance().friendsAlarmsDelegate.append(self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

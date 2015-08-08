@@ -12,11 +12,29 @@ class FriendsAddingViewController: UIViewController {
 
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var friendsEmailTextField: UITextField!
+    var backgroundView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         indicator.hidden = true
+        setUpViews()
         // Do any additional setup after loading the view.
+    }
+    
+    func setUpViews() {
+        self.backgroundView = view
+        self.backgroundView.frame = UIScreen.mainScreen().bounds
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = UIScreen.mainScreen().bounds
+        gradientLayer.colors = mainColors
+        gradientLayer.locations = mainLocations
+        self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
+        
+        let naviBar = navigationController!.navigationBar
+        naviBar.barStyle = UIBarStyle.Default
+        naviBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        naviBar.shadowImage = UIImage()
+        naviBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
     }
     
     @IBAction func add(sender: AnyObject) {

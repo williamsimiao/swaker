@@ -33,6 +33,10 @@
 		4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED61B69868500E08424 /* SettingsTableViewController.swift */; };
 		4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */; };
 		4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */; };
+		4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6137B11B75FEFF004E147B /* FriendsViewController.swift */; };
+		4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021011B7609A8006CDA10 /* FriendsCell.swift */; };
+		4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */; };
+		4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021071B76225D006CDA10 /* AlarmCell.swift */; };
 		4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
@@ -93,6 +97,10 @@
 		4C217ED61B69868500E08424 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsTableViewController.swift; sourceTree = "<group>"; };
 		4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		4C6137B11B75FEFF004E147B /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		4C9021011B7609A8006CDA10 /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
+		4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsViewController.swift; sourceTree = "<group>"; };
+		4C9021071B76225D006CDA10 /* AlarmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 		4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -173,10 +181,10 @@
 				4CCB8D791B700DF0005B243C /* userDefault.png */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
+				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
 				45E824D51B66B5D500F0F404 /* DAO */,
 				45E824D41B66B55F00F0F404 /* Entities */,
 				3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */,
-				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
 				3DB058E21B62B0D800DEC2CB /* Images.xcassets */,
 				3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */,
 				3DB058D91B62B0D800DEC2CB /* Supporting Files */,
@@ -238,6 +246,8 @@
 			children = (
 				45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */,
 				3D90402E1B6EC4E5005E9991 /* AudioCell.swift */,
+				4C9021011B7609A8006CDA10 /* FriendsCell.swift */,
+				4C9021071B76225D006CDA10 /* AlarmCell.swift */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -267,10 +277,11 @@
 			children = (
 				4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */,
 				4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */,
+				4C6137B11B75FEFF004E147B /* FriendsViewController.swift */,
+				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
+				4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */,
 				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
-				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
-				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
 				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
 				4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */,
 				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
@@ -300,6 +311,7 @@
 		4CD6A3F01B75D4420049EE20 /* Former */ = {
 			isa = PBXGroup;
 			children = (
+				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
 				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
 			);
 			name = Former;
@@ -410,7 +422,9 @@
 				4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */,
+				4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */,
 				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,
+				4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */,
 				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,
 				4C13ECD11B6C0759002E1B21 /* RecordViewController.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,
@@ -419,6 +433,7 @@
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
 				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
+				4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */,
 				4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */,
 				4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
@@ -427,6 +442,7 @@
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
 				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
 				4CD6A3EF1B75C3570049EE20 /* AlarmsViewController.swift in Sources */,
+				4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */,
 				4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,

@@ -21,22 +21,26 @@ class User: NSObject {
     
     var hasLoadedFriends = false {
         didSet {
-           self.friendsDelegate?.hasLoaded = hasLoadedFriends
+            for delegate in friendsDelegate {
+                delegate.hasLoaded = hasLoadedFriends
+            }
         }
     }
     
     var friends = [User]() {
         didSet {
             hasLoadedFriends = true
-            if self.friendsDelegate != nil {
-                self.friendsDelegate!.reloadData()
+            for delegate in friendsDelegate {
+                delegate.reloadData()
             }
         }
     }
     
-    var friendsDelegate:FriendsDataUpdating? {
+    var friendsDelegate = [FriendsDataUpdating]() {
         didSet {
-            friendsDelegate!.hasLoaded = hasLoadedFriends
+            for delegate in friendsDelegate {
+                delegate.hasLoaded = hasLoadedFriends
+            }
         }
     }
     
@@ -80,7 +84,7 @@ class User: NSObject {
 //    }
 }
 
-protocol FriendsDataUpdating {
-    var hasLoaded:Bool {get set}
+protocol FriendsDataUpdating: class {
+    var hasLoaded: Bool {get set}
     func reloadData()
 }
