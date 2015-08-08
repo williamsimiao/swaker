@@ -596,15 +596,6 @@
                                     <action selector="didEditedDescription:" destination="jqG-Oc-daE" eventType="editingDidEnd" id="ryO-Vz-VAS"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VB2-xk-kXy">
-                                <rect key="frame" x="282" y="400" width="36" height="30"/>
-                                <state key="normal" title="Send">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Send:" destination="jqG-Oc-daE" eventType="touchUpInside" id="7Wa-g5-SpR"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnU-OU-RzJ">
                                 <rect key="frame" x="192" y="188" width="50" height="30"/>
                                 <state key="normal" title="Record">
@@ -643,16 +634,27 @@
                                     <action selector="play:" destination="jqG-Oc-daE" eventType="touchUpInside" id="S5R-p2-RL9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VB2-xk-kXy">
+                                <rect key="frame" x="282" y="446" width="36" height="30"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="Send:" destination="jqG-Oc-daE" eventType="touchUpInside" id="7Wa-g5-SpR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="VB2-xk-kXy" secondAttribute="centerX" id="06Q-Dc-IZe"/>
                             <constraint firstItem="jPi-RH-j29" firstAttribute="top" secondItem="VmV-Q5-Qv1" secondAttribute="bottom" constant="44" id="07U-Gk-N99"/>
+                            <constraint firstItem="VmV-Q5-Qv1" firstAttribute="leading" secondItem="VB2-xk-kXy" secondAttribute="leading" id="BPS-YX-bwa"/>
                             <constraint firstItem="dnU-OU-RzJ" firstAttribute="baseline" secondItem="VSG-tO-4ur" secondAttribute="baseline" id="CMJ-n7-Jay"/>
                             <constraint firstItem="VSG-tO-4ur" firstAttribute="leading" secondItem="dnU-OU-RzJ" secondAttribute="trailing" constant="10" id="HKa-L1-xZa"/>
                             <constraint firstItem="Cun-NO-2qr" firstAttribute="centerX" secondItem="w9s-iY-POb" secondAttribute="centerX" id="LYs-hH-BQ5"/>
                             <constraint firstItem="dnU-OU-RzJ" firstAttribute="leading" secondItem="w9s-iY-POb" secondAttribute="leadingMargin" constant="97" id="Lzx-ig-P5I"/>
                             <constraint firstItem="VmV-Q5-Qv1" firstAttribute="leading" secondItem="w9s-iY-POb" secondAttribute="leadingMargin" constant="260" id="Mds-WY-MaJ"/>
+                            <constraint firstItem="MBr-u6-0EL" firstAttribute="top" secondItem="VB2-xk-kXy" secondAttribute="bottom" constant="80" id="VeU-Nw-PIN"/>
                             <constraint firstItem="jPi-RH-j29" firstAttribute="top" secondItem="VSG-tO-4ur" secondAttribute="bottom" constant="92" id="WEq-s7-ol7"/>
                             <constraint firstItem="VSG-tO-4ur" firstAttribute="leading" secondItem="dnU-OU-RzJ" secondAttribute="trailing" constant="50" id="WvY-qZ-7yW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cun-NO-2qr" secondAttribute="trailing" constant="10" id="X16-pN-KVC"/>
@@ -671,6 +673,7 @@
                             <constraint firstItem="dnU-OU-RzJ" firstAttribute="leading" secondItem="w9s-iY-POb" secondAttribute="leading" constant="192" id="nEP-lx-TaC"/>
                             <constraint firstItem="VSG-tO-4ur" firstAttribute="leading" secondItem="dnU-OU-RzJ" secondAttribute="trailing" constant="10" id="rrk-Uu-0HR"/>
                             <constraint firstItem="VSG-tO-4ur" firstAttribute="height" secondItem="dnU-OU-RzJ" secondAttribute="height" id="siV-wW-cEH"/>
+                            <constraint firstAttribute="centerX" secondItem="VB2-xk-kXy" secondAttribute="centerX" id="uik-8l-BT7"/>
                             <constraint firstItem="Cun-NO-2qr" firstAttribute="leading" secondItem="w9s-iY-POb" secondAttribute="leadingMargin" constant="10" id="wYm-Hq-hWu"/>
                         </constraints>
                         <variation key="default">
@@ -681,10 +684,13 @@
                                 <exclude reference="iUF-ND-Cze"/>
                                 <exclude reference="X16-pN-KVC"/>
                                 <exclude reference="mDT-t0-0hv"/>
+                                <exclude reference="BPS-YX-bwa"/>
                                 <exclude reference="HKa-L1-xZa"/>
                                 <exclude reference="WvY-qZ-7yW"/>
                                 <exclude reference="rrk-Uu-0HR"/>
                                 <exclude reference="06Q-Dc-IZe"/>
+                                <exclude reference="YfA-E1-oyx"/>
+                                <exclude reference="ZlI-wz-GYc"/>
                             </mask>
                         </variation>
                     </view>
@@ -694,6 +700,7 @@
                         <outlet property="DescriptionField" destination="Cun-NO-2qr" id="xU2-X5-6PZ"/>
                         <outlet property="PleaseLabel" destination="jPi-RH-j29" id="bwa-j9-RvK"/>
                         <outlet property="SendButton" destination="VB2-xk-kXy" id="N8K-5b-hvY"/>
+                        <outlet property="playButton" destination="VmV-Q5-Qv1" id="21F-Po-meR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dtM-Kz-Sto" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1301,6 +1308,6 @@
         <image name="userDefault.png" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vP4-3B-5KR"/>
+        <segue reference="51m-G4-d1D"/>
     </inferredMetricsTieBreakers>
 </document>

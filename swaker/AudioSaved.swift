@@ -76,12 +76,24 @@ class AudioSaved: Audio {
 
     
     /*
-        Salva um audio saved no diretorio passado
+        Salva um audio saved no diretorio received
         Retorno: booleano de sucesso
         OBS: esse metodo deveria ficar na AudioDAO
     */
-    func SaveAudioInToTemporaryDir() -> Bool {
+    func SaveAudioInToReceivedDir() -> Bool {
         let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(self.audioName)
+        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
+        self.audio.writeToFile(path + ".caf", atomically: true)
+        return success
+    }
+    
+    /*
+        Salva um audio saved no diretorio created
+        Retorno: booleano de sucesso
+        OBS: esse metodo deveria ficar na AudioDAO
+    */
+    func SaveAudioInToCreatedDir() -> Bool {
+        let path = AudioDAO.sharedInstance().createdPath.stringByAppendingPathComponent(self.audioName)
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
         self.audio.writeToFile(path + ".caf", atomically: true)
         return success

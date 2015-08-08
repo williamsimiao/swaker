@@ -9,11 +9,14 @@
 import UIKit
 import AVFoundation
 
+protocol AudioSelectionDelegate {
+    func controller(controller: AudioSelectionTableViewController, didSelectItem: NSData)
+}
 
-class AudioSelectionTableViewController: UITableViewController, audioDataProtocol {
+class AudioSelectionTableViewController: UITableViewController {
     
     var audioPlayer:AVAudioPlayer!
-    var record = RecordViewController()
+    var myDelegate: AudioSelectionDelegate?
     //a boleana abaixo serve para identificar de a view foi chamada a partir da RecordViewController
     //significando que deve ser permitido a selecao
     //este pode ser o array de audio recebidos ou de criados, depende da segment control
@@ -27,7 +30,6 @@ class AudioSelectionTableViewController: UITableViewController, audioDataProtoco
         segmentControl.setTitle("Received", forSegmentAtIndex: 0)
         segmentControl.setTitle("Created", forSegmentAtIndex: 1)
         
-        record.myDelegate = self
         navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -118,33 +120,23 @@ class AudioSelectionTableViewController: UITableViewController, audioDataProtoco
     
     // Override to support editing the table view.
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            //AudioDAO.sharedInstance().loadLocalAudios()
-            //nao precisa recarregar acho
-            if segmentControl.selectedSegmentIndex == 0 {
-                AudioDAO.sharedInstance().audioReceivedArray.removeAtIndex(indexPath.row)
-                
-            }
-            else {
-                AudioDAO.sharedInstance().audioCreatedArray.removeAtIndex(indexPath.row)
-            }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-    }
-    
-    
-    /*
-        Pegando o audio com o index da cell selecionada e gravanco ele no bundle
-    */
-    func retornaAudio() -> NSData {
-        let audioPath = AudioDAO.sharedInstance().path + ".caf"
-        return currentArray[tableView.indexPathForSelectedRow()!.row].audio
-    }
-    
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//        
+//        if editingStyle == .Delete {
+//            // Delete the row from the data source
+//            //AudioDAO.sharedInstance().loadLocalAudios()
+//            //nao precisa recarregar acho
+//            if segmentControl.selectedSegmentIndex == 0 {
+//                AudioDAO.sharedInstance().audioReceivedArray.removeAtIndex(indexPath.row)
+//                
+//            }
+//            else {
+//                AudioDAO.sharedInstance().audioCreatedArray.removeAtIndex(indexPath.row)
+//            }
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//        }
+//    }
     
     /*
     Metodo para atribuir o audio associado a cell selecionada para a variavel selectedAudio
@@ -153,8 +145,11 @@ class AudioSelectionTableViewController: UITableViewController, audioDataProtoco
     
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        record.Audiodata = retornaAudio()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        //safely unwraping
+        if let delegate = self.myDelegate {
+            myDelegate?.controller(self, didSelectItem: currentArray[indexPath.row].audio)
+        }
+        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
