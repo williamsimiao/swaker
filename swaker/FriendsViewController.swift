@@ -95,7 +95,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let friend = friends[indexPath.row]
         cell.nameLabel.text = friend.name
         cell.friend = friend
-//        cell.hideBadges()
         cell.loadFriendInfo()
         cell.accessoryType = .DisclosureIndicator
         // Configure the cell...

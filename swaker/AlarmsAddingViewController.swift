@@ -26,7 +26,7 @@ class AlarmsAddingViewController: UIViewController, UIPickerViewDataSource, UIPi
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        navigationItem.title = "Add a Friend"
+        navigationItem.title = "Add an Alarm"
         timePicker.showsSelectionIndicator = false
         let components = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: NSDate())
         timePicker.selectRow((components.hour + 24*341) - 1, inComponent: 0, animated: false)
