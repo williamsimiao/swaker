@@ -10,6 +10,7 @@
 		3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D07BBFE1B69D29500FD5620 /* propostaSound.caf */; };
 		3D90402B1B6EBA35005E9991 /* AudioLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */; };
 		3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402E1B6EC4E5005E9991 /* AudioCell.swift */; };
+		3DA154841B73E07E0091BC9C /* AudioSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA154831B73E07E0091BC9C /* AudioSelectionTableViewController.swift */; };
 		3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */; };
 		3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DD1B62B0D800DEC2CB /* ViewController.swift */; };
 		3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058DF1B62B0D800DEC2CB /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		3D07BBFE1B69D29500FD5620 /* propostaSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = propostaSound.caf; sourceTree = "<group>"; };
 		3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLibraryTableViewController.swift; sourceTree = "<group>"; };
 		3D90402E1B6EC4E5005E9991 /* AudioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
+		3DA154831B73E07E0091BC9C /* AudioSelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSelectionTableViewController.swift; sourceTree = "<group>"; };
 		3DB058D61B62B0D800DEC2CB /* swaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058DA1B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
+				3DA154831B73E07E0091BC9C /* AudioSelectionTableViewController.swift */,
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
@@ -378,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */,
+				3DA154841B73E07E0091BC9C /* AudioSelectionTableViewController.swift in Sources */,
 				4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,

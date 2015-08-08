@@ -13,10 +13,11 @@ import AVFoundation
 class AudioCell: UITableViewCell {
     var audio:NSData!
 
+    @IBOutlet weak var playButton: UIButton!
     @IBAction func PlayButton(sender: AnyObject) {
         var error:NSError?
         let  tableview  = self.superview?.superview as! UITableView
-        let controller = tableview.dataSource as! AudioLibraryTableViewController
+        let controller = tableview.dataSource as! AudioSelectionTableViewController
         controller.audioPlayer = AVAudioPlayer(data: audio, error: &error)
         
         controller.audioPlayer.play()
@@ -24,7 +25,7 @@ class AudioCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+               // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

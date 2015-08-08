@@ -10,9 +10,10 @@ import UIKit
 import AVFoundation
 
 
-class AudioLibraryTableViewController: UITableViewController {
+class AudioSelectionTableViewController: UITableViewController, audioDataProtocol {
     
     var audioPlayer:AVAudioPlayer!
+    var record = RecordViewController()
     //a boleana abaixo serve para identificar de a view foi chamada a partir da RecordViewController
     //significando que deve ser permitido a selecao
     //este pode ser o array de audio recebidos ou de criados, depende da segment control
@@ -25,7 +26,8 @@ class AudioLibraryTableViewController: UITableViewController {
         super.viewDidLoad()
         segmentControl.setTitle("Received", forSegmentAtIndex: 0)
         segmentControl.setTitle("Created", forSegmentAtIndex: 1)
-
+        
+        record.myDelegate = self
         navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -41,9 +43,7 @@ class AudioLibraryTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func dimissingView() {
-        navigationItem.rightBarButtonItem = nil
-        
+    @IBAction func CancelAction(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -59,10 +59,10 @@ class AudioLibraryTableViewController: UITableViewController {
     }
     
     
-//    @IBAction func play(sender:AnyObject) {
-//        let cell = sender.superview as! AudioCell
-//        audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
-//    }
+    @IBAction func play(sender:AnyObject) {
+        let cell = sender.superview as! AudioCell
+        audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
+    }
     
     // MARK: - Table view data source
     
@@ -136,7 +136,29 @@ class AudioLibraryTableViewController: UITableViewController {
         }
     }
     
-
+    
+    /*
+        Pegando o audio com o index da cell selecionada e gravanco ele no bundle
+    */
+    func retornaAudio() -> NSData {
+        let audioPath = AudioDAO.sharedInstance().path + ".caf"
+        return currentArray[tableView.indexPathForSelectedRow()!.row].audio
+    }
+    
+    
+    /*
+    Metodo para atribuir o audio associado a cell selecionada para a variavel selectedAudio
+    Por fim retorna a RecordViewController
+    Retorno: Void
+    
+    */
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        record.Audiodata = retornaAudio()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {

@@ -21,9 +21,9 @@ class AudioDAO: NSObject {
     //var audioAttemptArray: Array<AudioAttempt>?
     
     var path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-    
     var receivedPath:String!
     var createdPath:String!
+    //aqui salva os audios attempt ate eles tocarem
     var temporaryPath:String!
     
     static func sharedInstance() -> AudioDAO{
@@ -37,7 +37,29 @@ class AudioDAO: NSObject {
         }
         return Instance!
     }
+    
+    
+    /*
+    
+    Gera um sufixo a partir do numero lido no arquivo 'AudioSufixCounter'
+    Esse sufixo sera o nome do arquivo de audio
+    */
+    func checkAudioSufix() -> String {
+        let path = AudioDAO.sharedInstance().checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
         
+        if (!NSFileManager.defaultManager().fileExistsAtPath(path)) {
+            let audioSufixCounter = "1"
+            audioSufixCounter.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        }
+        let error = NSErrorPointer()
+        let audioSufix = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: error)
+        // atulizado para  mais 1 o sufixo
+        var novoValor = ("\(audioSufix!.toInt()!+1)")
+        novoValor.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: error)
+        return audioSufix!
+    }
+    
+    
     /*
         Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
         CARREGA DO BANCO
