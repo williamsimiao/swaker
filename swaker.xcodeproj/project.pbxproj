@@ -37,6 +37,7 @@
 		4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021011B7609A8006CDA10 /* FriendsCell.swift */; };
 		4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */; };
 		4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021071B76225D006CDA10 /* AlarmCell.swift */; };
+		4CBDECEB1B762CAC00428AE3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */; };
 		4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
@@ -101,6 +102,7 @@
 		4C9021011B7609A8006CDA10 /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsViewController.swift; sourceTree = "<group>"; };
 		4C9021071B76225D006CDA10 /* AlarmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
 				4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */,
 				4CD6A3F01B75D4420049EE20 /* Former */,
+				4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */,
 			);
 			name = "After LogIn";
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */,
+				4CBDECEB1B762CAC00428AE3 /* TabBarController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */,
 				4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */,

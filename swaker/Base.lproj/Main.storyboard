@@ -104,7 +104,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="kCN-V2-56O">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarController" id="tQL-H1-EO6" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" id="tQL-H1-EO6" customClass="TabBarController" customModule="swaker" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="GHj-an-9Ie">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -114,7 +114,6 @@
                     <connections>
                         <segue destination="L7Q-T0-TaT" kind="relationship" relationship="viewControllers" id="trR-Bj-loM"/>
                         <segue destination="n3j-Ql-gwp" kind="relationship" relationship="viewControllers" id="uCa-Cg-UVb"/>
-                        <segue destination="DJG-x3-ldc" kind="relationship" relationship="viewControllers" id="u83-Y0-ISJ"/>
                         <segue destination="JEp-s2-1hL" kind="relationship" relationship="viewControllers" id="oDh-H2-89B"/>
                         <segue destination="eMy-Bq-sXQ" kind="relationship" relationship="viewControllers" id="o1c-aH-E5L"/>
                     </connections>
@@ -464,7 +463,12 @@
         <scene sceneID="JsU-YI-gPC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="n3j-Ql-gwp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Audios" id="1V2-VV-g3Y"/>
+                    <tabBarItem key="tabBarItem" title="Audios" id="1V2-VV-g3Y">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="audios_unselected"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="audios_selected"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fs4-la-p9q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -526,7 +530,12 @@
         <scene sceneID="zIO-2H-u6s">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eMy-Bq-sXQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="tpq-Jh-Yjs"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="tpq-Jh-Yjs">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="config_unselected"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="config_selected"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OQK-9Q-Gth">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -722,18 +731,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sm8-04-Rt1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sm8-04-Rt1">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="kfe-1K-Bqf">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="IQW-ec-JJ0" customClass="AlarmCell" customModule="swaker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kfe-1K-Bqf" id="xig-GN-fNs">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IQW-ec-JJ0" id="X45-7z-7aC">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azQ-XJ-qX6">
+                                                    <rect key="frame" x="20" y="10" width="86" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzb-5C-5hb">
+                                                    <rect key="frame" x="20" y="59" width="39" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Gzb-5C-5hb" secondAttribute="bottom" constant="10" id="CB9-Ui-9Rb"/>
+                                                <constraint firstItem="azQ-XJ-qX6" firstAttribute="top" secondItem="X45-7z-7aC" secondAttribute="top" constant="10" id="O52-5q-OOc"/>
+                                                <constraint firstItem="Gzb-5C-5hb" firstAttribute="leading" secondItem="X45-7z-7aC" secondAttribute="leading" constant="20" id="iDv-de-ilu"/>
+                                                <constraint firstItem="azQ-XJ-qX6" firstAttribute="leading" secondItem="X45-7z-7aC" secondAttribute="leading" constant="20" id="wnI-tc-sfN"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Op4-m0-BXD" kind="show" identifier="requestPermission" id="gZR-vy-gxl"/>
+                                            <outlet property="descriptionLabel" destination="Gzb-5C-5hb" id="Rab-XB-ukC"/>
+                                            <outlet property="fireDateLabel" destination="azQ-XJ-qX6" id="NAN-mr-dAf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -927,7 +957,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exn-X5-if5">
                                                     <rect key="frame" x="560" y="35" width="30" height="30"/>
-                                                    <color key="backgroundColor" red="0.79592803030303028" green="0.79592803030303028" blue="0.79592803030303028" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.0078431372549019607" green="0.41568627450980389" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="3fV-x4-e4r"/>
                                                         <constraint firstAttribute="width" constant="30" id="c7s-rH-688"/>
@@ -1423,6 +1453,10 @@
     <resources>
         <image name="alarm_selected" width="26" height="26"/>
         <image name="alarm_unselected" width="26" height="26"/>
+        <image name="audios_selected" width="14" height="21"/>
+        <image name="audios_unselected" width="15" height="21"/>
+        <image name="config_selected" width="26" height="26"/>
+        <image name="config_unselected" width="26" height="26"/>
         <image name="friends_selected" width="28" height="26"/>
         <image name="friends_unselected" width="28" height="26"/>
         <image name="userDefault.png" width="225" height="225"/>

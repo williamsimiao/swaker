@@ -52,6 +52,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         naviBackgroundView.tag = 8001
         naviBar.addSubview(naviBackgroundView)
         naviBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
+        naviBar.tintColor = navBarTintColor
+        naviBar.titleTextAttributes = [NSForegroundColorAttributeName: navBarTintColor]
         
         let separator = UIView(frame: CGRect(x: 0, y: naviBar.frame.height, width: naviBar.frame.width, height: 0.5))
         separator.backgroundColor = separatorColor
@@ -93,6 +95,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let friend = friends[indexPath.row]
         cell.nameLabel.text = friend.name
         cell.friend = friend
+        cell.hideBadges()
         cell.loadFriendInfo()
         cell.accessoryType = .DisclosureIndicator
         // Configure the cell...

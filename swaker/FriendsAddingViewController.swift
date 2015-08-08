@@ -29,12 +29,6 @@ class FriendsAddingViewController: UIViewController {
         gradientLayer.colors = mainColors
         gradientLayer.locations = mainLocations
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
-        
-        let naviBar = navigationController!.navigationBar
-        naviBar.barStyle = UIBarStyle.Default
-        naviBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        naviBar.shadowImage = UIImage()
-        naviBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
     }
     
     @IBAction func add(sender: AnyObject) {

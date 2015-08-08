@@ -8,11 +8,12 @@
 
 import UIKit
 
-class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
+    var userAlarms = AlarmDAO.sharedInstance().userAlarms
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(animated: Bool) {
         AlarmDAO.sharedInstance().loadUserAlarms()
+        userAlarms = AlarmDAO.sharedInstance().userAlarms
         tableView.reloadData()
     }
     
@@ -37,6 +39,7 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         gradientLayer.locations = mainLocations
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
         
+        let titleAttribute = [NSForegroundColorAttributeName: navBarTintColor]
         let naviBar = navigationController!.navigationBar
         naviBar.barStyle = UIBarStyle.Default
         naviBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
@@ -46,12 +49,15 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         naviBackgroundView.tag = 8001
         naviBar.addSubview(naviBackgroundView)
         naviBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
+        naviBar.tintColor = navBarTintColor
+        naviBar.titleTextAttributes = titleAttribute
         
+        tabBarItem.setTitleTextAttributes(titleAttribute, forState: UIControlState.Normal)
         let separator = UIView(frame: CGRect(x: 0, y: naviBar.frame.height, width: naviBar.frame.width, height: 0.5))
         separator.backgroundColor = separatorColor
         naviBar.addSubview(separator)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,8 +76,11 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = AlarmDAO.sharedInstance().userAlarms[indexPath.row].fireDate.description
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AlarmCell
+        let alarm = userAlarms[indexPath.row]
+        let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: alarm.fireDate)
+        cell.descriptionLabel.text = "\(alarm.alarmDescription)"
+        cell.fireDateLabel.text = String(format: "%02d:%02d", arguments: [comps.hour, comps.minute])
         // Configure the cell...
         return cell
     }

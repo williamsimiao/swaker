@@ -33,7 +33,7 @@ class FriendsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        alarmBadge.alpha = 0
+        hideBadges()
     }
 
     func loadFriendInfo() {
@@ -54,6 +54,10 @@ class FriendsCell: UITableViewCell {
             }
         }
         hasLoadedOnce = true
+    }
+    
+    func hideBadges() {
+        alarmBadge.alpha = 0
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
