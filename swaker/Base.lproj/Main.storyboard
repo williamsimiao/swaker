@@ -244,11 +244,11 @@
                                 <exclude reference="ZdR-Qj-58B"/>
                                 <exclude reference="LGK-e1-02g"/>
                                 <exclude reference="Zr8-vQ-NOw"/>
+                                <exclude reference="gjC-2M-amN"/>
+                                <exclude reference="jyx-5Z-fyO"/>
                                 <exclude reference="f1u-VS-P34"/>
                                 <exclude reference="g5y-tR-kBO"/>
                                 <exclude reference="OqX-b1-G7y"/>
-                                <exclude reference="gjC-2M-amN"/>
-                                <exclude reference="jyx-5Z-fyO"/>
                             </mask>
                         </variation>
                         <connections>
@@ -540,7 +540,12 @@
         <scene sceneID="xNB-v1-gWO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L7Q-T0-TaT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Alarms" id="h2A-5p-uQW"/>
+                    <tabBarItem key="tabBarItem" title="Alarms" id="h2A-5p-uQW">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="alarm_unselected"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="alarm_selected"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sEf-Ac-Y7A">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1237,6 +1242,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="alarm_selected" width="26" height="26"/>
+        <image name="alarm_unselected" width="26" height="26"/>
         <image name="userDefault.png" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>

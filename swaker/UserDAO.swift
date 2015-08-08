@@ -144,6 +144,10 @@ class UserDAO: NSObject {
                     let friend = PFUser(withoutDataWithObjectId: friendId)
                     friend.fetch()
                     friends.append(User(user: friend))
+                    if let channels = PFInstallation.currentInstallation().objectForKey("channels") {
+                    } else {
+                        PFInstallation.currentInstallation().setObject([], forKey: "channels")
+                    }
                     if !PFInstallation.currentInstallation().objectForKey("channels")!.containsObject("f"+friend.objectId!) {
                         PFInstallation.currentInstallation().addObject("f"+friend.objectId!, forKey: "channels")
                     }

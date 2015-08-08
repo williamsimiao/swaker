@@ -17,6 +17,8 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Alarms"
+        tabBarController?.tabBar.tintColor = selectedTintColor
+        
         setUpViews()
         // Do any additional setup after loading the view.
     }
