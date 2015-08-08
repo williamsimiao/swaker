@@ -12,6 +12,7 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     var backgroundView: UIView!
+    var naviBackgroundView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,16 +27,19 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
+        gradientLayer.colors = mainColors
+        gradientLayer.locations = mainLocations
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
         
         let naviBar = navigationController!.navigationBar
         naviBar.barStyle = UIBarStyle.Default
         naviBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         naviBar.shadowImage = UIImage()
-        let backgroundView = UIView(frame: CGRect(x: 0, y: -20, width: naviBar.bounds.width, height: naviBar.bounds.height + 20))
-        backgroundView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
-        naviBar.insertSubview(backgroundView, atIndex: 1)
+        naviBackgroundView = UIView(frame: CGRect(x: 0, y: -20, width: naviBar.bounds.width, height: 20))
+        naviBackgroundView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
+        naviBackgroundView.tag = 8001
+        naviBar.addSubview(naviBackgroundView)
+        naviBar.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,8 +94,6 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             requestP.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
             println("ALAREM ID"+requestP.alarm!.objectId)
-            
-            
         }
     }
 }

@@ -45,9 +45,10 @@
 		4CC5F0FE1B62B53700ADEC8B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FD1B62B53700ADEC8B /* AudioToolbox.framework */; };
 		4CC5F1001B62B53F00ADEC8B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */; };
 		4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */; };
-		4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */; };
 		4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCB8D791B700DF0005B243C /* userDefault.png */; };
 		4CD6A3EF1B75C3570049EE20 /* AlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */; };
+		4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */; };
+		4CD6A3F41B75EDA60049EE20 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3F31B75EDA60049EE20 /* Colors.swift */; };
 		4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE549C81B6917B600CDB267 /* AudioDAO.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,9 +105,10 @@
 		4CC5F0FD1B62B53700ADEC8B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsTableViewController.swift; sourceTree = "<group>"; };
-		4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAddingTableViewController.swift; sourceTree = "<group>"; };
 		4CCB8D791B700DF0005B243C /* userDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userDefault.png; sourceTree = "<group>"; };
 		4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsViewController.swift; sourceTree = "<group>"; };
+		4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAddingViewController.swift; sourceTree = "<group>"; };
+		4CD6A3F31B75EDA60049EE20 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4CE549C81B6917B600CDB267 /* AudioDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 				3DB058E21B62B0D800DEC2CB /* Images.xcassets */,
 				3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */,
 				3DB058D91B62B0D800DEC2CB /* Supporting Files */,
+				4CD6A3F31B75EDA60049EE20 /* Colors.swift */,
 			);
 			path = swaker;
 			sourceTree = "<group>";
@@ -262,17 +265,17 @@
 		4C8153851B747771002BB7F3 /* After LogIn */ = {
 			isa = PBXGroup;
 			children = (
+				4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */,
+				4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */,
 				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
 				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
 				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
 				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
-				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
-				4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */,
 				4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */,
 				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
 				4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */,
-				4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */,
+				4CD6A3F01B75D4420049EE20 /* Former */,
 			);
 			name = "After LogIn";
 			sourceTree = "<group>";
@@ -292,6 +295,14 @@
 				4CC5F0F21B62B3C200ADEC8B /* ParseUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4CD6A3F01B75D4420049EE20 /* Former */ = {
+			isa = PBXGroup;
+			children = (
+				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
+			);
+			name = Former;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,9 +407,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */,
 				4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
+				4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */,
 				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,
 				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,
 				4C13ECD11B6C0759002E1B21 /* RecordViewController.swift in Sources */,
@@ -412,6 +423,7 @@
 				4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
 				4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */,
+				4CD6A3F41B75EDA60049EE20 /* Colors.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
 				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
 				4CD6A3EF1B75C3570049EE20 /* AlarmsViewController.swift in Sources */,

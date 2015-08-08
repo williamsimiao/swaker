@@ -44,7 +44,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func setUpViews() {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
+        gradientLayer.colors = mainColors
+        gradientLayer.locations = mainLocations
         view.layer.insertSublayer(gradientLayer, atIndex: 0)
         logInButton.layer.cornerRadius = 4
         logInButton.clipsToBounds = true
