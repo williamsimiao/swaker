@@ -43,7 +43,6 @@ class AlarmsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = AlarmDAO.sharedInstance().userAlarms[indexPath.row].fireDate.description 
         // Configure the cell...
-
         return cell
     }
     
@@ -71,8 +70,6 @@ class AlarmsTableViewController: UITableViewController {
 
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-      
         if editingStyle == .Delete {
             // Delete the row from the data source
             AlarmDAO.sharedInstance().loadUserAlarms()

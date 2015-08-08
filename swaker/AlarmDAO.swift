@@ -123,8 +123,9 @@ class AlarmDAO: NSObject {
                     let info = error!.userInfo as! [String:AnyObject]
                     let code = info["code"] as! Int
                     if code == 101 {
-                        let index = find(self.userAlarmsIdsToDelete, alarmId)!
-                        self.userAlarmsIdsToDelete.removeAtIndex(index)
+                        if let index = find(self.userAlarmsIdsToDelete, alarmId) {
+                            self.userAlarmsIdsToDelete.removeAtIndex(index)
+                        }
                     }
                 }
                 NSKeyedArchiver.archiveRootObject(self.userAlarmsIdsToDelete, toFile: self.idsPath)

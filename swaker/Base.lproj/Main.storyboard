@@ -136,7 +136,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSi-tj-luJ">
-                                <rect key="frame" x="132.5" y="280" width="335" height="39"/>
+                                <rect key="frame" x="132" y="280" width="335" height="39"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="2Sa-ti-iCF"/>
@@ -164,10 +164,10 @@
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="DBk-bP-LW6">
-                                <rect key="frame" x="550" y="290" width="20" height="20"/>
+                                <rect key="frame" x="437" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOY-7e-IBo">
-                                <rect key="frame" x="132.5" y="194" width="335" height="76"/>
+                                <rect key="frame" x="132" y="194" width="335" height="76"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-hy-Kqd">
                                         <rect key="frame" x="10" y="38" width="325" height="38"/>
@@ -236,6 +236,7 @@
                             <constraint firstItem="jSi-tj-luJ" firstAttribute="centerX" secondItem="zOY-7e-IBo" secondAttribute="centerX" id="iYy-PB-hPP"/>
                             <constraint firstItem="DBk-bP-LW6" firstAttribute="leading" secondItem="DyP-j4-Wjq" secondAttribute="trailing" constant="-30" id="jyx-5Z-fyO"/>
                             <constraint firstAttribute="centerX" secondItem="EyY-4s-b6U" secondAttribute="centerX" id="qC5-tb-dgj"/>
+                            <constraint firstItem="DBk-bP-LW6" firstAttribute="leading" secondItem="jSi-tj-luJ" secondAttribute="trailing" constant="-30" id="s5M-cS-7rP"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -246,6 +247,7 @@
                                 <exclude reference="f1u-VS-P34"/>
                                 <exclude reference="g5y-tR-kBO"/>
                                 <exclude reference="OqX-b1-G7y"/>
+                                <exclude reference="gjC-2M-amN"/>
                                 <exclude reference="jyx-5Z-fyO"/>
                             </mask>
                         </variation>
@@ -731,7 +733,7 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yxy-cW-pz3">
                                     <rect key="frame" x="68" y="6" width="105" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.99072912954865533" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -1231,7 +1233,7 @@
         <image name="userDefault.png" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vP4-3B-5KR"/>
+        <segue reference="51m-G4-d1D"/>
         <segue reference="sKr-3T-2iE"/>
     </inferredMetricsTieBreakers>
 </document>
