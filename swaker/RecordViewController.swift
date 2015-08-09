@@ -15,7 +15,7 @@ protocol audioDataProtocol {
     func retornaAudio()-> NSData
 }
 
-class RecordViewController: UIViewController, AVAudioPlayerDelegate, AudioSelectionDelegate {
+class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
@@ -59,6 +59,14 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, AudioSelect
         settingRecorder()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if audioData != nil {
+            var error: NSError?
+            audioPlayer = AVAudioPlayer(data: audioData, error: &error)
+            fadeButtonsIn()
+        }
+    }
+    
     func setUpViews() {
         self.backgroundView = view
         self.backgroundView.frame = UIScreen.mainScreen().bounds
@@ -85,10 +93,7 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, AudioSelect
         audioRecorder.stop()
         recordTimer.invalidate()
         progressView.progress = 1
-        UIView.animateWithDuration(delaytimeRecord, animations: { () -> Void in
-            self.sendButton.alpha = 1
-            self.playButton.alpha = 1
-        })
+        fadeButtonsIn()
         
         //SETANDO O AUDIO COMO O DA RECORD //
         audioData = NSData(contentsOfFile: soundFilePath)
@@ -100,6 +105,13 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, AudioSelect
         audioPlayer.delegate = self
         audioPlayer.play()
         playTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "updatePlayProgressView:", userInfo: nil, repeats: true)
+    }
+    
+    func fadeButtonsIn() {
+        UIView.animateWithDuration(delaytimeRecord, animations: { () -> Void in
+            self.sendButton.alpha = 1
+            self.playButton.alpha = 1
+        })
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
@@ -191,11 +203,10 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, AudioSelect
     
     //MARK: prepareForSegue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "AudioSelectionTableViewController" {
+        if segue.identifier == "audioSelection" {
             let navigationController = segue.destinationViewController as! UINavigationController
-            let audioSelectionController = navigationController.topViewController as? AudioSelectionTableViewController
-            if let viewController = audioSelectionController {
-                viewController.myDelegate = self
+            if let audioSelectionController = navigationController.topViewController as? AudioSelectionViewController {
+                audioSelectionController.recordingController = self
             }
         }
     }

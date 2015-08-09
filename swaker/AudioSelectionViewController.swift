@@ -9,19 +9,16 @@
 import UIKit
 import AVFoundation
 
-protocol AudioSelectionDelegate {
-    func controller(controller: AudioSelectionTableViewController, didSelectItem: NSData)
-}
-
-class AudioSelectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AudioSelectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    var delegate: AudioSelectionDelegate?
+    var recordingController: RecordViewController!
     var audiosArray: [Audio]!
     var audioPlayer: AVAudioPlayer!
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
+    var playingCell: AudioCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +77,27 @@ class AudioSelectionViewController: UIViewController, UITableViewDataSource, UIT
     
     
     @IBAction func play(sender:AnyObject) {
-        let cell = sender.superview as! AudioCell
-        audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
+        let sv = sender.superview!
+        let cell = sv!.superview as! AudioCell
+        playingCell = cell
+        if audioPlayer != nil {
+            if audioPlayer.data == cell.audio {
+                if audioPlayer.playing {
+                    audioPlayer.pause()
+                } else {
+                    audioPlayer.play()
+                }
+            }
+        }
+        else {
+            audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
+            audioPlayer.delegate = self
+            audioPlayer.play()
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        playingCell?.switchToPlay()
     }
     
     // MARK: - Table view data source
@@ -113,15 +129,15 @@ class AudioSelectionViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AudioCell
-        var audioArray = [Audio]()
-        if (segmentControl.selectedSegmentIndex == 0) {
-            audioArray = AudioDAO.sharedInstance().audioReceivedArray
-        } else {
-            audioArray = AudioDAO.sharedInstance().audioCreatedArray
-        }
-        cell.audioNameLabel.text = audioArray[indexPath.row].audioDescription
-        cell.audio = audioArray[indexPath.row].audio
+        cell.audioNameLabel.text = audiosArray[indexPath.row].audioDescription
+        cell.audio = audiosArray[indexPath.row].audio
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let audio = audiosArray[indexPath.row]
+        recordingController.audioData = audio.audio
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
 

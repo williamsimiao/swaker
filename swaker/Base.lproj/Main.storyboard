@@ -642,7 +642,7 @@
                                         </state>
                                         <connections>
                                             <action selector="library:" destination="jqG-Oc-daE" eventType="touchUpInside" id="l2q-CB-Gzd"/>
-                                            <segue destination="2ei-vo-Cjo" kind="presentation" id="WkC-Hd-1hf"/>
+                                            <segue destination="2ei-vo-Cjo" kind="presentation" identifier="audioSelection" id="WkC-Hd-1hf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1541,6 +1541,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
+                                                        <action selector="play:" destination="6uz-44-I35" eventType="touchUpInside" id="8II-wJ-PmJ"/>
                                                         <action selector="play:" destination="n3v-Pn-IVT" eventType="touchUpInside" id="v9n-8P-FEl"/>
                                                         <action selector="switchButtonImage:" destination="159-2d-8M4" eventType="touchUpInside" id="RfU-xI-xql"/>
                                                     </connections>
@@ -1630,7 +1631,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZ4-YO-jRz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5470" y="1671"/>
+            <point key="canvasLocation" x="5488" y="1671"/>
         </scene>
     </scenes>
     <resources>

@@ -16,7 +16,6 @@ import AVFoundation
 class AudioSelectionTableViewController: UITableViewController {
     
     var audioPlayer:AVAudioPlayer!
-    var myDelegate: AudioSelectionDelegate?
     //a boleana abaixo serve para identificar de a view foi chamada a partir da RecordViewController
     //significando que deve ser permitido a selecao
     //este pode ser o array de audio recebidos ou de criados, depende da segment control
@@ -144,14 +143,6 @@ class AudioSelectionTableViewController: UITableViewController {
     Retorno: Void
     
     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //safely unwraping
-        if let delegate = self.myDelegate {
-            myDelegate?.controller(self, didSelectItem: currentArray[indexPath.row].audio)
-        }
-    }
-    
-    
     
     /*
     // Override to support rearranging the table view.
