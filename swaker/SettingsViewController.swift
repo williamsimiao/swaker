@@ -12,9 +12,11 @@ class SettingsViewController: UIViewController {
 
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         navigationItem.title = "Settings"
         setUpViews()
         // Do any additional setup after loading the view.

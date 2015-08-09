@@ -201,7 +201,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-hy-Kqd">
                                         <rect key="frame" x="10" y="38" width="325" height="38"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfd-1a-ZdG">
                                         <rect key="frame" x="0.0" y="37" width="335" height="1"/>
@@ -1654,6 +1654,6 @@
         <image name="userDefault.png" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="v9m-zU-pzR"/>
+        <segue reference="51m-G4-d1D"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -34,6 +34,7 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     var playTimer: NSTimer!
     let delaytimeRecord = NSTimeInterval(0.2)
     let delaytimeLibrary = NSTimeInterval(0.6)
+    var currentCalendar = NSCalendar.currentCalendar()
     
     var isRecordingNewAudio = false
     let manager = NSFileManager.defaultManager()
@@ -48,6 +49,7 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         setUpViews()
         sendButton.alpha = 0
         playButton.alpha = 0
@@ -72,8 +74,10 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
     

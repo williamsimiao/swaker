@@ -14,12 +14,14 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
     var userAlarms = AlarmDAO.sharedInstance().userAlarms
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Alarms"
         tabBarController?.tabBar.tintColor = selectedTintColor
         setUpViews()
+        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         // Do any additional setup after loading the view.
     }
     
@@ -35,8 +37,10 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
         
         let titleAttribute = [NSForegroundColorAttributeName: navBarTintColor]
@@ -78,7 +82,7 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AlarmCell
         let alarm = userAlarms[indexPath.row]
-        let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: alarm.fireDate)
+        let comps = currentCalendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: alarm.fireDate)
         cell.descriptionLabel.text = "\(alarm.alarmDescription)"
         cell.fireDateLabel.text = String(format: "%02d:%02d", arguments: [comps.hour, comps.minute])
         cell.accessoryType = .DisclosureIndicator
