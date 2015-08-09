@@ -115,7 +115,6 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, AudioSelect
     func updatePlayProgressView(sender: NSTimer) {
         let total = audioPlayer.duration
         let currentTime = audioPlayer.currentTime
-        println(Float(currentTime / total))
         if currentTime == total {
             sender.invalidate()
             println("tototot")

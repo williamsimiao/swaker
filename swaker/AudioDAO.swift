@@ -157,7 +157,6 @@ class AudioDAO: NSObject {
         }
     }
     
-    
     /*
     Movendo um audio do attempt para a o received
     */

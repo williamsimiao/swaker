@@ -81,6 +81,7 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: alarm.fireDate)
         cell.descriptionLabel.text = "\(alarm.alarmDescription)"
         cell.fireDateLabel.text = String(format: "%02d:%02d", arguments: [comps.hour, comps.minute])
+        cell.accessoryType = .DisclosureIndicator
         // Configure the cell...
         return cell
     }
@@ -106,13 +107,12 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "requestPermission" {
-            let requestP = segue.destinationViewController as! RequestPermissionTableViewController
-            
+        if segue.identifier == "audioAttempts" {
+            let vc = segue.destinationViewController as! AlarmsAudioAttemptViewController
             let indexPath = self.tableView.indexPathForSelectedRow()
             
-            requestP.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
-            println("ALAREM ID"+requestP.alarm!.objectId)
+            vc.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
+            println("ALAREM ID"+vc.alarm!.objectId)
         }
     }
 }

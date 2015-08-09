@@ -76,12 +76,14 @@ class User: NSObject {
         }
     }
     
-//    func toPFUser() -> PFUser {
-//        let pfUser = PFUser(withoutDataWithObjectId: self.objectId)
-//        pfUser.username = self.username
-//        pfUser.email = self.email
-//        pfUser.fetch()
-//    }
+    func friendWithObjectId(objectId:String!) -> User? {
+        for friend in friends {
+            if friend.objectId == objectId {
+                return friend
+            }
+        }
+        return nil
+    }
 }
 
 protocol FriendsDataUpdating: class {
