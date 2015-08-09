@@ -59,6 +59,8 @@
 		4CD6A3F41B75EDA60049EE20 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3F31B75EDA60049EE20 /* Colors.swift */; };
 		4CE2AC941B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC931B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift */; };
 		4CE2AC961B76FCE600CFB656 /* AudioAttemptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC951B76FCE600CFB656 /* AudioAttemptCell.swift */; };
+		4CE2AC991B7709AD00CFB656 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC981B7709AD00CFB656 /* SettingsViewController.swift */; };
+		4CE2AC9B1B770C5C00CFB656 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC9A1B770C5C00CFB656 /* ProfileViewController.swift */; };
 		4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE549C81B6917B600CDB267 /* AudioDAO.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +131,8 @@
 		4CD6A3F31B75EDA60049EE20 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4CE2AC931B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAudioAttemptViewController.swift; sourceTree = "<group>"; };
 		4CE2AC951B76FCE600CFB656 /* AudioAttemptCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioAttemptCell.swift; sourceTree = "<group>"; };
+		4CE2AC981B7709AD00CFB656 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4CE2AC9A1B770C5C00CFB656 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4CE549C81B6917B600CDB267 /* AudioDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -297,7 +301,9 @@
 				4CC11C7B1B76EB3A0052B120 /* AudioLibraryViewController.swift */,
 				4CC11C791B76D95D0052B120 /* AudioSelectionViewController.swift */,
 				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
+				4CE2AC981B7709AD00CFB656 /* SettingsViewController.swift */,
 				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
+				4CE2AC9A1B770C5C00CFB656 /* ProfileViewController.swift */,
 				4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */,
 				4CD6A3F01B75D4420049EE20 /* Former */,
 				4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */,
@@ -450,6 +456,7 @@
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
 				4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */,
 				4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */,
+				4CE2AC991B7709AD00CFB656 /* SettingsViewController.swift in Sources */,
 				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,
 				4CC11C781B76B9190052B120 /* AudioSelectionTableViewController.swift in Sources */,
 				4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */,
@@ -480,6 +487,7 @@
 				4CC11C7C1B76EB3A0052B120 /* AudioLibraryViewController.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
 				3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */,
+				4CE2AC9B1B770C5C00CFB656 /* ProfileViewController.swift in Sources */,
 				45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */,
 				4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */,
 			);

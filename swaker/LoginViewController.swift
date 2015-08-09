@@ -36,10 +36,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.signUpButton.alpha = 1
 
     }
-
-    override func viewDidAppear(animated: Bool) {
-        println(logInButton.frame)
-    }
     
     func setUpViews() {
         gradientLayer = CAGradientLayer()
