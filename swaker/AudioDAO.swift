@@ -134,7 +134,7 @@ class AudioDAO: NSObject {
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(createdPath)
         while let fileName:String = enumerator?.nextObject() as? String {
             if fileName.hasSuffix("auf") {
-                let filePath = receivedPath.stringByAppendingPathComponent(fileName)
+                let filePath = createdPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
                 var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
                 audioCreatedArray.append(anAudio)

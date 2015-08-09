@@ -17,10 +17,24 @@ protocol audioDataProtocol {
 
 class RecordViewController: UIViewController, AudioSelectionDelegate {
     
+    @IBOutlet weak var LibraryButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var PleaseLabel: UILabel!
     @IBOutlet weak var SendButton: UIButton!
     @IBOutlet weak var DescriptionField: UITextField!
+    //record constrains
+    @IBOutlet weak var recordHeigthConstrain: NSLayoutConstraint!
+    @IBOutlet weak var recordWidthConstrain: NSLayoutConstraint!
+    @IBOutlet weak var recordLeftConstrain: NSLayoutConstraint!
+    //library constrains
+    //so tem isso pq width e higth é igual ao do record
+    @IBOutlet weak var libraryRigthContrain: NSLayoutConstraint!
+    //play constrains
+    @IBOutlet weak var playWidthConstrain: NSLayoutConstraint!
+    @IBOutlet weak var playHigthConstrain: NSLayoutConstraint!
+    //textField constrains
+    @IBOutlet weak var textFieldBottomConstrain: NSLayoutConstraint!
     
     var audioRecorder:AVAudioRecorder!
     var audioPlayer:AVAudioPlayer!
@@ -43,6 +57,8 @@ class RecordViewController: UIViewController, AudioSelectionDelegate {
         case newAlarm = "NEWALARM_CATEGORY"
         // nao precisa de category pra notification de audio aceito
     }
+    
+    
     
     //MARK: IBActions
     @IBAction func Library(sender: AnyObject) {
@@ -112,6 +128,23 @@ class RecordViewController: UIViewController, AudioSelectionDelegate {
     //MARK: view methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //constrains de distancia para a borda do recor e library, para os iphones
+        recordLeftConstrain.constant = view.frame.width * 0.08
+        libraryRigthContrain.constant = recordLeftConstrain.constant
+        
+        //constrains de altura e largura do botao record e consequente do botao library ja q eles tem constrain de igualdade de altura e latgura
+        recordWidthConstrain.constant = (view.frame.width - 2*(recordLeftConstrain.constant)) / 2
+        recordHeigthConstrain.constant = recordWidthConstrain.constant
+
+        
+        //constrains do play
+        playHigthConstrain.constant = recordHeigthConstrain.constant * 0.3
+        playWidthConstrain.constant = recordWidthConstrain.constant
+        
+        //please label internacionalization
+        PleaseLabel.text = "intenaciolizacao"
+        
         isRecordingNewAudio = false
         
         SendButton.hidden = true
@@ -138,6 +171,7 @@ class RecordViewController: UIViewController, AudioSelectionDelegate {
         //ou em
         
         var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: self.Audiodata, audioDescription: DescriptionField.text, senderId: PFUser.currentUser()?.objectId)
+        audioAttemp.audioName  = alarm.objectId
         let AudioObject = AudioDAO.sharedInstance().addAudioAttempt(audioAttemp)
         let objectId = AudioObject?.objectId
         let data = [
@@ -212,8 +246,6 @@ class RecordViewController: UIViewController, AudioSelectionDelegate {
             self.PleaseLabel.alpha = 1
             self.DescriptionField.alpha = 1
         })
-
-        
     }
     
     override func didReceiveMemoryWarning() {
