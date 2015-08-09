@@ -11,20 +11,30 @@ import AVFoundation
 
 
 class AudioCell: UITableViewCell {
+    @IBOutlet weak var playButton: UIButton!
     var audio:NSData!
-
-    @IBAction func PlayButton(sender: AnyObject) {
-        var error:NSError?
-        let  tableview  = self.superview?.superview as! UITableView
-        let controller = tableview.dataSource as! AudioLibraryTableViewController
-        controller.audioPlayer = AVAudioPlayer(data: audio, error: &error)
-        
-        controller.audioPlayer.play()
-    }
+    @IBOutlet weak var audioNameLabel: UILabel!
+    var flag = true
+    let pauseImage = UIImage(named: "pause")
+    let playImage = UIImage(named: "play")
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    @IBAction func switchButtonImage(sender: UIButton) {
+        if flag {
+            sender.setImage(pauseImage, forState: UIControlState.Normal)
+        } else {
+            sender.setImage(playImage, forState: UIControlState.Normal)
+        }
+        flag = !flag
+    }
+    
+    func switchToPlay() {
+        playButton.setImage(playImage, forState: .Normal)
+        flag = !flag
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

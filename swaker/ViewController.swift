@@ -31,9 +31,13 @@ class ViewController: UIViewController {
                 AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
                 AudioDAO.sharedInstance().loadAllAudios()
                 self.indicator.stopAnimating()
-                self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
+                self.performSegueWithIdentifier("loggedIn", sender: self)
             })
         }
+    }
+    
+    override func performSegueWithIdentifier(identifier: String?, sender: AnyObject?) {
+        super.performSegueWithIdentifier(identifier, sender: sender)
     }
     
     func setUpViews() {

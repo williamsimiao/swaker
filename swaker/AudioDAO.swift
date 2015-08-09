@@ -11,19 +11,19 @@ import Parse
 
 
 class AudioDAO: NSObject {
-
+    
     static var Instance: AudioDAO?
     
     var audioCreatedArray = [AudioSaved]()
     var audioReceivedArray = [AudioSaved]()
     var audioTemporaryArray = [AudioAttempt]()
-
+    
     //var audioAttemptArray: Array<AudioAttempt>?
     
     var path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-    
     var receivedPath:String!
     var createdPath:String!
+    //aqui salva os audios attempt ate eles tocarem
     var temporaryPath:String!
     
     static func sharedInstance() -> AudioDAO{
@@ -33,15 +33,37 @@ class AudioDAO: NSObject {
             Instance?.createdPath = Instance!.checkDirectory("Created")
             Instance?.temporaryPath = Instance!.checkDirectory("Temporary")
             Instance?.loadAllAudios()
-
+            
         }
         return Instance!
     }
-        
+    
+    
     /*
-        Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
-        CARREGA DO BANCO
-        Medodo usado quando o usuario fizer login num novo device
+    
+    Gera um sufixo a partir do numero lido no arquivo 'AudioSufixCounter'
+    Esse sufixo sera o nome do arquivo de audio
+    */
+    func checkAudioSufix() -> String {
+        let path = AudioDAO.sharedInstance().checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
+        
+        if (!NSFileManager.defaultManager().fileExistsAtPath(path)) {
+            let audioSufixCounter = "1"
+            audioSufixCounter.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        }
+        let error = NSErrorPointer()
+        let audioSufix = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: error)
+        // atulizado para  mais 1 o sufixo
+        var novoValor = ("\(audioSufix!.toInt()!+1)")
+        novoValor.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: error)
+        return audioSufix!
+    }
+    
+    
+    /*
+    Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
+    CARREGA DO BANCO
+    Medodo usado quando o usuario fizer login num novo device
     */
     func loadSavedAudios() {
         let AudioQuery = PFQuery(className: "AudioSaved")
@@ -79,16 +101,16 @@ class AudioDAO: NSObject {
         println("\(fullPath)")
         return fullPath
     }
-
+    
     
     /*
-        carrega os dois
+    carrega os dois
     */
     func loadAllAudios() {
         loadReceivedAudios()
         loadCreatedAudios()
     }
-       
+    
     func loadReceivedAudios() {
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(receivedPath)
         while let fileName:String = enumerator?.nextObject() as? String {
@@ -102,17 +124,18 @@ class AudioDAO: NSObject {
                 var anAudioAttempt = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioAttempt
                 var anAudio = AudioSaved(myAudioAttempt: anAudioAttempt)
                 
-
+                
                 audioReceivedArray.append(anAudio)
             }
         }
     }
     
     func loadCreatedAudios() {
+        audioCreatedArray.removeAll(keepCapacity: true)
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(createdPath)
         while let fileName:String = enumerator?.nextObject() as? String {
             if fileName.hasSuffix("auf") {
-                let filePath = receivedPath.stringByAppendingPathComponent(fileName)
+                let filePath = createdPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
                 var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
                 audioCreatedArray.append(anAudio)
@@ -121,8 +144,8 @@ class AudioDAO: NSObject {
     }
     
     /*
-        Carrega do BANCO todos os audios que possuem alarmId como o parametro alarmId
-        Parametro: alarme
+    Carrega do BANCO todos os audios que possuem alarmId como o parametro alarmId
+    Parametro: alarme
     */
     func loadAudiosFromAlarm(alarm:Alarm) {
         audioTemporaryArray.removeAll(keepCapacity: false)
@@ -136,7 +159,7 @@ class AudioDAO: NSObject {
     
     
     /*
-        Movendo um audio do attempt para a o received
+    Movendo um audio do attempt para a o received
     */
     
     func moveToReceivedDir(audioId: String) {
@@ -153,8 +176,8 @@ class AudioDAO: NSObject {
     }
     
     /*
-        Adiciona um novo audioAttempt ao banco
-        Parametro: Classe AudioAttempt
+    Adiciona um novo audioAttempt ao banco
+    Parametro: Classe AudioAttempt
     */
     func addAudioAttempt(anAudio:AudioAttempt) -> PFObject? {
         let PFAttempt = PFObject(className: "AudioAttempt")
@@ -171,7 +194,7 @@ class AudioDAO: NSObject {
         }
         return nil
         //adicione um bloco para alterar o nome do audio para o PFobject.objectId
-
+        
     }
     
     func addAudioSaved(anAudio:AudioSaved) -> PFObject {
@@ -190,8 +213,8 @@ class AudioDAO: NSObject {
     }
     
     /*
-        deleta audio da classe audooAttempt do banco
-        Parametro: PFObject
+    deleta audio da classe audooAttempt do banco
+    Parametro: PFObject
     */
     func deleteAudioAttempt(audioObject: PFObject) -> Bool {
         
@@ -200,7 +223,7 @@ class AudioDAO: NSObject {
     }
     
     /*
-        metodo para deletar audio da classe audioSaved do banco
+    metodo para deletar audio da classe audioSaved do banco
     */
     
     func deleteAudioSaved(audioSaved: AudioSaved) {
@@ -217,7 +240,7 @@ class AudioDAO: NSObject {
     
     func acceptAudioAttempt(audio:AudioAttempt) {
         
-        audio.SaveAudioInToTemporaryDir()
+        audio.saveAudioInToTemporaryDir()
         //just to be shure
         println("audioDescription:\(audio.audioDescription!)")
         

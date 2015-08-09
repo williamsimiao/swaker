@@ -15,7 +15,7 @@ class AudioAttempt: Audio {
     init(alarmId:String!, audio:NSData!, audioDescription:String!, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.alarmId = alarmId
-        self.audioName = self.alarmId + ".auf"
+        self.audioName = self.alarmId
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -58,7 +58,7 @@ class AudioAttempt: Audio {
         EX: "Alarm.objectId".attempt
              hx2311jbfda423
     */
-    func SaveAudioInToTemporaryDir() -> Bool {
+    func saveAudioInToTemporaryDir() -> Bool {
         // MUDEI
         let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(self.audioName)
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)

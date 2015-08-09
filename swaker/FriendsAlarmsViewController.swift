@@ -29,6 +29,12 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if let indexPath = tableView.indexPathForSelectedRow() {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+    
     func setUpViews() {
         tableView.alpha = 0.8
         self.backgroundView = view
@@ -68,14 +74,16 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "goToRecording" {
+            let destinationVC = segue.destinationViewController as! RecordViewController
+            destinationVC.alarm = friendsAlarms[tableView.indexPathForSelectedRow()!.row]
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }

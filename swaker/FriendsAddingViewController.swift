@@ -12,6 +12,7 @@ class FriendsAddingViewController: UIViewController {
 
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var friendsEmailTextField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
     var backgroundView: UIView!
     
     override func viewDidLoad() {
