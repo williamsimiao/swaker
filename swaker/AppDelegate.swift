@@ -230,9 +230,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
-    /*
-    
-    */
      func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
         let notificationPayload = userInfo["aps"] as! NSDictionary
@@ -241,11 +238,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
             let notificationCategory = notificationPayload["category"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
-                getAlarmsViewController()
+                //getAlarmsViewController()
                 //application.applicationIconBadgeNumber = 0
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-                getRecordViewController()
+                //getRecordViewController()
             }
 
          }
@@ -296,8 +293,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Metodo chamado quando nao usamos
     */
     
-    func application(application: UIApplication, didReceiveLocalNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        println("Local")
+//    func application(application: UIApplication, didReceiveLocalNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+//        println("Local")
+//    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        
     }
     
     func application(application: UIApplication,

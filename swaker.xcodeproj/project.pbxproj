@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D07BBFE1B69D29500FD5620 /* propostaSound.caf */; };
+		3D07DBAF1B783C5F00C4C94B /* RingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07DBAE1B783C5F00C4C94B /* RingViewController.swift */; };
 		3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402E1B6EC4E5005E9991 /* AudioCell.swift */; };
 		3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */; };
 		3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DD1B62B0D800DEC2CB /* ViewController.swift */; };
@@ -76,6 +77,7 @@
 
 /* Begin PBXFileReference section */
 		3D07BBFE1B69D29500FD5620 /* propostaSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = propostaSound.caf; sourceTree = "<group>"; };
+		3D07DBAE1B783C5F00C4C94B /* RingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingViewController.swift; sourceTree = "<group>"; };
 		3D90402E1B6EC4E5005E9991 /* AudioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
 		3DB058D61B62B0D800DEC2CB /* swaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058DA1B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 		4C8153851B747771002BB7F3 /* After LogIn */ = {
 			isa = PBXGroup;
 			children = (
+				3D07DBAE1B783C5F00C4C94B /* RingViewController.swift */,
 				4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */,
 				4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */,
 				4CE2AC931B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift */,
@@ -485,6 +488,7 @@
 				4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
 				4CC11C7C1B76EB3A0052B120 /* AudioLibraryViewController.swift in Sources */,
+				3D07DBAF1B783C5F00C4C94B /* RingViewController.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
 				3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */,
 				4CE2AC9B1B770C5C00CFB656 /* ProfileViewController.swift in Sources */,

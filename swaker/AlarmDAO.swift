@@ -222,6 +222,27 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
         }
         PFInstallation.currentInstallation().save()
     }
+    
+    //MARK: Mudanca de ultimahora
+    
+    func nextAlarmTofire() -> Alarm {
+        let calendar = NSCalendar.currentCalendar()
+        let comps = NSDateComponents()
+        comps.day = 31
+        comps.month = 12
+        comps.year = 2099
+        var currentSmallerDate = calendar.dateFromComponents(comps)
+        var smallerAlarm: Alarm!
+        for(var i = 0; i < self.userAlarms.count ; i++) {
+            var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.friendsAlarms[i].fireDate)
+            if dateComparisionResult == NSComparisonResult.OrderedDescending {
+                // Current date is greater than end date.
+                currentSmallerDate = self.userAlarms[i].fireDate
+                smallerAlarm = self.userAlarms[i]
+            }
+        }
+        return smallerAlarm!
+    }
 }
 
 //MARK: Data Updating Protocol

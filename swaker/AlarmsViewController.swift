@@ -114,5 +114,13 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             vc.alarm = AlarmDAO.sharedInstance().userAlarms[indexPath!.row]
             println("ALAREM ID"+vc.alarm!.objectId)
         }
+        
+        if segue.identifier == "ring" {
+            let ringVC = segue.destinationViewController as! RingViewController
+            ringVC.alarm = AlarmDAO.sharedInstance().nextAlarmTofire()
+        }
     }
+    
+    
+    
 }

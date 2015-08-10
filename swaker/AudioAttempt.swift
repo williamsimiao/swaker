@@ -45,7 +45,7 @@ class AudioAttempt: Audio {
         let audioData = audioPFFile.getData()! as NSData
         super.init(audio: audioData, audioDescription: PFAudioAttempt["description"] as? String, senderId: PFAudioAttempt["senderId"] as! String)
         self.alarmId = PFAudioAttempt["alarmId"] as! String
-        self.audioName = self.alarmId
+        self.audioName = PFAudioAttempt.objectId
     }
 
 
