@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         setUpViews()
     }
 
@@ -46,7 +45,7 @@ class ViewController: UIViewController {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
         let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
-        let index = Int(round(Float(comps.hour) / 3) - 1)
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
         gradientLayer.colors = mainColors[index]
         gradientLayer.locations = mainLocations[index] as! [AnyObject]
         view.layer.insertSublayer(gradientLayer, atIndex: 0)

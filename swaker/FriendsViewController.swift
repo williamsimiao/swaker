@@ -27,7 +27,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         navigationItem.title = "Friends"
         friends = UserDAO.sharedInstance().currentUser!.friends
         UserDAO.sharedInstance().currentUser!.friendsDelegate.append(self)
@@ -42,7 +41,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
         let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
-        let index = Int(round(Float(comps.hour) / 3) - 1)
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
         gradientLayer.colors = mainColors[index]
         gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)

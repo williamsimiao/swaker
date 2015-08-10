@@ -34,8 +34,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+//        gradientLayer.colors = mainColors
+//        gradientLayer.locations = mainLocations
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
     

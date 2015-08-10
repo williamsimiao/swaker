@@ -28,7 +28,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         setUpViews()
         indicator.hidden = true
         indicator.startAnimating()
-        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,7 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
         let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
-        let index = Int(round(Float(comps.hour) / 3) - 1)
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
         gradientLayer.colors = mainColors[index]
         gradientLayer.locations = mainLocations[index] as! [AnyObject]
         view.layer.insertSublayer(gradientLayer, atIndex: 0)
