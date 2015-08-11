@@ -220,10 +220,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         return title
     }
     
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = navBarTintColor
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 4 {
+            return 70
+        }
+        return 30
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -213,24 +213,6 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    /*
-    Implementacacao do metodo do protocolo da AudioSelectionTableViewController
-    Descricaao: atribui a propertie Audiodata o audio associado a cell selecionada na AudioSelectionTableViewController
-    em seguida "dispenca" essa view
-    */
-    func controller(controller: AudioSelectionTableViewController, didSelectItem: NSData) {
-        audioData = didSelectItem
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-        UIView.animateWithDuration(delaytimeLibrary, animations: { () -> Void in
-            self.sendButton.alpha = 1
-            self.playButton.alpha = 1
-        })
-        
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
