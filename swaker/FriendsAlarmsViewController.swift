@@ -14,10 +14,12 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
     var friend: User!
     var friendsAlarms = [Alarm]()
     var backgroundView: UIView!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = UIColor.whiteColor()
+        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         setUpViews()
         navigationItem.title = "\(friend.name)'s Alarms"
         friendsAlarms.removeAll(keepCapacity: false)
@@ -41,8 +43,10 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
 
@@ -66,7 +70,7 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AlarmCell
         let alarm = friendsAlarms[indexPath.row]
-        let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: alarm.fireDate)
+        let comps = currentCalendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: alarm.fireDate)
         cell.descriptionLabel.text = "\(alarm.alarmDescription)"
         cell.fireDateLabel.text = String(format: "%02d:%02d", arguments: [comps.hour, comps.minute])
         cell.accessoryType = .DisclosureIndicator

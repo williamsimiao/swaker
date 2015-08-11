@@ -21,7 +21,6 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         super.viewDidLoad()
         indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         navigationItem.titleView = indicator
-        
         pictureImageView.layer.cornerRadius = pictureImageView.frame.height / 2
         pictureImageView.clipsToBounds = true
         // Uncomment the following line to preserve selection between presentations

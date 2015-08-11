@@ -25,7 +25,7 @@ class RingViewController: UIViewController {
         setUpViews()
         SetUpNotification()
         checkForAudioAttempt()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playPraAcordar", name: "Acorda", object: nil)
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "playPraAcordar", name: "Acorda", object: nil)
 
 
         // Do any additional setup after loading the view.
@@ -76,7 +76,7 @@ class RingViewController: UIViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
         gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        gradientLayer.locations = mainLocations as [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
 

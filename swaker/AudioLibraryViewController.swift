@@ -18,9 +18,11 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
     var playingCell: AudioCell?
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         setUpViews()
         segmentControl.setTitle("Received", forSegmentAtIndex: 0)
         segmentControl.setTitle("Created", forSegmentAtIndex: 1)
@@ -33,8 +35,10 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
         
         let naviBar = navigationController!.navigationBar

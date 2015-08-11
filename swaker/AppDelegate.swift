@@ -55,6 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sett = UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(sett)
         
+        //Zerando os Badges
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+
         //getRecordViewController()
         
         // Enable storing and querying data from Local Datastore.
@@ -213,12 +216,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Metodo para receber notificacoes quando amigos setarem novo alarme
     */
     
-    func getRecordViewController() {
-        let storiboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
-        //let recordController = storiboard.instantiateViewControllerWithIdentifier("RecordController") as! RecordViewController
-        let root = self.window?.rootViewController as! UITabBarController
-        root.selectedIndex = 3
-        //root.presentViewController(RecordViewController(), animated: true, completion: nil)
+    func getRecordViewControllerforAlarmId(alarmId: String) {
+        let viewFazLoad = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("PrimeiraView") as! ViewController
+        let tabbarController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+        
+        tabbarController.selectedIndex = 2
+        //achando alarm
+        let tabVCs = tabbarController.viewControllers as! [UIViewController]
+        let frindsNavigation = tabVCs[2] as! UINavigationController
+        let navigationVCs = frindsNavigation.viewControllers as! [UIViewController]
+        let record = navigationVCs[0] as! FriendsViewController
+        let theAlarmQuery = PFQuery(className: "Alarm").whereKey("objectId", equalTo: alarmId).findObjects()
+        let theAlarm = Alarm(PFAlarm: theAlarmQuery?.first as! PFObject)
+//        record.alarm = theAlarm
+        
+        frindsNavigation.presentViewController(record, animated: true, completion: nil)
+
+
+        
+        
+        
     }
     
     func getAlarmsViewController() {
@@ -235,26 +252,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let notificationPayload = userInfo["aps"] as! NSDictionary
         
          if application.applicationState.rawValue == 1 {
-            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-            let notificationCategory = notificationPayload["category"] as! String
-            if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
-                //getAlarmsViewController()
-                //application.applicationIconBadgeNumber = 0
-            }
-            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-                //getRecordViewController()
-            }
-
+            
          }
          else {
             println("NUNCA VAI IMPRIMIR ISSO")
         }
         
         if application.applicationState == UIApplicationState.Inactive {
-            //ta 
             println("inative")
+            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+            let notificationCategory = notificationPayload["category"] as! String
+            if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
+                let alarmId = userInfo["f"] as! String
+                getRecordViewControllerforAlarmId(alarmId)
+            }
+            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
+                //getRecordViewController()
+            }
+
         }
         if application.applicationState == UIApplicationState.Active {
+            //esse alert nao funciona
             let inAppNotification = UIAlertController()
             let message = notificationPayload["alert"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {

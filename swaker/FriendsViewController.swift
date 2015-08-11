@@ -13,6 +13,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     var friends = [User]()
     var isDeleting = false
@@ -31,6 +32,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         UserDAO.sharedInstance().currentUser!.friendsDelegate.append(self)
         AlarmDAO.sharedInstance().friendsAlarmsDelegate.append(self)
         setUpViews()
+        
+        println("ARRRRRRRRAAAY:\(self.navigationController?.viewControllers.count)     ")
     }
     
     func setUpViews() {
@@ -39,8 +42,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
         
         let naviBar = navigationController!.navigationBar

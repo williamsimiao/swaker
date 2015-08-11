@@ -15,18 +15,26 @@ class ForgotPasswordViewController: UIViewController {
     @IBOutlet weak var textFieldView: UIView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     var gradientLayer:CAGradientLayer!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         indicator.hidden = true
         textFieldView.layer.cornerRadius = 4
         submitButton.layer.cornerRadius = 4
+        setUpViews()
+        // Do any additional setup after loading the view.
+    }
+    
+    func setUpViews() {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         view.layer.insertSublayer(gradientLayer, atIndex: 0)
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -39,8 +39,10 @@ class AlarmsAddingViewController: UIViewController, UIPickerViewDataSource, UIPi
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
     
@@ -59,11 +61,12 @@ class AlarmsAddingViewController: UIViewController, UIPickerViewDataSource, UIPi
                 "alert" : "Novo alarme de \(myUserDAO.currentUser!.name)",
                 "badge" : "Increment",
                 "sounds" : "paidefamilia.mp3",
+                "f" : alarm.objectId
             ]
             
             let push = PFPush()
             push.expireAtDate(alarm.fireDate)
-            push.setChannel("a" + alarm.objectId)
+            push.setChannel("f" + alarm.setterId)
             push.setData(data)
             push.sendPushInBackground()
             navigationController?.popViewControllerAnimated(true)

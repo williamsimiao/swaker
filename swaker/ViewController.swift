@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     var gradientLayer:CAGradientLayer!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +44,10 @@ class ViewController: UIViewController {
     func setUpViews() {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         view.layer.insertSublayer(gradientLayer, atIndex: 0)
         indicator.hidesWhenStopped = true
     }
