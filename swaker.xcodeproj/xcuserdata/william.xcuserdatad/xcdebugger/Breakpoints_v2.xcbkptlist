@@ -281,6 +281,83 @@
             endingLineNumber = "39"
             landmarkName = "Library(_:)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swaker.RecordViewController.isRecordingNewAudio.getter : Swift.Bool"
+                  moduleName = "swaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/william/Documents/swaker/swaker/RecordViewController.swift"
+                  timestampString = "461005884.143879"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swaker.RecordViewController.isRecordingNewAudio.setter : Swift.Bool"
+                  moduleName = "swaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/william/Documents/swaker/swaker/RecordViewController.swift"
+                  timestampString = "461005884.144374"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swaker.RecordViewController.isRecordingNewAudio.materializeForSet : Swift.Bool"
+                  moduleName = "swaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/william/Documents/swaker/swaker/RecordViewController.swift"
+                  timestampString = "461005884.144653"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swaker.RecordViewController.init (swaker.RecordViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; swaker.RecordViewController"
+                  moduleName = "swaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/william/Documents/swaker/swaker/RecordViewController.swift"
+                  timestampString = "461005884.145195"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "888">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swaker.RecordViewController.init (swaker.RecordViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; swaker.RecordViewController"
+                  moduleName = "swaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/william/Documents/swaker/swaker/RecordViewController.swift"
+                  timestampString = "461005884.145366"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "852">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
