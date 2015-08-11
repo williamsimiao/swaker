@@ -234,7 +234,7 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
         var currentSmallerDate = calendar.dateFromComponents(comps)
         var smallerAlarm: Alarm!
         for(var i = 0; i < self.userAlarms.count ; i++) {
-            var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.friendsAlarms[i].fireDate)
+            var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.userAlarms[i].fireDate)
             if dateComparisionResult == NSComparisonResult.OrderedDescending {
                 // Current date is greater than end date.
                 currentSmallerDate = self.userAlarms[i].fireDate
