@@ -13,6 +13,9 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
     
 /*//////////////////////////////CLASS ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     //MARK: Class atts and functions
+    var userAlarmsApresentacao = [Alarm]()
+    
+    
     static let friendsAlarmsUpdated = "friendsAlarmsUpdated"
     static var instance:AlarmDAO?
     static func sharedInstance() -> AlarmDAO {
@@ -233,12 +236,12 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
         comps.year = 2099
         var currentSmallerDate = calendar.dateFromComponents(comps)
         var smallerAlarm: Alarm!
-        for(var i = 0; i < self.userAlarms.count ; i++) {
-            var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.userAlarms[i].fireDate)
+        for(var i = 0; i < self.userAlarmsApresentacao.count ; i++) {
+            var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.userAlarmsApresentacao[i].fireDate)
             if dateComparisionResult == NSComparisonResult.OrderedDescending {
                 // Current date is greater than end date.
-                currentSmallerDate = self.userAlarms[i].fireDate
-                smallerAlarm = self.userAlarms[i]
+                currentSmallerDate = self.userAlarmsApresentacao[i].fireDate
+                smallerAlarm = self.userAlarmsApresentacao[i]
             }
         }
         return smallerAlarm!

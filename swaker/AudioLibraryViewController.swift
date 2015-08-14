@@ -76,6 +76,12 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
     
     
     @IBAction func play(sender:AnyObject) {
+        if playingCell != nil {
+            playingCell!.switchToPlay()
+            audioPlayer.pause()
+            playingCell = nil
+            audioPlayer = nil
+        }
         let sv = sender.superview!
         let cell = sv!.superview as! AudioCell
         playingCell = cell

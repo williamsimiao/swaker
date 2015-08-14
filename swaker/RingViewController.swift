@@ -18,14 +18,14 @@ class RingViewController: UIViewController {
     var alarm:Alarm!
     var audioToPlay: NSData!
     let manager = NSFileManager.defaultManager()
+    var FireTimer: NSTimer!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        SetUpNotification()
+        SetUpNotification()//aqui acaha o alarme
         checkForAudioAttempt()
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "playPraAcordar", name: "Acorda", object: nil)
 
 
         // Do any additional setup after loading the view.
@@ -48,6 +48,7 @@ class RingViewController: UIViewController {
             let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(audioFileName)
             if manager.fileExistsAtPath(path) {
                 audioToPlay = NSData(contentsOfFile: path)
+                println("Arquivo achado")
             }
         }
         else {
@@ -58,15 +59,9 @@ class RingViewController: UIViewController {
     
     
     func SetUpNotification() {
-        
-        let wakeNotification = UILocalNotification()
-        wakeNotification.fireDate = NSDate(timeInterval: -NSTimeInterval(NSTimeZone.systemTimeZone().secondsFromGMT), sinceDate: alarm.fireDate)
-        wakeNotification.timeZone = NSTimeZone.defaultTimeZone()
-        wakeNotification.alertTitle = "Wake Up"
-        //just in case
-        let infoDict = ["audioId": alarm.audioId]
-        NSNotificationCenter.defaultCenter().postNotificationName("Acorda", object: wakeNotification)
-        UIApplication.sharedApplication().scheduleLocalNotification(wakeNotification)
+        self.alarm = AlarmDAO.sharedInstance().nextAlarmTofire()
+        let Interval = alarm.fireDate.timeIntervalSinceNow
+        FireTimer = NSTimer.scheduledTimerWithTimeInterval(Interval, target: self, selector: "playPraAcordar", userInfo: nil, repeats: true)
         
     }
     

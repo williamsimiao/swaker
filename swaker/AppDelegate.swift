@@ -55,10 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sett = UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(sett)
         
-        //Zerando os Badges
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-
-        //getRecordViewController()
         
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
@@ -264,10 +260,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let notificationCategory = notificationPayload["category"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
                 let alarmId = userInfo["f"] as! String
-                getRecordViewControllerforAlarmId(alarmId)
+                //getRecordViewControllerforAlarmId(alarmId)
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-                //getRecordViewController()
             }
 
         }
@@ -324,6 +319,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         forLocalNotification notification: UILocalNotification,
         completionHandler: () -> Void) {
             
+    }
+    
+    func applicationWillTerminate(application: UIApplication) {
+        //Zerando os Badges
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+
     }
     
     
