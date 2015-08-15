@@ -162,21 +162,35 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         //quando chegar aqui a propertie Audiodata deve ter sido setada ou em func controller, caso da library
         //ou em
         
+        let successAlert = UIAlertController(title: nil, message: nil, preferredStyle: .Alert)
+        
         var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: audioData, audioDescription: audioDescription, senderId: PFUser.currentUser()?.objectId)
         let AudioObject = AudioDAO.sharedInstance().addAudioAttempt(audioAttemp)
         let objectId = AudioObject?.objectId
         let data = [
             "category" : categoriesIdentifiers.proposal.rawValue,
             "alert" : "Proposta de áudio de \(UserDAO.sharedInstance().currentUser!.name)",
-            "sounds" : "paidefamilia.mp3",
+            "sounds" : "propostaSound.caf",
             "a" : objectId!
         ]
         let push = PFPush()
         push.expireAtDate(alarm.fireDate)
         push.setChannel("a" + alarm.objectId)
         push.setData(data)
-        push.sendPushInBackground()
-        
+        let error = NSErrorPointer()
+        if push.sendPush(error) {
+            successAlert.message = "Proposta de audio enviada"
+        }
+        else {
+            successAlert.title = "Erro"
+            successAlert.message = "Verifique sua conecção com a internet"
+        }
+        let okAlertButton = UIAlertAction(title: "OK", style: .Default) { (okAlertButton) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        successAlert.addAction(okAlertButton)
+        self.navigationController?.popViewControllerAnimated(true)
+        println("sendPush:\(audioAttemp.audioName)")
         return audioAttemp
     }
     

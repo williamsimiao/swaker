@@ -186,6 +186,8 @@ class AudioDAO: NSObject {
         PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
         if PFAttempt.save() {
+            println("mudando:\(anAudio.audioName)")
+            anAudio.audioName = PFAttempt.objectId
             return PFAttempt
         }
         else {
@@ -211,23 +213,32 @@ class AudioDAO: NSObject {
         return PFAttempt
     }
     
-    /*
-    deleta audio da classe audooAttempt do banco
-    Parametro: PFObject
-    */
-    func deleteAudioAttempt(audioObject: PFObject) -> Bool {
+    func deleteAudioSaved(audioToDelete: AudioSaved, isOfKindCreated: Bool) -> Bool {
+        var error: NSError?
+        var path = String()
+        let success: Bool
+        if isOfKindCreated == true {
+            path = AudioDAO.sharedInstance().createdPath
+            path = path.stringByAppendingPathComponent(audioToDelete.audioName + ".auf")
+            if NSFileManager.defaultManager().fileExistsAtPath(path){
+                println("exist")
+            }
+            success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
+        }
+        else {
+            path = AudioDAO.sharedInstance().receivedPath
+            path = path.stringByAppendingPathComponent(audioToDelete.audioName + ".auf")
+            if NSFileManager.defaultManager().fileExistsAtPath(path){
+                println("exist")
+            }
+            success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
+        }
         
-        let success = PFObject(withoutDataWithClassName: "AudioAttempt", objectId: audioObject.objectId).delete()
-        return success
-    }
-    
-    /*
-    metodo para deletar audio da classe audioSaved do banco
-    */
-    
-    func deleteAudioSaved(audioSaved: AudioSaved) {
-        let audioObject = audioSaved.toPFObject()
-        PFObject(withoutDataWithClassName: "AudioSaved", objectId: audioObject.objectId).deleteEventually()
+        if !success {
+            println(error?.localizedDescription)
+            return false
+        }
+        return true
     }
     
     func convertPFObjectTOAudioSaved (audioObject: PFObject) -> AudioSaved{

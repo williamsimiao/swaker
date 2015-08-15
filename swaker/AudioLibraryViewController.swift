@@ -146,6 +146,31 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
         return cell
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let audioFromCell: AudioSaved!
+            // this boolean is need to know if the audio belongs to the directory created or received
+            // this is why it serves as an parameter to "deleteAudioSaved"
+            let isCreated: Bool
+            
+            if segmentControl.selectedSegmentIndex == 0 {
+                audioFromCell = AudioDAO.sharedInstance().audioReceivedArray[indexPath.row]
+                isCreated = false
+            }
+            else {
+                audioFromCell = AudioDAO.sharedInstance().audioCreatedArray[indexPath.row]
+                isCreated = true
+            }
+            if AudioDAO.sharedInstance().deleteAudioSaved(audioFromCell, isOfKindCreated: isCreated){
+                AudioDAO.sharedInstance().loadAllAudios()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.reloadData()
+            } else {
+                println("failed to delete friend")
+            }
+        }
+    }
+    
     
     /*
     // MARK: - Navigation
