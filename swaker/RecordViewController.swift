@@ -49,6 +49,12 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Mudando o botao de send
+        sendButton.backgroundColor = UIColor.clearColor()
+        sendButton.layer.cornerRadius = 5
+        sendButton.layer.borderWidth = 1
+        sendButton.layer.borderColor = UIColor.blackColor().CGColor
+        
         setUpViews()
         sendButton.alpha = 0
         playButton.alpha = 0
@@ -137,16 +143,24 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @IBAction func send(sender: AnyObject) {
+        
         let alert = UIAlertController(title: nil, message: "Type a description for your audio.", preferredStyle: .Alert)
         var textField = UITextField()
         alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Description"
         }
         let action = UIAlertAction(title: "Send", style: .Default) { (action) -> Void in
-            let theAttemp = self.sendPushOfAudioAttemptWithDescription((alert.textFields!.first as! UITextField).text)
-            if self.isRecordingNewAudio == true {
-                let audioSavedFromRecording = AudioSaved(myAudioAttempt: theAttemp)
-                audioSavedFromRecording.saveAudioInToCreatedDir()
+            if Reachability.isConnectedToNetwork() == true {
+                let theAttemp = self.sendPushOfAudioAttemptWithDescription((alert.textFields!.first as! UITextField).text)
+                if self.isRecordingNewAudio == true {
+                    let audioSavedFromRecording = AudioSaved(myAudioAttempt: theAttemp)
+                    audioSavedFromRecording.saveAudioInToCreatedDir()
+                }
+
+            }
+            else {
+                var alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
             }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .Destructive) { (cancel) -> Void in
@@ -154,6 +168,8 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         alert.addAction(cancel)
         alert.addAction(action)
         presentViewController(alert, animated: true, completion: nil)
+        
+        
     }
     
     //MARK: Push
@@ -177,20 +193,8 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         push.expireAtDate(alarm.fireDate)
         push.setChannel("a" + alarm.objectId)
         push.setData(data)
-        let error = NSErrorPointer()
-        if push.sendPush(error) {
-            successAlert.message = "Proposta de audio enviada"
-        }
-        else {
-            successAlert.title = "Erro"
-            successAlert.message = "Verifique sua conecção com a internet"
-        }
-        let okAlertButton = UIAlertAction(title: "OK", style: .Default) { (okAlertButton) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        successAlert.addAction(okAlertButton)
+        push.sendPushInBackground()
         self.navigationController?.popViewControllerAnimated(true)
-        println("sendPush:\(audioAttemp.audioName)")
         return audioAttemp
     }
     

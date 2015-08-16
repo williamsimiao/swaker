@@ -97,6 +97,8 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
         else {
             audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
             audioPlayer.delegate = self
+            AVAudioSession.sharedInstance().overrideOutputAudioPort(
+                AVAudioSessionPortOverride.Speaker, error: nil)
             audioPlayer.play()
         }
     }
@@ -163,6 +165,7 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
             }
             if AudioDAO.sharedInstance().deleteAudioSaved(audioFromCell, isOfKindCreated: isCreated){
                 AudioDAO.sharedInstance().loadAllAudios()
+                println("\(AudioDAO.sharedInstance().audioCreatedArray.count)")
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                 tableView.reloadData()
             } else {

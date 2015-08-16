@@ -60,11 +60,11 @@ class AudioDAO: NSObject {
     }
     
     
-    /*
-    Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
-    CARREGA DO BANCO
-    Medodo usado quando o usuario fizer login num novo device
-    */
+    /**
+        Carrega todos os audios que possuem o usuario do app como receiver no array AudioSavedArray
+        CARREGA DO BANCO
+        Medodo usado quando o usuario fizer login num novo device
+    **/
     func loadSavedAudios() {
         let AudioQuery = PFQuery(className: "AudioSaved")
         let ArrayPFobjectsReceived = AudioQuery.whereKey("receiverId", equalTo: PFUser.currentUser()!.objectId!).findObjects()!

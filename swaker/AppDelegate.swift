@@ -321,11 +321,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
     }
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillResignActive(application: UIApplication) {
         //Zerando os Badges
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-
     }
+    
+
     
     
     

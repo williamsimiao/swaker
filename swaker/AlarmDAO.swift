@@ -161,13 +161,19 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                 var fAlarms = [Alarm]()
 //                let alarms = alarms as! [PFObject]
                 for alarm in alarms! {
-                    fAlarms.append(Alarm(PFAlarm: alarm as! PFObject))
-                }
+                    //ALTERADO
+                    let localAlarm = Alarm(PFAlarm: alarm as! PFObject) as Alarm
+                    var dateComparisionResult:NSComparisonResult = localAlarm.fireDate.compare(NSDate())
+                    if dateComparisionResult == NSComparisonResult.OrderedAscending {
+                        fAlarms.append(Alarm(PFAlarm: alarm as! PFObject))
+                    }
                 self.friendsAlarms = fAlarms
                 println("\(fAlarms.count) ALARMES ACHADOS")
+                }
             }
         })
     }
+
     
     func reloadData() {
         loadFriendsAlarms()
