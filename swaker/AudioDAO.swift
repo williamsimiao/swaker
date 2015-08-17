@@ -118,13 +118,9 @@ class AudioDAO: NSObject {
                 let filePath = receivedPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
                 
-                /// MUDEI
+                /// DESMUDEI
                 
-                //var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
-                var anAudioAttempt = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioAttempt
-                var anAudio = AudioSaved(myAudioAttempt: anAudioAttempt)
-                
-                
+                var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
                 audioReceivedArray.append(anAudio)
             }
         }
@@ -158,20 +154,27 @@ class AudioDAO: NSObject {
     }
     
     /*
-    Movendo um audio do attempt para a o received
+        Movendo um audio do attempt para a o received
+        1- crio um audioSaved a partir do attempt
+        2- salvo esse novo audio na pasta received assim como o caf 
+            (isso e feito em saveAudioInToReceivedDir)
+        3- deleto o audio attempt da pasta temporary
     */
     
     func moveToReceivedDir(audioId: String) {
         var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-        println("movendo")
-        let origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).auf")
+        var origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).auf")
         let destinationPath = docs.stringByAppendingPathComponent("Received/\(audioId).auf")
         let manager = NSFileManager.defaultManager()
-        //copiando e edeletando em seguida
         var error:NSError?
-        manager.copyItemAtPath(origemPath, toPath: destinationPath, error: &error)
+        let data = NSData(contentsOfFile: origemPath)
+        var anAttempt = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioAttempt
+        let SavedFromAttempt = AudioSaved(myAudioAttempt: anAttempt)
+        SavedFromAttempt.saveAudioInToReceivedDir()
         manager.removeItemAtPath(origemPath, error: &error)
-        
+        //agora vamos deletar o caf, tb vamos reutizar origemPath
+        origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).caf")
+        manager.removeItemAtPath(origemPath, error: &error)
     }
     
     /*
@@ -221,7 +224,7 @@ class AudioDAO: NSObject {
             path = AudioDAO.sharedInstance().createdPath
             path = path.stringByAppendingPathComponent(audioToDelete.audioName + ".auf")
             if NSFileManager.defaultManager().fileExistsAtPath(path){
-                println("exist")
+                println("exist so delete: \(path) END")
             }
             success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         }
@@ -229,10 +232,12 @@ class AudioDAO: NSObject {
             path = AudioDAO.sharedInstance().receivedPath
             path = path.stringByAppendingPathComponent(audioToDelete.audioName + ".auf")
             if NSFileManager.defaultManager().fileExistsAtPath(path){
-                println("exist")
+                println("exist so delete: \(path) END")
             }
             success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         }
+        AudioDAO.sharedInstance().loadAllAudios()
+
         
         if !success {
             println(error?.localizedDescription)

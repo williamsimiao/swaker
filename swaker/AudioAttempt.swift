@@ -59,8 +59,8 @@ class AudioAttempt: Audio {
              hx2311jbfda423
     */
     func saveAudioInToTemporaryDir() -> Bool {
-        // MUDEI
-        let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(self.audioName)
+        // DESMUDEI
+        let path = AudioDAO.sharedInstance().temporaryPath.stringByAppendingPathComponent(self.audioName)
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
         self.audio.writeToFile(path + ".caf", atomically: true)
         return success

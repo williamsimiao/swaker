@@ -91,6 +91,7 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                         userAlarms.append(anAlarm)
                     } else {
                         // Move os audios ja tocados pra pasta certa
+                        AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.audioId!)
                         self.deleteAlarm(anAlarm)
                     }
                 }
@@ -117,6 +118,7 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                 }
             }
         }
+        
         deletePendingAlarms()
     }
     
@@ -164,6 +166,7 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                     //ALTERADO
                     let localAlarm = Alarm(PFAlarm: alarm as! PFObject) as Alarm
                     var dateComparisionResult:NSComparisonResult = localAlarm.fireDate.compare(NSDate())
+                    //OrderedAscending significa q data da direta é a menor
                     if dateComparisionResult == NSComparisonResult.OrderedAscending {
                         fAlarms.append(Alarm(PFAlarm: alarm as! PFObject))
                     }
@@ -245,7 +248,7 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
         for(var i = 0; i < self.userAlarmsApresentacao.count ; i++) {
             var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.userAlarmsApresentacao[i].fireDate)
             if dateComparisionResult == NSComparisonResult.OrderedDescending {
-                // Current date is greater than end date.
+                // data da esquerda é menor que data da direita
                 currentSmallerDate = self.userAlarmsApresentacao[i].fireDate
                 smallerAlarm = self.userAlarmsApresentacao[i]
             }

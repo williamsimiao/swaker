@@ -143,18 +143,20 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
         } else {
             audioArray = AudioDAO.sharedInstance().audioCreatedArray
         }
+
         cell.audioNameLabel.text = audioArray[indexPath.row].audioDescription
         cell.audio = audioArray[indexPath.row].audio
         return cell
     }
     
+    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            AudioDAO.sharedInstance().loadAllAudios()
             let audioFromCell: AudioSaved!
             // this boolean is need to know if the audio belongs to the directory created or received
             // this is why it serves as an parameter to "deleteAudioSaved"
             let isCreated: Bool
-            
             if segmentControl.selectedSegmentIndex == 0 {
                 audioFromCell = AudioDAO.sharedInstance().audioReceivedArray[indexPath.row]
                 isCreated = false
@@ -164,16 +166,13 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
                 isCreated = true
             }
             if AudioDAO.sharedInstance().deleteAudioSaved(audioFromCell, isOfKindCreated: isCreated){
-                AudioDAO.sharedInstance().loadAllAudios()
-                println("\(AudioDAO.sharedInstance().audioCreatedArray.count)")
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                tableView.reloadData()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+                //tableView.reloadData()
             } else {
-                println("failed to delete friend")
+                println("failed to delete audio")
             }
         }
     }
-    
     
     /*
     // MARK: - Navigation
