@@ -108,7 +108,7 @@ class UserDAO: NSObject {
         let userDAO = PFUser.currentUser()!
         userDAO.setObject(user.name, forKey: "name")
         userDAO.setObject(PFFile(data: user.photo!), forKey: "photo")
-        userDAO.saveEventually()
+        userDAO.save()
     }
     
     /****************************************************************************************************

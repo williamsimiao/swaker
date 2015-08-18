@@ -77,6 +77,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             hasShownAlert = true
         }
         
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = sender as! UIView
+            popoverController.sourceRect = sender.bounds
+        }
+        
         presentViewController(alert, animated: true, completion: nil)
     }
     

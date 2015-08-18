@@ -50,7 +50,7 @@ class AlarmsAddingViewController: UIViewController, UIPickerViewDataSource, UIPi
         
         let fireDate = dateFromPickerView()
         
-        let alarm = Alarm(audioId: Alarm.primaryKey(), alarmDescription: descriptionTextField.text, fireDate: fireDate , setterId: UserDAO.sharedInstance().currentUser!.objectId)
+        let alarm = Alarm(audioId: nil, alarmDescription: descriptionTextField.text, fireDate: fireDate , setterId: UserDAO.sharedInstance().currentUser!.objectId)
         
         let addAlarmResult = AlarmDAO.sharedInstance().addAlarm(alarm)
         if addAlarmResult.success {

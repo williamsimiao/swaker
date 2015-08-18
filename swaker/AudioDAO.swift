@@ -258,7 +258,10 @@ class AudioDAO: NSObject {
         for(var i = 0 ;i < AlarmDAO.sharedInstance().userAlarms.count; i++){
             if AlarmDAO.sharedInstance().userAlarms[i].objectId == audio.alarmId {
                 AlarmDAO.sharedInstance().userAlarms[i].audioId = audio.audioName //mudei a inicializacao com pfobject
-                println("NAME:\(audio.audioName)")
+                println("alarm.audioId:\(AlarmDAO.sharedInstance().userAlarms[i].audioId)")
+                let TheAlarm = AlarmDAO.sharedInstance().userAlarms[i]
+                TheAlarm.save()
+                
                 //isso vai dar treta
                 break
             }

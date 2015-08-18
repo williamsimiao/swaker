@@ -10,6 +10,7 @@ import UIKit
 
 class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
 
+    @IBOutlet weak var sleepButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
@@ -18,6 +19,16 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if AlarmDAO.sharedInstance().userAlarms.count == 0 {
+            sleepButton.enabled = false;
+        }
+        else{
+            sleepButton.enabled = true;
+        }
+        
+        
+        
         navigationItem.title = "Alarms"
         tabBarController?.tabBar.tintColor = selectedTintColor
         setUpViews()
@@ -28,6 +39,13 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(animated: Bool) {
         AlarmDAO.sharedInstance().loadUserAlarms()
         userAlarms = AlarmDAO.sharedInstance().userAlarms
+        
+        if AlarmDAO.sharedInstance().userAlarms.count == 0 {
+            sleepButton.enabled = false;
+        }
+        else{
+            sleepButton.enabled = true;
+        }
         tableView.reloadData()
     }
     
@@ -103,10 +121,19 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if editingStyle == .Delete {
             // Delete the row from the data source
             AlarmDAO.sharedInstance().loadUserAlarms()
+    
             if AlarmDAO.sharedInstance().deleteAlarm(AlarmDAO.sharedInstance().userAlarms[indexPath.row]) {
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
+            
+            if AlarmDAO.sharedInstance().userAlarms.count == 0 {
+                sleepButton.enabled = false;
+            }
+            else{
+                sleepButton.enabled = true;
+            }
+            
         }
     }
     

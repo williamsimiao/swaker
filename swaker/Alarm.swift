@@ -35,6 +35,10 @@ class Alarm: NSObject, NSCoding {
         self.setterId = setterId
     }
     
+    override init () {
+        super.init()
+    }
+    
     required init(coder aDecoder: NSCoder) {
         objectId = aDecoder.decodeObjectForKey("objectId") as? String
         audioId = aDecoder.decodeObjectForKey("audioId") as? String
@@ -61,10 +65,11 @@ class Alarm: NSObject, NSCoding {
     
     func toPFObject() -> PFObject {
         var object:PFObject!
+        object = PFObject(className: "Alarm", dictionary: ["description":alarmDescription, "fireDate":fireDate, "setterId":setterId])
         if audioId != nil {
-            object = PFObject(className: "Alarm", dictionary: ["audioId":audioId!, "description":alarmDescription, "fireDate":fireDate, "setterId":setterId])
+            object.setObject(audioId!, forKey: "audioId")
         }
-            return object
+        return object
     }
     
     /***************************************************************************

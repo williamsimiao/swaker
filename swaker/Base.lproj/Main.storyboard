@@ -821,11 +821,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Sleep" id="ZZ7-yf-MjU">
                             <connections>
+                                <action selector="sleepAction:" destination="Juh-kk-mU3" id="sil-pi-JkE"/>
                                 <segue destination="uIs-Tu-pv5" kind="show" identifier="ring" id="0Nq-3B-1wt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="sleepButton" destination="ZZ7-yf-MjU" id="27V-l4-Mmw"/>
                         <outlet property="tableView" destination="sm8-04-Rt1" id="Zvd-CA-rnq"/>
                     </connections>
                 </viewController>
