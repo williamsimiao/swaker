@@ -124,7 +124,7 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         progressView.progress = 1
-        playTimer.invalidate()
+        //playTimer.invalidate()
     }
     
     func updateRecordProgressView(sender: NSTimer) {
@@ -146,9 +146,14 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         
         let alert = UIAlertController(title: nil, message: "Type a description for your audio.", preferredStyle: .Alert)
         var textField = UITextField()
+        //actions
+        let cancel = UIAlertAction(title: "Cancel", style: .Destructive) { (cancel) -> Void in
+            //nothing?
+        }
         alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Description"
         }
+        
         let action = UIAlertAction(title: "Send", style: .Default) { (action) -> Void in
             if Reachability.isConnectedToNetwork() == true {
                 let theAttemp = self.sendPushOfAudioAttemptWithDescription((alert.textFields!.first as! UITextField).text)
@@ -159,11 +164,15 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
 
             }
             else {
-                var alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
-                alert.show()
+                let NoConnectionAlert = UIAlertController(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: "Cancel", style: .Destructive) { (cancel) -> Void in
+                    //nothing?
+                }
+                NoConnectionAlert.addAction(okAction)
+                self.presentViewController(NoConnectionAlert, animated: true, completion: nil)
+
+                
             }
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .Destructive) { (cancel) -> Void in
         }
         alert.addAction(cancel)
         alert.addAction(action)

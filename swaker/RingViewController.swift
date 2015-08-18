@@ -33,8 +33,12 @@ class RingViewController: UIViewController {
     
     func playPraAcordar() {
         if audioToPlay != nil {
+            println("Nao e null")
             let error = NSErrorPointer()
             audioPlayer = AVAudioPlayer(data: audioToPlay, error: error)
+        }
+        else {
+            println("E null")
         }
     }
     
@@ -49,6 +53,9 @@ class RingViewController: UIViewController {
             if manager.fileExistsAtPath(path) {
                 audioToPlay = NSData(contentsOfFile: path)
                 println("Arquivo achado")
+            }
+            else {
+                println("arquivo nao achado")
             }
         }
         else {
@@ -65,7 +72,9 @@ class RingViewController: UIViewController {
         else {
             self.alarm = AlarmDAO.sharedInstance().nextAlarmTofire()
             let Interval = alarm.fireDate.timeIntervalSinceNow
-            FireTimer = NSTimer.scheduledTimerWithTimeInterval(Interval, target: self, selector: "playPraAcordar", userInfo: nil, repeats: true)
+            println("Interval:\(Interval)")
+
+            FireTimer = NSTimer.scheduledTimerWithTimeInterval(Interval, target: self, selector: "playPraAcordar", userInfo: nil, repeats: false)
         }
     }
     

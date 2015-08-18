@@ -234,15 +234,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func getAlarmsViewController() {
-        let tabController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
-        let navigation = tabController.viewControllers![3] as! UINavigationController
-        
-        let MyAlarmsController = navigation.storyboard?.instantiateViewControllerWithIdentifier("MyAlarmsController") as! UITableViewController
-        navigation.presentViewController(MyAlarmsController, animated: true, completion: nil)
-        
-    }
-
      func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
         let notificationPayload = userInfo["aps"] as! NSDictionary
@@ -257,25 +248,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if application.applicationState == UIApplicationState.Background {
             println("inative")
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-            let notificationCategory = notificationPayload["category"] as! String
-            if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
-                let alarmId = userInfo["f"] as! String
-                println("\(alarmId)")
-            }
-            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-            }
-
-        }
-        if application.applicationState == UIApplicationState.Active {
-            println("active")
-            let inAppNotification = UIAlertController()
+            let inAppNotification = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             let message = notificationPayload["alert"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
                 inAppNotification.title = "New alarm from\(message))"
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
+                inAppNotification.title = "New audio from\(message))"
+            }
+            self.window?.rootViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
+        }
+        if application.applicationState == UIApplicationState.Active {
+            println("active")
+            let inAppNotification = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            let message = notificationPayload["alert"] as! String
+            if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
                 inAppNotification.title = "New alarm from\(message))"
             }
+            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
+                inAppNotification.title = "New audio from\(message))"
+            }
+            //self.window?.rootViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
+            let tabbar = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+            tabbar.selectedViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
+            
         }
      }
      
@@ -311,6 +307,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        
+                
         
     }
     

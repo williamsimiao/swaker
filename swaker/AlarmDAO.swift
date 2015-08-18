@@ -88,9 +88,11 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                     if (Int(anAlarm.fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
                         userAlarms.append(anAlarm)
                     } else {
-                        // Move os audios ja tocados pra pasta certa
-                        AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.audioId!)
-                        self.deleteAlarm(anAlarm)
+                        if anAlarm.audioId != nil {
+                            // Move os audios ja tocados pra pasta certa
+                            AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.audioId!)
+                            self.deleteAlarm(anAlarm)
+                        }
                     }
                 }
             }

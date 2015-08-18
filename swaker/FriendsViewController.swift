@@ -86,45 +86,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 1
     }
     
-    //ALTERADO
-    func checkInternetConnection() {
-        if Reachability.isConnectedToNetwork() == true {
-            hasInternet = true
-            println("achou net")
-            internetChecking.invalidate()
-            
-        } else {
-            hasInternet = false
-            println("nao achou net")
-        }
-    }
-    
-    func stopInternetCheckingTimer() {
-        println("ANTES")
-        internetChecking.invalidate()
-        println("DEPOIS")
-        if hasInternet == true  {
-            println("Internet connection OK")
-            tableView.reloadData()
-        } else {
-            let alert = UIAlertController(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", preferredStyle: UIAlertControllerStyle.Alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (okAction) -> Void in
-                //parar o activity indicator
-            })
-            alert.addAction(okAction)
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
     override func viewWillAppear(animated: Bool) {
         AlarmDAO.sharedInstance().loadFriendsAlarms()
-        
-        //checando se a internet a cada 0.5 segundo
-        internetChecking = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkInternetConnection", userInfo: nil, repeats: true)
-        
-        //parando de o timer de checar por internet apos 4 segundos
-        stopChecking = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "stopInternetCheckingTimer", userInfo: nil, repeats: false)
-        
     }
     //ALTERADO ATE AQUI
 
