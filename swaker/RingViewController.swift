@@ -24,6 +24,9 @@ class RingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setUpViews()
+        
+        
+        
         SetUpNotification()//aqui acaha o alarme
         checkForAudioAttempt()
 
@@ -32,10 +35,14 @@ class RingViewController: UIViewController {
     }
     
     func playPraAcordar() {
+        
+        
+        
         if audioToPlay != nil {
             println("Nao e null")
             let error = NSErrorPointer()
             audioPlayer = AVAudioPlayer(data: audioToPlay, error: error)
+            audioPlayer.play()
         }
         else {
             println("E null")
@@ -49,7 +56,8 @@ class RingViewController: UIViewController {
     func checkForAudioAttempt() {
         if alarm.audioId != nil {
             let audioFileName = alarm.audioId! + ".caf"
-            let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(audioFileName)
+            let path = AudioDAO.sharedInstance().temporaryPath.stringByAppendingPathComponent(audioFileName)
+            println("path: \(path)")
             if manager.fileExistsAtPath(path) {
                 audioToPlay = NSData(contentsOfFile: path)
                 println("Arquivo achado")
@@ -71,10 +79,11 @@ class RingViewController: UIViewController {
         }
         else {
             self.alarm = AlarmDAO.sharedInstance().nextAlarmTofire()
-            let Interval = alarm.fireDate.timeIntervalSinceNow
-            println("Interval:\(Interval)")
-
+            println(self.alarm.fireDate)
+            let Interval = alarm.fireDate.timeIntervalSinceNow - NSTimeInterval (NSTimeZone.systemTimeZone().secondsFromGMT )
+            println(Interval)
             FireTimer = NSTimer.scheduledTimerWithTimeInterval(Interval, target: self, selector: "playPraAcordar", userInfo: nil, repeats: false)
+            
         }
     }
     
