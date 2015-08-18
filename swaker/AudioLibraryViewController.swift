@@ -70,31 +70,30 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
         else {
             audiosArray = AudioDAO.sharedInstance().audioCreatedArray
         }
-        
+        playingCell?.switchToPlay()
+        audioPlayer = nil
+        playingCell = nil
         tableView.reloadData()
     }
     
     
     @IBAction func play(sender:AnyObject) {
-        if playingCell != nil {
-            playingCell!.switchToPlay()
-            audioPlayer.pause()
-            playingCell = nil
-            audioPlayer = nil
-        }
         let sv = sender.superview!
         let cell = sv!.superview as! AudioCell
-        playingCell = cell
+        var toPlay = true
         if audioPlayer != nil {
-            if audioPlayer.data == cell.audio {
-                if audioPlayer.playing {
-                    audioPlayer.pause()
-                } else {
-                    audioPlayer.play()
-                }
+            if audioPlayer!.data == cell.audio {
+                toPlay = false
+            } else {
+                playingCell?.switchToPlay()
             }
         }
-        else {
+        if audioPlayer != nil {
+            audioPlayer.stop()
+            audioPlayer = nil
+        }
+        playingCell = cell
+        if toPlay {
             audioPlayer = AVAudioPlayer(data: cell.audio, error: nil)
             audioPlayer.delegate = self
             AVAudioSession.sharedInstance().overrideOutputAudioPort(
@@ -105,6 +104,8 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         playingCell?.switchToPlay()
+        playingCell = nil
+        audioPlayer = nil
     }
     
     // MARK: - Table view data source

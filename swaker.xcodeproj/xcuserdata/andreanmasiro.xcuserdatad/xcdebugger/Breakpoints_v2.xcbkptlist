@@ -110,7 +110,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "235"
-            endingLineNumber = "235">
+            endingLineNumber = "235"
+            landmarkName = "AlarmDAO"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -205,8 +207,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "168"
             endingLineNumber = "168"
-            landmarkName = "AlarmDAO"
-            landmarkType = "3">
+            landmarkName = "loadFriendsAlarms()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -333,7 +335,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "audioPlayerDidFinishPlaying(_:successfully:)"
+            landmarkName = "fadeButtonsIn()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -398,6 +400,22 @@
             startingLineNumber = "49"
             endingLineNumber = "49"
             landmarkName = "setUpViews()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "swaker/AudioLibraryViewController.swift"
+            timestampString = "461617240.197855"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "play(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

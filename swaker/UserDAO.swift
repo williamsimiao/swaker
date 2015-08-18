@@ -153,8 +153,9 @@ class UserDAO: NSObject {
                     }
                 }
                 self.currentUser!.friends = friends
-                
                 PFInstallation.currentInstallation().saveInBackground()
+            } else {
+                
             }
         }
     }
