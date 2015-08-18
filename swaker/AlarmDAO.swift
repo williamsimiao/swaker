@@ -13,8 +13,6 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
     
 /*//////////////////////////////CLASS ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     //MARK: Class atts and functions
-    var userAlarmsApresentacao = [Alarm]()
-    
     
     static let friendsAlarmsUpdated = "friendsAlarmsUpdated"
     static var instance:AlarmDAO?
@@ -164,15 +162,13 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
 //                let alarms = alarms as! [PFObject]
                 for alarm in alarms! {
                     //ALTERADO
-                    let localAlarm = Alarm(PFAlarm: alarm as! PFObject) as Alarm
-                    var dateComparisionResult:NSComparisonResult = localAlarm.fireDate.compare(NSDate())
-                    //OrderedAscending significa q data da direta é a menor
-                    if dateComparisionResult == NSComparisonResult.OrderedAscending {
-                        fAlarms.append(Alarm(PFAlarm: alarm as! PFObject))
+                    let anAlarm = Alarm(PFAlarm: alarm as! PFObject)
+                    if (Int(anAlarm.fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
+                        fAlarms.append(anAlarm)
                     }
+                }
                 self.friendsAlarms = fAlarms
                 println("\(fAlarms.count) ALARMES ACHADOS")
-                }
             }
         })
     }
@@ -238,22 +234,15 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
     //MARK: Mudanca de ultimahora
     
     func nextAlarmTofire() -> Alarm {
-        let calendar = NSCalendar.currentCalendar()
-        let comps = NSDateComponents()
-        comps.day = 31
-        comps.month = 12
-        comps.year = 2099
-        var currentSmallerDate = calendar.dateFromComponents(comps)
-        var smallerAlarm: Alarm!
-        for(var i = 0; i < self.userAlarmsApresentacao.count ; i++) {
-            var dateComparisionResult:NSComparisonResult = currentSmallerDate!.compare(self.userAlarmsApresentacao[i].fireDate)
-            if dateComparisionResult == NSComparisonResult.OrderedDescending {
-                // data da esquerda é menor que data da direita
-                currentSmallerDate = self.userAlarmsApresentacao[i].fireDate
-                smallerAlarm = self.userAlarmsApresentacao[i]
+        var smallerAlarm : Alarm!
+        var currentSmallerDate = self.userAlarms[0].fireDate
+        for(var i = 0; i < self.userAlarms.count ; i++) {
+            if (Int(self.userAlarms[i].fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
+                currentSmallerDate = self.userAlarms[i].fireDate
+                smallerAlarm = self.userAlarms[i]
             }
         }
-        return smallerAlarm!
+        return smallerAlarm
     }
 }
 

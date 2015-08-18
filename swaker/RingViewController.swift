@@ -23,7 +23,7 @@ class RingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+        //setUpViews()
         SetUpNotification()//aqui acaha o alarme
         checkForAudioAttempt()
 
@@ -59,10 +59,14 @@ class RingViewController: UIViewController {
     
     
     func SetUpNotification() {
-        self.alarm = AlarmDAO.sharedInstance().nextAlarmTofire()
-        let Interval = alarm.fireDate.timeIntervalSinceNow
-        FireTimer = NSTimer.scheduledTimerWithTimeInterval(Interval, target: self, selector: "playPraAcordar", userInfo: nil, repeats: true)
-        
+        if AlarmDAO.sharedInstance().userAlarms.count == 0 {
+            println("O usuario nao possui alarmes")            
+        }
+        else {
+            self.alarm = AlarmDAO.sharedInstance().nextAlarmTofire()
+            let Interval = alarm.fireDate.timeIntervalSinceNow
+            FireTimer = NSTimer.scheduledTimerWithTimeInterval(Interval, target: self, selector: "playPraAcordar", userInfo: nil, repeats: true)
+        }
     }
     
     func setUpViews() {

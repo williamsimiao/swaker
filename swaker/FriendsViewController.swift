@@ -15,6 +15,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var naviBackgroundView: UIView!
     var currentCalendar = NSCalendar.currentCalendar()
     var hasInternet: Bool!
+    var stopChecking: NSTimer!
     var internetChecking: NSTimer!
     var friends = [User]()
     var isDeleting = false
@@ -89,6 +90,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func checkInternetConnection() {
         if Reachability.isConnectedToNetwork() == true {
             hasInternet = true
+            println("achou net")
+            internetChecking.invalidate()
+            
         } else {
             hasInternet = false
             println("nao achou net")
@@ -96,13 +100,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func stopInternetCheckingTimer() {
+        println("ANTES")
         internetChecking.invalidate()
-        
+        println("DEPOIS")
         if hasInternet == true  {
             println("Internet connection OK")
             tableView.reloadData()
         } else {
-            println("Internet connection FAILED")
             let alert = UIAlertController(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", preferredStyle: UIAlertControllerStyle.Alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (okAction) -> Void in
                 //parar o activity indicator
@@ -114,11 +118,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(animated: Bool) {
         AlarmDAO.sharedInstance().loadFriendsAlarms()
-        //parando de o timer de checar por internet apos 4 segundos
-        NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "stopInternetCheckingTimer", userInfo: nil, repeats: false)
         
         //checando se a internet a cada 0.5 segundo
-        internetChecking = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "checkInternetConnection", userInfo: nil, repeats: true)
+        internetChecking = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "checkInternetConnection", userInfo: nil, repeats: true)
+        
+        //parando de o timer de checar por internet apos 4 segundos
+        stopChecking = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "stopInternetCheckingTimer", userInfo: nil, repeats: false)
+        
     }
     //ALTERADO ATE AQUI
 

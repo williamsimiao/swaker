@@ -254,20 +254,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("NUNCA VAI IMPRIMIR ISSO")
         }
         
-        if application.applicationState == UIApplicationState.Inactive {
+        if application.applicationState == UIApplicationState.Background {
             println("inative")
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
             let notificationCategory = notificationPayload["category"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
                 let alarmId = userInfo["f"] as! String
-                //getRecordViewControllerforAlarmId(alarmId)
+                println("\(alarmId)")
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
             }
 
         }
         if application.applicationState == UIApplicationState.Active {
-            //esse alert nao funciona
+            println("active")
             let inAppNotification = UIAlertController()
             let message = notificationPayload["alert"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
@@ -321,13 +321,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
     }
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationDidEnterBackground(application: UIApplication) {
         //Zerando os Badges
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-    }
-    
 
-    
+    }
     
     
     
