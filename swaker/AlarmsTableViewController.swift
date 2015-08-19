@@ -12,12 +12,7 @@ class AlarmsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        navigationItem.title = "Alarms"
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -48,7 +43,6 @@ class AlarmsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = AlarmDAO.sharedInstance().userAlarms[indexPath.row].fireDate.description 
         // Configure the cell...
-
         return cell
     }
     
@@ -76,8 +70,6 @@ class AlarmsTableViewController: UITableViewController {
 
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-      
         if editingStyle == .Delete {
             // Delete the row from the data source
             AlarmDAO.sharedInstance().loadUserAlarms()

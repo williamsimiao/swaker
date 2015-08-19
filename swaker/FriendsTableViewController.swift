@@ -8,13 +8,23 @@
 
 import UIKit
 
-class FriendsTableViewController: UITableViewController {
+class FriendsTableViewController: UITableViewController, FriendsDataUpdating {
 
     var friends = [User]()
+    var isDeleting = false
+    var hasLoaded = false {
+        didSet {
+            if hasLoaded {
+                navigationItem.titleView = nil
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1.0)
+        navigationItem.title = "Friends"
+        friends = UserDAO.sharedInstance().currentUser!.friends
+        UserDAO.sharedInstance().currentUser!.friendsDelegate.append(self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -22,6 +32,13 @@ class FriendsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    func reloadData() {
+        friends = UserDAO.sharedInstance().currentUser!.friends
+        if !isDeleting {
+            tableView.reloadData()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,7 +53,6 @@ class FriendsTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        friends = UserDAO.sharedInstance().currentUserFriends
         tableView.reloadData()
     }
     
@@ -65,12 +81,11 @@ class FriendsTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUserFriends[indexPath.row]) {
-            UserDAO.sharedInstance().loadFriendsForCurrentUser()
-            friends = UserDAO.sharedInstance().currentUserFriends
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            tableView.reloadData()
+            isDeleting = true
+            if UserDAO.sharedInstance().deleteFriend(UserDAO.sharedInstance().currentUser!.friends[indexPath.row]) {
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.reloadData()
+                isDeleting = false
             } else {
                 println("failed to delete friend")
             }

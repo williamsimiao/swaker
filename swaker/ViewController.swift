@@ -13,21 +13,18 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var testeInter: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    var gradientLayer:CAGradientLayer!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.testeInter.text = NSLocalizedString("Teste", tableName: nil, bundle:  NSBundle.mainBundle(), value: "", comment: "")
-        
-        let path = NSBundle.mainBundle().pathForResource("paidefamilia", ofType: "mp3")!
-        println(path)
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
-        }
+
+        setUpViews()
+
     }
-    
+
     override func viewDidAppear(animated: Bool) {
-        
-        if PFUser.currentUser()?.username == nil {
+        if UserDAO.sharedInstance().currentUser == nil {
             performSegueWithIdentifier("loginScreen", sender: self)
         } else {
             indicator.startAnimating()
@@ -36,15 +33,37 @@ class ViewController: UIViewController {
                 AlarmDAO.sharedInstance().loadUserAlarms()
                 AlarmDAO.sharedInstance().loadFriendsAlarms()
                 AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
+                AudioDAO.sharedInstance().loadAllAudios()
                 self.indicator.stopAnimating()
-                self.performSegueWithIdentifier("userAlreadyLoggedIn", sender: self)
+                self.performSegueWithIdentifier("loggedIn", sender: self)
             })
         }
+    }
+    
+    override func performSegueWithIdentifier(identifier: String?, sender: AnyObject?) {
+        super.performSegueWithIdentifier(identifier, sender: sender)
+    }
+    
+    func setUpViews() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
+        view.layer.insertSublayer(gradientLayer, atIndex: 0)
+        indicator.hidesWhenStopped = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "userAlreadyLoggedIn" {
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
     }
 }
 

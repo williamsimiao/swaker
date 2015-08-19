@@ -21,7 +21,6 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         super.viewDidLoad()
         indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         navigationItem.titleView = indicator
-        
         pictureImageView.layer.cornerRadius = pictureImageView.frame.height / 2
         pictureImageView.clipsToBounds = true
         // Uncomment the following line to preserve selection between presentations
@@ -45,13 +44,15 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
             indicator.startAnimating()
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: UIImagePNGRepresentation(self.pictureImageView.image))
-                if UserDAO.sharedInstance().signup(user) {
+                let signUpResult = UserDAO.sharedInstance().signup(user)
+                if signUpResult.success {
                     alert.message = "Sign Up succeeded."
                     alert.addAction(okAction)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.presentViewController(alert, animated: true, completion: nil)
                     })
                 } else {
+                    println(signUpResult.error)
                     alert.message = "Could not Sign Up."
                     alert.addAction(cancelAction)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -82,8 +83,10 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
             }
         }
         var libraryAction = UIAlertAction(title: "Choose from Camera Roll", style: .Default) { (libraryAction) -> Void in
-            imagePicker.sourceType = .PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
+                imagePicker.sourceType = .PhotoLibrary
+                self.presentViewController(imagePicker, animated: true, completion: nil)
+            }
         }
         var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (cancelAction) -> Void in
             alert.dismissViewControllerAnimated(true, completion: nil)

@@ -35,6 +35,10 @@ class Alarm: NSObject, NSCoding {
         self.setterId = setterId
     }
     
+    override init () {
+        super.init()
+    }
+    
     required init(coder aDecoder: NSCoder) {
         objectId = aDecoder.decodeObjectForKey("objectId") as? String
         audioId = aDecoder.decodeObjectForKey("audioId") as? String
@@ -61,10 +65,11 @@ class Alarm: NSObject, NSCoding {
     
     func toPFObject() -> PFObject {
         var object:PFObject!
+        object = PFObject(className: "Alarm", dictionary: ["description":alarmDescription, "fireDate":fireDate, "setterId":setterId])
         if audioId != nil {
-            object = PFObject(className: "Alarm", dictionary: ["audioId":audioId!, "description":alarmDescription, "fireDate":fireDate, "setterId":setterId])
+            object.setObject(audioId!, forKey: "audioId")
         }
-            return object
+        return object
     }
     
     /***************************************************************************
@@ -82,21 +87,40 @@ class Alarm: NSObject, NSCoding {
     
     /***************************************************************************
         Função que remove o alarme localmente
-        Parametro: o objectId do alarme
+        Parametro: void
         Retorno: Sucesso ou não da operação.
     ***************************************************************************/
-    static func deleteAlarm(alarm:Alarm!) -> Bool {
+    func delete() -> Bool {
         var error:NSError?
-        let path = DAO.alarmsPath.stringByAppendingPathComponent("\(alarm.objectId).alf")
+        let path = AlarmDAO.sharedInstance().alarmsPath.stringByAppendingPathComponent("\(self.objectId).alf")
         let success = NSFileManager.defaultManager().removeItemAtPath(path, error: &error)
         if !success {
             println(error?.localizedDescription)
             return false
         }
+        self.unschedule()
         return true
     }
     
-    /***************************************************************************
-        Função que adiciona um audio a um alarme
-    ***************************************************************************/
+    func schedule() {
+        let alarmNotification = UILocalNotification()
+        
+        alarmNotification.alertBody = self.alarmDescription
+        alarmNotification.fireDate = NSDate(timeInterval: -NSTimeInterval(NSTimeZone.systemTimeZone().secondsFromGMT), sinceDate: self.fireDate)
+        alarmNotification.userInfo = ["alarmId":self.objectId]
+        alarmNotification.category = AppDelegate.categoriesIdentifiers.newAlarm.rawValue
+        alarmNotification.soundName = "paidefamilia.mp3"
+        UIApplication.sharedApplication().scheduleLocalNotification(alarmNotification)
+    }
+    
+    func unschedule() {
+        let notifs = UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification]
+        for notif in notifs {
+            if let info = notif.userInfo as? [String:String] {
+                if info["alarmId"] == self.objectId {
+                    UIApplication.sharedApplication().cancelLocalNotification(notif)
+                }
+            }
+        }
+    }
 }

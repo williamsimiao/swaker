@@ -12,6 +12,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
 
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
+    var backgroundView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,16 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func setUpViews() {
+        self.backgroundView = view
+        self.backgroundView.frame = UIScreen.mainScreen().bounds
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = UIScreen.mainScreen().bounds
+//        gradientLayer.colors = mainColors
+//        gradientLayer.locations = mainLocations
+        self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
     
     @IBAction func pickAImage(sender: AnyObject) {
@@ -58,6 +69,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
         photoImageView.image = image
         dismissViewControllerAnimated(true, completion: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "updateUser")
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -68,6 +81,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     func cancel() {
         nameTextField.resignFirstResponder()
         nameTextField.text = UserDAO.sharedInstance().currentUser!.name
+        photoImageView.image = UIImage(data: UserDAO.sharedInstance().currentUser!.photo!)
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = nil
     }

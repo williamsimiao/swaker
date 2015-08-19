@@ -15,17 +15,26 @@ class ForgotPasswordViewController: UIViewController {
     @IBOutlet weak var textFieldView: UIView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     var gradientLayer:CAGradientLayer!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         indicator.hidden = true
         textFieldView.layer.cornerRadius = 4
         submitButton.layer.cornerRadius = 4
+        setUpViews()
+        // Do any additional setup after loading the view.
+    }
+    
+    func setUpViews() {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColors[index]
+        gradientLayer.locations = mainLocations[index] as! [AnyObject]
         view.layer.insertSublayer(gradientLayer, atIndex: 0)
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,7 +62,8 @@ class ForgotPasswordViewController: UIViewController {
         if (count(emailTextField.text) > 4) {
             indicator.hidden = false
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                if UserDAO.sharedInstance().resetPasswordForEmail(self.emailTextField.text) {
+                let resetPasswordResult = UserDAO.sharedInstance().resetPasswordForEmail(self.emailTextField.text)
+                if resetPasswordResult.success {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         alert.message = "Your password reset has been sent to your email address."
                         self.presentViewController(alert, animated: true, completion: nil)

@@ -8,11 +8,15 @@
 
 import UIKit
 
-class FriendsAlarmsTableViewController: UITableViewController {
+class FriendsAlarmsTableViewController: UITableViewController, AlarmDAODataUpdating {
+    
+    var friendsAlarms = [Alarm]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "Friends' Alarms"
+        friendsAlarms = AlarmDAO.sharedInstance().friendsAlarms
+        AlarmDAO.sharedInstance().friendsAlarmsDelegate.append(self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -20,8 +24,13 @@ class FriendsAlarmsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    func reloadData() {
+        friendsAlarms = AlarmDAO.sharedInstance().friendsAlarms
         tableView.reloadData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        AlarmDAO.sharedInstance().loadFriendsAlarms()
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,12 +49,12 @@ class FriendsAlarmsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return AlarmDAO.sharedInstance().friendsAlarms.count
+        return friendsAlarms.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = "\(AlarmDAO.sharedInstance().friendsAlarms[indexPath.row].alarmDescription)"
+        cell.textLabel?.text = "\(friendsAlarms[indexPath.row].alarmDescription)"
         // Configure the cell...
         return cell
     }
