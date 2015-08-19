@@ -13,7 +13,6 @@
 		3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402E1B6EC4E5005E9991 /* AudioCell.swift */; };
 		3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */; };
 		3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DD1B62B0D800DEC2CB /* ViewController.swift */; };
-		3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058DF1B62B0D800DEC2CB /* Main.storyboard */; };
 		3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E21B62B0D800DEC2CB /* Images.xcassets */; };
 		3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */; };
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
@@ -36,6 +35,7 @@
 		4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */; };
 		4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */; };
 		4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6137B11B75FEFF004E147B /* FriendsViewController.swift */; };
+		4C7F5FA01B84F7C300191246 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C7F5F9F1B84F7C300191246 /* Main.storyboard */; };
 		4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021011B7609A8006CDA10 /* FriendsCell.swift */; };
 		4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */; };
 		4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021071B76225D006CDA10 /* AlarmCell.swift */; };
@@ -89,7 +89,6 @@
 		3DB058DA1B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DB058DD1B62B0D800DEC2CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3DB058E01B62B0D800DEC2CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DB058E21B62B0D800DEC2CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3DB058E51B62B0D800DEC2CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3DB058EB1B62B0D800DEC2CB /* swakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +96,6 @@
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
 		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPTableViewCell.swift; sourceTree = "<group>"; };
-		45EBD7CE1B729B530035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Main.strings; sourceTree = "<group>"; };
 		45EBD7CF1B729B530035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		45EBD7D51B729E5F0035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45EBD7D71B729E7A0035C2BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -117,6 +115,7 @@
 		4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsTableViewController.swift; sourceTree = "<group>"; };
 		4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		4C6137B11B75FEFF004E147B /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		4C7F5F9F1B84F7C300191246 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4C9021011B7609A8006CDA10 /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsViewController.swift; sourceTree = "<group>"; };
 		4C9021071B76225D006CDA10 /* AlarmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
@@ -212,7 +211,7 @@
 				4CCB8D791B700DF0005B243C /* userDefault.png */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
-				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
+				4C7F5F9F1B84F7C300191246 /* Main.storyboard */,
 				3D26C0641B8003D700B9CD2F /* Reachability.swift */,
 				45E824D51B66B5D500F0F404 /* DAO */,
 				45E824D41B66B55F00F0F404 /* Entities */,
@@ -458,7 +457,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */,
+				4C7F5FA01B84F7C300191246 /* Main.storyboard in Resources */,
 				45EBD7D41B729E5F0035C2BA /* Localizable.strings in Resources */,
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
@@ -547,15 +546,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3DB058DF1B62B0D800DEC2CB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DB058E01B62B0D800DEC2CB /* Base */,
-				45EBD7CE1B729B530035C2BA /* pt */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
