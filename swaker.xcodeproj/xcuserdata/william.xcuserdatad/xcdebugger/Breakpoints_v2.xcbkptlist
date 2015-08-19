@@ -19,22 +19,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swaker/AppDelegate.swift"
-            timestampString = "461621101.431443"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "swaker/AlarmsTableViewController.swift"
             timestampString = "460247010.932142"
             startingColumnNumber = "9223372036854775807"
@@ -58,22 +42,6 @@
             startingLineNumber = "54"
             endingLineNumber = "54"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "swaker/AppDelegate.swift"
-            timestampString = "461620639.030956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -209,11 +177,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swaker/AppDelegate.swift"
-            timestampString = "460955045.022394"
+            timestampString = "461681032.3863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "getRecordViewControllerforAlarmId(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -225,23 +193,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swaker/AppDelegate.swift"
-            timestampString = "460955045.022394"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "getRecordViewControllerforAlarmId(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "swaker/AppDelegate.swift"
-            timestampString = "460955045.022394"
+            timestampString = "461681032.3863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "223"
@@ -257,11 +209,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swaker/AppDelegate.swift"
-            timestampString = "460955045.022394"
+            timestampString = "461681032.3863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "getRecordViewControllerforAlarmId(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -272,14 +224,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swaker/AlarmsViewController.swift"
-            timestampString = "460955783.453897"
+            filePath = "swaker/AppDelegate.swift"
+            timestampString = "461681032.3863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "AlarmsViewController"
-            landmarkType = "3">
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "getRecordViewControllerforAlarmId(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -336,13 +288,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swaker/RingViewController.swift"
-            timestampString = "461612963.491049"
+            filePath = "swaker/RecordViewController.swift"
+            timestampString = "461700959.12901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "playPraAcordar()"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "controller(_:didSelectItem:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -353,27 +305,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swaker/AppDelegate.swift"
-            timestampString = "461620639.030956"
+            timestampString = "461699831.235675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "swaker/AppDelegate.swift"
-            timestampString = "461621079.241157"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
             landmarkType = "5">
          </BreakpointContent>

@@ -165,6 +165,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        //////////////////
+                //////////////////
+        
         return true
     }
     
@@ -238,13 +241,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let notificationPayload = userInfo["aps"] as! NSDictionary
         
-         if application.applicationState.rawValue == 1 {
-            
-         }
-         else {
-            println("NUNCA VAI IMPRIMIR ISSO")
-        }
-        
         if application.applicationState == UIApplicationState.Background {
             println("inative")
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
@@ -262,18 +258,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("active")
             let inAppNotification = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             let message = notificationPayload["alert"] as! String
+            
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
                 inAppNotification.title = "New alarm from\(message))"
+                println("\(userInfo)")
+                NSNotificationCenter.defaultCenter().postNotificationName("RecebeuInAppNotification", object: nil, userInfo: userInfo)
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
                 inAppNotification.title = "New audio from\(message))"
             }
-            //self.window?.rootViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
-            let tabbar = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
-            tabbar.selectedViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
-            
+//            let tabbar = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+//            tabbar.selectedViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
         }
      }
+    
+    @objc func handleInAppNotification(notification: NSNotification){
+        
+    }
      
         
     

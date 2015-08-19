@@ -15,7 +15,7 @@ protocol audioDataProtocol {
     func retornaAudio()-> NSData
 }
 
-class RecordViewController: UIViewController, AVAudioPlayerDelegate {
+class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
@@ -155,23 +155,10 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         }
         
         let action = UIAlertAction(title: "Send", style: .Default) { (action) -> Void in
-            if Reachability.isConnectedToNetwork() == true {
-                let theAttemp = self.sendPushOfAudioAttemptWithDescription((alert.textFields!.first as! UITextField).text)
-                if self.isRecordingNewAudio == true {
-                    let audioSavedFromRecording = AudioSaved(myAudioAttempt: theAttemp)
-                    audioSavedFromRecording.saveAudioInToCreatedDir()
-                }
-
-            }
-            else {
-                let NoConnectionAlert = UIAlertController(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: "Cancel", style: .Destructive) { (cancel) -> Void in
-                    //nothing?
-                }
-                NoConnectionAlert.addAction(okAction)
-                self.presentViewController(NoConnectionAlert, animated: true, completion: nil)
-
-                
+            let theAttemp = self.sendPushOfAudioAttemptWithDescription((alert.textFields!.first as! UITextField).text)
+            if self.isRecordingNewAudio == true {
+                let audioSavedFromRecording = AudioSaved(myAudioAttempt: theAttemp)
+                audioSavedFromRecording.saveAudioInToCreatedDir()
             }
         }
         alert.addAction(cancel)
@@ -241,9 +228,11 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     /*
-    Implementacacao do metodo do protocolo da AudioSelectionTableViewController
-    Descricaao: atribui a propertie Audiodata o audio associado a cell selecionada na AudioSelectionTableViewController
-    em seguida "dispenca" essa view
+        Implementacacao do metodo do protocolo da AudioSelectionTableViewController
+        Descricaao: atribui a propertie Audiodata o audio associado a cell selecionada na AudioSelectionTableViewController
+        em seguida "dispenca" essa view
+        
+        NAO FOI USADO
     */
     func controller(controller: AudioSelectionTableViewController, didSelectItem: NSData) {
         audioData = didSelectItem
@@ -256,6 +245,11 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate {
         })
         
         
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        println("lala")
+        return true
     }
     
     override func didReceiveMemoryWarning() {

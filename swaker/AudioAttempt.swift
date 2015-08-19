@@ -10,7 +10,9 @@ import UIKit
 import Parse
 
 class AudioAttempt: Audio {
+    
     var alarmId:String!
+    var objectId: String!
     
     init(alarmId:String!, audio:NSData!, audioDescription:String!, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
@@ -25,9 +27,12 @@ class AudioAttempt: Audio {
         let audioDescription = aDecoder.decodeObjectForKey("audioDescription") as! String
         let senderId = aDecoder.decodeObjectForKey("senderId") as! String
         let audioName = aDecoder.decodeObjectForKey("audioName") as! String
+        let objectId = aDecoder.decodeObjectForKey("audioName") as! String
+
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.alarmId = alarmId
         self.audioName = audioName
+        self.objectId = objectId
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -37,6 +42,7 @@ class AudioAttempt: Audio {
         aCoder.encodeObject(senderId, forKey: "senderId")
         aCoder.encodeObject(alarmId, forKey: "alarmId")
         aCoder.encodeObject(audioName, forKey: "audioName")
+        aCoder.encodeObject(objectId, forKey: "objectId")
     }
     
     init(PFAudioAttempt:PFObject) {
@@ -45,7 +51,8 @@ class AudioAttempt: Audio {
         let audioData = audioPFFile.getData()! as NSData
         super.init(audio: audioData, audioDescription: PFAudioAttempt["description"] as? String, senderId: PFAudioAttempt["senderId"] as! String)
         self.alarmId = PFAudioAttempt["alarmId"] as! String
-        self.audioName = PFAudioAttempt.objectId
+        self.audioName = PFAudioAttempt["alarmId"] as! String
+        self.objectId = PFAudioAttempt.objectId
     }
 
 
@@ -60,6 +67,7 @@ class AudioAttempt: Audio {
     */
     func saveAudioInToTemporaryDir() -> Bool {
         // DESMUDEI
+        
         let path = AudioDAO.sharedInstance().temporaryPath.stringByAppendingPathComponent(self.audioName)
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
         self.audio.writeToFile(path + ".caf", atomically: true)

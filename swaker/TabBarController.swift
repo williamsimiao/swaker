@@ -12,6 +12,10 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: Selector("presentAlert:"),
+            name: "RecebeuInAppNotification",
+            object: nil)
         for item in tabBar.items! {
             let item = item as! UITabBarItem
             item.image = item.image?.imageWithRenderingMode(.AlwaysOriginal)
@@ -19,6 +23,14 @@ class TabBarController: UITabBarController {
             item.setTitleTextAttributes([NSForegroundColorAttributeName:selectedTintColor], forState: UIControlState.Highlighted)
         }
         // Do any additional setup after loading the view.
+    }
+    
+    func presentAlert(sender: AnyObject) {
+        //sender.userInfo[""]
+        let alert = UIAlertController(title: "teste", message: "jajaja", preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

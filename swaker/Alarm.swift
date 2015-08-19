@@ -109,8 +109,21 @@ class Alarm: NSObject, NSCoding {
         alarmNotification.fireDate = NSDate(timeInterval: -NSTimeInterval(NSTimeZone.systemTimeZone().secondsFromGMT), sinceDate: self.fireDate)
         alarmNotification.userInfo = ["alarmId":self.objectId]
         alarmNotification.category = AppDelegate.categoriesIdentifiers.newAlarm.rawValue
-        alarmNotification.soundName = "paidefamilia.mp3"
+        alarmNotification.soundName = ""
         UIApplication.sharedApplication().scheduleLocalNotification(alarmNotification)
+    }
+    
+    func updateNotificationSound(soundName: String) {
+        let notifs = UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification]
+        for notif in notifs {
+            let userInfo = notif.userInfo as! [String: String]
+            if userInfo["alarmId"] == self.objectId {
+                notif.soundName = "propostaSound.caf"
+//                UIApplication.sharedApplication().cancelLocalNotification(notif)
+                UIApplication.sharedApplication().scheduleLocalNotification(notif)
+                
+            }
+        }
     }
     
     func unschedule() {

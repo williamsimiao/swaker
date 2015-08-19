@@ -90,8 +90,8 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                     } else {
                   // Move os audios ja tocados pra pasta certa
                         if anAlarm.audioId != nil {
-                            AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.audioId!)
-                            self.deleteAlarm(anAlarm)
+                            //AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.audioId!)
+                            //self.deleteAlarm(anAlarm)
                         }
                     }
                 }

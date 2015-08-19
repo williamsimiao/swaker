@@ -145,12 +145,13 @@ class AudioDAO: NSObject {
     */
     func loadAudiosFromAlarm(alarm:Alarm) {
         audioTemporaryArray.removeAll(keepCapacity: false)
-        let AudioQuery = PFQuery(className: "AudioAttempt")
-        let ArrayPFobjectsAttempt = AudioQuery.whereKey("alarmId", equalTo: alarm.objectId).findObjects()!
-        for aPFobject in ArrayPFobjectsAttempt {
-            var anAudio = AudioAttempt(alarmId: alarm.objectId as String, audio: (aPFobject["audio"] as! PFFile).getData()!, audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
+        let audioQuery = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId)
+        let arrayPFobjectsAttempt = audioQuery.findObjects()!
+        for aPFobject in arrayPFobjectsAttempt {
+            var anAudio = AudioAttempt(alarmId: alarm.objectId as String, audio: NSData(), audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
             audioTemporaryArray.append(anAudio)
         }
+        println("aehooo")
     }
     
     /*
@@ -254,11 +255,16 @@ class AudioDAO: NSObject {
     
     func acceptAudioAttempt(audio:AudioAttempt) {
         //colocando audioId aceito com o alarme correspondente
-        audio.saveAudioInToTemporaryDir()
+        let audioAttempt = PFObject(withoutDataWithClassName: "AudioAttempt", objectId: audio.objectId)
+        audioAttempt.fetch()
+        let _audio = AudioAttempt(PFAudioAttempt: audioAttempt)
+        _audio.saveAudioInToTemporaryDir()
         for(var i = 0 ;i < AlarmDAO.sharedInstance().userAlarms.count; i++){
-            if AlarmDAO.sharedInstance().userAlarms[i].objectId == audio.alarmId {
-                AlarmDAO.sharedInstance().userAlarms[i].audioId = audio.audioName
-                AlarmDAO.sharedInstance().userAlarms[i].save()
+            var alarm = AlarmDAO.sharedInstance().userAlarms[i]
+            if alarm.objectId == audio.alarmId {
+                alarm.audioId = audio.audioName
+                alarm.save()
+                alarm.updateNotificationSound("updateNotificationSound")
                 break
             }
             

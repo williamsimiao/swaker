@@ -40,8 +40,8 @@ class RingViewController: UIViewController {
         
         if audioToPlay != nil {
             println("Nao e null")
-            let error = NSErrorPointer()
-            audioPlayer = AVAudioPlayer(data: audioToPlay, error: error)
+            var error: NSError?
+            audioPlayer = AVAudioPlayer(data: audioToPlay, error: &error)
             audioPlayer.play()
         }
         else {

@@ -10,7 +10,11 @@ import UIKit
 
 class AlarmsAudioAttemptViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var audioAttemptArray = AudioDAO.sharedInstance().audioTemporaryArray
+    var audioAttemptArray = [AudioAttempt]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     var backgroundView: UIView!
     var alarm: Alarm!
     var currentCalendar = NSCalendar.currentCalendar()
@@ -20,14 +24,14 @@ class AlarmsAudioAttemptViewController: UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        AudioDAO.sharedInstance().loadAudiosFromAlarm(alarm)
-        audioAttemptArray = AudioDAO.sharedInstance().audioTemporaryArray
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
-        AudioDAO.sharedInstance().loadAudiosFromAlarm(alarm)
-        tableView.reloadData()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            AudioDAO.sharedInstance().loadAudiosFromAlarm(self.alarm)
+            self.audioAttemptArray = AudioDAO.sharedInstance().audioTemporaryArray
+        })
     }
     
     func setUpViews() {
