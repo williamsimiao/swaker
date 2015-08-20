@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import AVFoundation
 
-class RingViewController: UIViewController {
+class RingViewController: UIViewController, AVAudioPlayerDelegate {
     
     var backgroundView: UIView!
     var audioRecorder:AVAudioRecorder!
@@ -42,7 +42,16 @@ class RingViewController: UIViewController {
             println("Nao e null")
             var error: NSError?
             audioPlayer = AVAudioPlayer(data: audioToPlay, error: &error)
+            audioPlayer.delegate = self
+            AVAudioSession.sharedInstance().overrideOutputAudioPort(
+                AVAudioSessionPortOverride.Speaker, error: nil)
             audioPlayer.play()
+            let AcordaAlert = UIAlertController(title: "Time to Wake", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            let stopAction = UIAlertAction(title: "Stop", style: UIAlertActionStyle.Destructive, handler: { (AcordaAlert) -> Void in
+                self.audioPlayer.pause()
+            })
+            AcordaAlert.addAction(stopAction)
+            self.presentViewController(AcordaAlert, animated: true, completion: nil)
         }
         else {
             println("E null")

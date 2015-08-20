@@ -149,9 +149,9 @@ class AudioDAO: NSObject {
         let arrayPFobjectsAttempt = audioQuery.findObjects()!
         for aPFobject in arrayPFobjectsAttempt {
             var anAudio = AudioAttempt(alarmId: alarm.objectId as String, audio: NSData(), audioDescription: aPFobject["description"] as? String, senderId: aPFobject["senderId"] as! String)
+            anAudio.objectId = aPFobject.objectId
             audioTemporaryArray.append(anAudio)
         }
-        println("aehooo")
     }
     
     /*
@@ -166,6 +166,7 @@ class AudioDAO: NSObject {
         var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
         var origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioName).auf")
         let destinationPath = docs.stringByAppendingPathComponent("Received/\(audioName).auf")
+        println("Movendo \(audioName)")
         let manager = NSFileManager.defaultManager()
         var error:NSError?
         let data = NSData(contentsOfFile: origemPath)
@@ -182,13 +183,19 @@ class AudioDAO: NSObject {
     Adiciona um novo audioAttempt ao banco
     Parametro: Classe AudioAttempt
     */
-    func addAudioAttempt(anAudio:AudioAttempt) -> PFObject? {
+    func addAudioAttempt(anAudio:AudioAttempt, setterId: String) -> PFObject? {
         let PFAttempt = PFObject(className: "AudioAttempt")
         PFAttempt.setObject(anAudio.alarmId!, forKey: "alarmId")
         let file = PFFile(name: "nao_importa", data: anAudio.audio)
         PFAttempt.setObject(file, forKey: "audio")
         PFAttempt.setObject(anAudio.audioDescription!, forKey: "description")
         PFAttempt.setObject(anAudio.senderId, forKey: "senderId")
+        //dando permissao para o setter
+        var setterUser = PFUser.query()?.whereKey("objectId", equalTo: setterId).findObjects()!.first as? PFUser
+        var myACL = PFACL()
+        myACL.setPublicWriteAccess(true)
+        myACL.setPublicReadAccess(true)
+        PFAttempt.ACL = myACL
         if PFAttempt.save() {
             println("mudando:\(anAudio.audioName)")
             anAudio.audioName = PFAttempt.objectId
@@ -255,8 +262,8 @@ class AudioDAO: NSObject {
     
     func acceptAudioAttempt(audio:AudioAttempt) {
         //colocando audioId aceito com o alarme correspondente
-        let audioAttempt = PFObject(withoutDataWithClassName: "AudioAttempt", objectId: audio.objectId)
-        audioAttempt.fetch()
+        var attemptQuery = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audio.objectId)
+        let audioAttempt = attemptQuery.findObjects()!.first as! PFObject
         let _audio = AudioAttempt(PFAudioAttempt: audioAttempt)
         _audio.saveAudioInToTemporaryDir()
         for(var i = 0 ;i < AlarmDAO.sharedInstance().userAlarms.count; i++){

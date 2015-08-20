@@ -92,7 +92,7 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                         if anAlarm.audioId != nil {
                             //passando o objectId do alarm pq esse é o nome do audio no arquivo, o motivo disso é para que so haja um audio por alarme
                             AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.objectId!)
-                            //self.deleteAlarm(anAlarm)
+                            self.deleteAlarm(anAlarm)
                         }
                     }
                 }

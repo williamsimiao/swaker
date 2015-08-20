@@ -178,7 +178,7 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
         let successAlert = UIAlertController(title: nil, message: nil, preferredStyle: .Alert)
         
         var audioAttemp = AudioAttempt(alarmId: alarm.objectId, audio: audioData, audioDescription: audioDescription, senderId: PFUser.currentUser()?.objectId)
-        let AudioObject = AudioDAO.sharedInstance().addAudioAttempt(audioAttemp)
+        let AudioObject = AudioDAO.sharedInstance().addAudioAttempt(audioAttemp, setterId: alarm.setterId)
         let objectId = AudioObject?.objectId
         let data = [
             "category" : categoriesIdentifiers.proposal.rawValue,

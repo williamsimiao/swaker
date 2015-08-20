@@ -69,6 +69,7 @@ class AudioAttempt: Audio {
         // DESMUDEI
         
         let path = AudioDAO.sharedInstance().temporaryPath.stringByAppendingPathComponent(self.audioName)
+        println("Salvando Temp: \(self.audioName)")
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
         self.audio.writeToFile(path + ".caf", atomically: true)
         return success
