@@ -68,6 +68,10 @@ class RingViewController: UIViewController {
         }
         else {
             let alertController = UIAlertController(title: "Alarm without Audio", message: "Looks like no one send you an audio", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alertController) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+            alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }

@@ -16,6 +16,7 @@
 		3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E21B62B0D800DEC2CB /* Images.xcassets */; };
 		3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */; };
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
+		457532BC1B8652CE004BC987 /* logo_wakeU.png in Resources */ = {isa = PBXBuildFile; fileRef = 457532BB1B8652CE004BC987 /* logo_wakeU.png */; };
 		45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E824D61B66B72100F0F404 /* UserDAO.swift */; };
 		45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */; };
 		45EBD7D41B729E5F0035C2BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45EBD7D61B729E5F0035C2BA /* Localizable.strings */; };
@@ -94,6 +95,7 @@
 		3DB058EB1B62B0D800DEC2CB /* swakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swakerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058F01B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
+		457532BB1B8652CE004BC987 /* logo_wakeU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_wakeU.png; path = Imagens/logo_wakeU.png; sourceTree = "<group>"; };
 		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPTableViewCell.swift; sourceTree = "<group>"; };
 		45EBD7CF1B729B530035C2BA /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -208,7 +210,7 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
-				4CCB8D791B700DF0005B243C /* userDefault.png */,
+				457532BA1B8652AF004BC987 /* Imagens */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
 				4C7F5F9F1B84F7C300191246 /* Main.storyboard */,
@@ -249,6 +251,15 @@
 				3DB058F01B62B0D800DEC2CB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		457532BA1B8652AF004BC987 /* Imagens */ = {
+			isa = PBXGroup;
+			children = (
+				4CCB8D791B700DF0005B243C /* userDefault.png */,
+				457532BB1B8652CE004BC987 /* logo_wakeU.png */,
+			);
+			name = Imagens;
 			sourceTree = "<group>";
 		};
 		45E824D41B66B55F00F0F404 /* Entities */ = {
@@ -457,6 +468,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				457532BC1B8652CE004BC987 /* logo_wakeU.png in Resources */,
 				4C7F5FA01B84F7C300191246 /* Main.storyboard in Resources */,
 				45EBD7D41B729E5F0035C2BA /* Localizable.strings in Resources */,
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
