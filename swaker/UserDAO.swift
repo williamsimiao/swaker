@@ -152,6 +152,15 @@ class UserDAO: NSObject {
                         PFInstallation.currentInstallation().addObject("f"+friend.objectId!, forKey: "channels")
                     }
                 }
+                var channels = PFInstallation.currentInstallation().objectForKey("channels") as! [String]
+                
+                for sub in channels {
+                    let range = Range<String.Index>(start: advance(sub.startIndex, 1), end: sub.endIndex)
+                    let subb = sub.substringWithRange(range)
+                    if !contains(friendsIds, subb) {
+                        PFInstallation.currentInstallation().removeObject(sub, forKey: "channels")
+                    }
+                }
                 self.currentUser!.friends = friends
                 
                 PFInstallation.currentInstallation().saveInBackground()
