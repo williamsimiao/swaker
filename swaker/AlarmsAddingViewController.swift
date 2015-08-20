@@ -58,9 +58,9 @@ class AlarmsAddingViewController: UIViewController, UIPickerViewDataSource, UIPi
             let myUserDAO = UserDAO.sharedInstance()
             let data = [
                 "category" : categoriesIdentifiers.newAlarm.rawValue,
-                "alert" : "Novo alarme de \(myUserDAO.currentUser!.name)",
+                "alert" : "\(myUserDAO.currentUser!.name) created a new alarm",
                 "badge" : "Increment",
-                "sounds" : "paidefamilia.mp3",
+                "sounds" : "propostaSound.caf",
                 "f" : alarm.objectId
             ]
             

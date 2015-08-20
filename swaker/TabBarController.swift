@@ -9,6 +9,18 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    
+    //Identificadores para as categorias
+    enum categoriesIdentifiers:String{
+        //notificacao de nova proposta de audio
+        case proposal = "PROPOSAL_CATEGORY"
+        //notificacao de amigo setou novo alarme, nao necessita de actions
+        case newAlarm = "NEWALARM_CATEGORY"
+        //notificacao local de acordar
+        case wakeUp = "WAKEUP_CATEGORY"
+        
+        // nao precisa de category pra notification de audio aceito
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +38,24 @@ class TabBarController: UITabBarController {
     }
     
     func presentAlert(sender: AnyObject) {
-        //sender.userInfo[""]
-        let alert = UIAlertController(title: "teste", message: "jajaja", preferredStyle: UIAlertControllerStyle.Alert)
+        let not = sender as! NSNotification
+        let userInfo = not.userInfo as! [String: AnyObject]
+        println(userInfo)
+        let notificationPayload = userInfo["aps"] as! NSDictionary
+        //creating alert for both categories
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
+            alert.title = "New Alarm"
+            alert.message = notificationPayload["alert"] as? String
+        } else {
+            if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
+                alert.title = "New audio proposal"
+                alert.message = notificationPayload["alert"] as? String
+            }
+        }
+        let title = notificationPayload["alert"] as! String
+        
         alert.addAction(okAction)
         self.presentViewController(alert, animated: true, completion: nil)
     }

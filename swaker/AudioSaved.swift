@@ -95,7 +95,7 @@ class AudioSaved: Audio {
     func saveAudioInToCreatedDir() -> Bool {
         let path = AudioDAO.sharedInstance().createdPath.stringByAppendingPathComponent(self.audioName)
         let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
-        self.audio.writeToFile(path + ".caf", atomically: true)
+        //self.audio.writeToFile(path + ".caf", atomically: true)
         return success
     }
     /*

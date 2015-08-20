@@ -90,7 +90,8 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
                     } else {
                   // Move os audios ja tocados pra pasta certa
                         if anAlarm.audioId != nil {
-                            //AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.audioId!)
+                            //passando o objectId do alarm pq esse é o nome do audio no arquivo, o motivo disso é para que so haja um audio por alarme
+                            AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.objectId!)
                             //self.deleteAlarm(anAlarm)
                         }
                     }
@@ -211,7 +212,15 @@ class AlarmDAO: NSObject, FriendsDataUpdating {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
                     for obj in objects {
-                        (obj as! PFObject).deleteEventually()
+                        println(obj.objectId)
+                        let parseObject = obj as! PFObject
+                        var error: NSError?
+                        println("obj:\(obj.delete())")
+                        let success = parseObject.delete(&error)
+                        if success == false {
+                            println(error)
+                            println(PFObject(withoutDataWithClassName: "AudioAttempt", objectId: obj.objectId).delete())
+                        }
                     }
                 }
             })

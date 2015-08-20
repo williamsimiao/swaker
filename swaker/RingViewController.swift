@@ -55,7 +55,8 @@ class RingViewController: UIViewController {
     
     func checkForAudioAttempt() {
         if alarm.audioId != nil {
-            let audioFileName = alarm.audioId! + ".caf"
+            //sim, o nome do arquivo do audio é alarm.objectId
+            let audioFileName = alarm.objectId! + ".caf"
             let path = AudioDAO.sharedInstance().temporaryPath.stringByAppendingPathComponent(audioFileName)
             println("path: \(path)")
             if manager.fileExistsAtPath(path) {
@@ -68,6 +69,10 @@ class RingViewController: UIViewController {
         }
         else {
             let alertController = UIAlertController(title: "Alarm without Audio", message: "Looks like no one send you an audio", preferredStyle: .Alert)
+            let OKaction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (OKaction) -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+            alertController.addAction(OKaction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }

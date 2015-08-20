@@ -269,48 +269,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swaker/RecordViewController.swift"
-            timestampString = "461607341.632323"
+            filePath = "swaker/AlarmDAO.swift"
+            timestampString = "461730604.179226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "updatePlayProgressView(_:)"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "deleteCloudAlarmsIfNeeded()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swaker/RecordViewController.swift"
-            timestampString = "461700959.12901"
+            filePath = "swaker/AlarmDAO.swift"
+            timestampString = "461730604.179226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "controller(_:didSelectItem:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "deleteCloudAlarmsIfNeeded()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swaker/AppDelegate.swift"
-            timestampString = "461699831.235675"
+            filePath = "swaker/AlarmDAO.swift"
+            timestampString = "461730604.179226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "deleteAlarm(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

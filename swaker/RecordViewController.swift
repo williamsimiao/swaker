@@ -137,7 +137,6 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
         let currentTime = audioPlayer.currentTime
         if currentTime == total {
             sender.invalidate()
-            println("tototot")
         }
         progressView.progress = Float(currentTime / total)
     }
@@ -160,6 +159,8 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
                 let audioSavedFromRecording = AudioSaved(myAudioAttempt: theAttemp)
                 audioSavedFromRecording.saveAudioInToCreatedDir()
             }
+            self.navigationController?.popViewControllerAnimated(true)
+            
         }
         alert.addAction(cancel)
         alert.addAction(action)
@@ -181,7 +182,8 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
         let objectId = AudioObject?.objectId
         let data = [
             "category" : categoriesIdentifiers.proposal.rawValue,
-            "alert" : "Proposta de áudio de \(UserDAO.sharedInstance().currentUser!.name)",
+            "alert" : "New audio proposal from \(UserDAO.sharedInstance().currentUser!.name)",
+            "badge" : "Increment",
             "sounds" : "propostaSound.caf",
             "a" : objectId!
         ]
@@ -190,7 +192,7 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
         push.setChannel("a" + alarm.objectId)
         push.setData(data)
         push.sendPushInBackground()
-        self.navigationController?.popViewControllerAnimated(true)
+        //self.navigationController?.popViewControllerAnimated(true)
         return audioAttemp
     }
     
@@ -231,27 +233,13 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
         Implementacacao do metodo do protocolo da AudioSelectionTableViewController
         Descricaao: atribui a propertie Audiodata o audio associado a cell selecionada na AudioSelectionTableViewController
         em seguida "dispenca" essa view
-        
         NAO FOI USADO
     */
-    func controller(controller: AudioSelectionTableViewController, didSelectItem: NSData) {
-        audioData = didSelectItem
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-        UIView.animateWithDuration(delaytimeLibrary, animations: { () -> Void in
-            self.sendButton.alpha = 1
-            self.playButton.alpha = 1
-        })
-        
-        
-    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("lala")
+        textField.resignFirstResponder()
         return true
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

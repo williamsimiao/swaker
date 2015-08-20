@@ -162,10 +162,10 @@ class AudioDAO: NSObject {
         3- deleto o audio attempt da pasta temporary
     */
     
-    func moveToReceivedDir(audioId: String) {
+    func moveToReceivedDir(audioName: String) {
         var docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-        var origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).auf")
-        let destinationPath = docs.stringByAppendingPathComponent("Received/\(audioId).auf")
+        var origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioName).auf")
+        let destinationPath = docs.stringByAppendingPathComponent("Received/\(audioName).auf")
         let manager = NSFileManager.defaultManager()
         var error:NSError?
         let data = NSData(contentsOfFile: origemPath)
@@ -174,7 +174,7 @@ class AudioDAO: NSObject {
         SavedFromAttempt.saveAudioInToReceivedDir()
         manager.removeItemAtPath(origemPath, error: &error)
         //agora vamos deletar o caf, tb vamos reutizar origemPath
-        origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioId).caf")
+        origemPath = docs.stringByAppendingPathComponent("Temporary/\(audioName).caf")
         manager.removeItemAtPath(origemPath, error: &error)
     }
     
@@ -262,7 +262,7 @@ class AudioDAO: NSObject {
         for(var i = 0 ;i < AlarmDAO.sharedInstance().userAlarms.count; i++){
             var alarm = AlarmDAO.sharedInstance().userAlarms[i]
             if alarm.objectId == audio.alarmId {
-                alarm.audioId = audio.audioName
+                alarm.audioId = audio.objectId
                 alarm.save()
                 alarm.updateNotificationSound("updateNotificationSound")
                 break
