@@ -20,13 +20,14 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if AlarmDAO.sharedInstance().userAlarms.count == 0 {
             sleepButton.enabled = false;
         }
         else{
             sleepButton.enabled = true;
         }
-        
+        tableView.reloadData()
         
         
         navigationItem.title = "Alarms"

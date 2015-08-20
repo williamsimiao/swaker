@@ -140,6 +140,11 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         alert.addAction(libraryAction)
         alert.addAction(cancelAction)
         
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = sender as! UIView
+            popoverController.sourceRect = sender.bounds
+        }
+        
         presentViewController(alert, animated: true, completion: nil)
     }
     

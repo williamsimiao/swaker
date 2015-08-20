@@ -95,6 +95,8 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         alert.addAction(libraryAction)
         alert.addAction(cancelAction)
         
+     
+        
         presentViewController(alert, animated: true, completion: nil)
     }
     

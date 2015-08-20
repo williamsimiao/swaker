@@ -23,6 +23,9 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.view.backgroundColor = UIColor.blackColor()
         //setUpViews()
         
         
@@ -78,10 +81,12 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
         }
         else {
             let alertController = UIAlertController(title: "Alarm without Audio", message: "Looks like no one send you an audio", preferredStyle: .Alert)
-            let OKaction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (OKaction) -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alertController) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
             })
-            alertController.addAction(OKaction)
+            alertController.addAction(okAction)
+
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
