@@ -24,13 +24,8 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setUpViews()
-        
-        
-        
         SetUpNotification()//aqui acaha o alarme
         checkForAudioAttempt()
-
-
         // Do any additional setup after loading the view.
     }
     
@@ -106,8 +101,8 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
         self.backgroundView.frame = UIScreen.mainScreen().bounds
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
-        gradientLayer.colors = mainColors
-        gradientLayer.locations = mainLocations as [AnyObject]
+        gradientLayer.colors = mainColor()
+        gradientLayer.locations = mainLocation() as [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
 

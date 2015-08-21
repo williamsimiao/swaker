@@ -46,8 +46,8 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
         gradientLayer.frame = UIScreen.mainScreen().bounds
         let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: NSDate())
         let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
-        gradientLayer.colors = mainColors[index]
-        gradientLayer.locations = mainLocations[index] as! [AnyObject]
+        gradientLayer.colors = mainColor()
+        gradientLayer.locations = mainLocation()
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
 

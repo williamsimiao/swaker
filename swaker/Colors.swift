@@ -30,7 +30,13 @@ private let mainColors5 = [warmYellow.CGColor, crimson.CGColor, darkerBlue.CGCol
 private let mainColors6 = [darkerBlue.CGColor, darkestBlue.CGColor, coldBlue.CGColor]
 private let mainColors7 = [coldBlue.CGColor, darkestBlue.CGColor, darkBlue.CGColor]
 private let mainColors8 = [darkBlue.CGColor, lightBlue.CGColor, yellow.CGColor]
-let mainColors = [mainColors8, mainColors1, mainColors2, mainColors3, mainColors4, mainColors5, mainColors6, mainColors7]
+private let mainColors = [mainColors8, mainColors1, mainColors2, mainColors3, mainColors4, mainColors5, mainColors6, mainColors7]
+
+func mainColor() -> [CGColor!] {
+    let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: NSDate())
+    let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+    return mainColors1
+}
 
 private let mainLocations1 = [0, 0.70, 1]
 private let mainLocations2 = [0, 0.30, 1]
@@ -40,4 +46,10 @@ private let mainLocations5 = [0, 0.40, 1]
 private let mainLocations6 = [0, 0.40, 1]
 private let mainLocations7 = [0, 0.40, 1]
 private let mainLocations8 = [0, 0.70, 1]
-let mainLocations = [mainLocations8, mainLocations1, mainLocations2, mainLocations3, mainLocations4, mainLocations5, mainLocations6, mainLocations7]
+private let mainLocations = [mainLocations8, mainLocations1, mainLocations2, mainLocations3, mainLocations4, mainLocations5, mainLocations6, mainLocations7]
+
+func mainLocation() -> [AnyObject] {
+    let comps = NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: NSDate())
+    let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+    return mainLocations1
+}
