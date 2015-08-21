@@ -92,8 +92,8 @@
 /* Stop */
 "Stop" = "Stop";
 /* No audio */
-"NoAudio" = "It looks like no one has sent you an audio =/"
+"NoAudio" = "It looks like no one has sent you an audio =/";
 /* New alarm */
-"NewAlarm" = "New Alarm"
+"NewAlarm" = "New Alarm";
 /* New audio */
-"NewAudio" = "New audio proposal"
+"NewAudio" = "New audio proposal";
