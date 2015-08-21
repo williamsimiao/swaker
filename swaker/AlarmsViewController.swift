@@ -27,6 +27,8 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         navigationItem.title = NSLocalizedString("Alarms", comment: "Alarms")
         sleepButton.title = NSLocalizedString("Sleep", comment: "Sleep")
+        tableView.reloadData()
+
         tabBarController?.tabBar.tintColor = selectedTintColor
         setUpViews()
         currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)

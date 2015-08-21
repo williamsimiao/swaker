@@ -38,6 +38,7 @@ func mainColor() -> [CGColor!] {
     return mainColors1
 }
 
+
 private let mainLocations1 = [0, 0.70, 1]
 private let mainLocations2 = [0, 0.30, 1]
 private let mainLocations3 = [0, 1]

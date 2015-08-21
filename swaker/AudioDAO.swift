@@ -112,13 +112,12 @@ class AudioDAO: NSObject {
     }
     
     func loadReceivedAudios() {
+        audioReceivedArray.removeAll(keepCapacity: true)
         let enumerator = NSFileManager.defaultManager().enumeratorAtPath(receivedPath)
         while let fileName:String = enumerator?.nextObject() as? String {
             if fileName.hasSuffix("auf") {
                 let filePath = receivedPath.stringByAppendingPathComponent(fileName)
                 let data = NSData(contentsOfFile: filePath)
-                
-                /// DESMUDEI
                 
                 var anAudio = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! AudioSaved
                 audioReceivedArray.append(anAudio)

@@ -23,6 +23,9 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.view.backgroundColor = UIColor.blackColor()
         //setUpViews()
         SetUpNotification()//aqui acaha o alarme
         checkForAudioAttempt()
@@ -77,6 +80,7 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
                 self.dismissViewControllerAnimated(true, completion: nil)
             })
             alertController.addAction(OKaction)
+
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }

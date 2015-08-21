@@ -39,22 +39,65 @@ class FriendsAddingViewController: UIViewController {
     
     @IBAction func add(sender: AnyObject) {
         
+        var flag : Bool
+        flag = true
         let indicator = self.indicator
         indicator.hidden = false
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             if let user = UserDAO.sharedInstance().userWithEmail(self.friendsEmailTextField.text) {
-                if UserDAO.sharedInstance().addFriend(user) {
-                    UserDAO.sharedInstance().loadFriendsForCurrentUser()
-                    AlarmDAO.sharedInstance().loadFriendsAlarms()
+                var index: Int
+                
+                if user.email == UserDAO.sharedInstance().currentUser?.email{
+                    
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.navigationController?.popViewControllerAnimated(true)
+                        
+                        let alert = UIAlertController(title: "attention", message: "You can add yourself!", preferredStyle: UIAlertControllerStyle.Alert)
+                        let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
+                        })
+                        alert.addAction(action)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        
                     })
+                    
                 }
+                else{
+                    
+                    for index = 0; index < UserDAO.sharedInstance().currentUser?.friends.count; ++index {
+                        if UserDAO.sharedInstance().currentUser?.friends[index].email == user.email {
+                            println("SAPORRA JA EXISTE")
+                            flag = false
+                            break
+                        }
+                    }
+                    
+                    if flag {
+                        if UserDAO.sharedInstance().addFriend(user) {
+                            UserDAO.sharedInstance().loadFriendsForCurrentUser()
+                            AlarmDAO.sharedInstance().loadFriendsAlarms()
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.navigationController?.popViewControllerAnimated(true)
+                            })
+                        }
+                    }
+                    else{
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            
+                            let alert = UIAlertController(title: "Could not add", message: "Friend already added ", preferredStyle: UIAlertControllerStyle.Alert)
+                            let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
+                            })
+                            alert.addAction(action)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            
+                        })
+                    }
+                }
+                
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 indicator.hidden = true
             })
         })
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

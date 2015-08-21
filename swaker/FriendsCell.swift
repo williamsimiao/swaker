@@ -52,6 +52,11 @@ class FriendsCell: UITableViewCell {
             if let photo = friend.photo {
                 photoImageView.image = UIImage(data: photo)
             }
+            else{
+                photoImageView.image = UIImage(named: "userDefault.png")
+  
+            }
+            
         }
         hasLoadedOnce = true
     }

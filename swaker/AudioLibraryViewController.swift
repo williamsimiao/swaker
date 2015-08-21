@@ -167,10 +167,18 @@ class AudioLibraryViewController: UIViewController, UITableViewDataSource, UITab
             }
             if AudioDAO.sharedInstance().deleteAudioSaved(audioFromCell, isOfKindCreated: isCreated){
                 AudioDAO.sharedInstance().loadAllAudios()
-                audiosArray = AudioDAO.sharedInstance().audioCreatedArray
-                println("arrayAtual:\(audiosArray.count)// created:\(AudioDAO.sharedInstance().audioCreatedArray.count)")
+                
+                if segmentControl.selectedSegmentIndex == 0 {
+                    
+                     audiosArray = AudioDAO.sharedInstance().audioReceivedArray
+                }
+                else{
+                    
+                    audiosArray = AudioDAO.sharedInstance().audioCreatedArray
+                }
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
                 tableView.reloadData()
+  
             } else {
                 println("failed to delete audio")
             }

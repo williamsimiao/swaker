@@ -11,6 +11,7 @@ import Parse
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var testeInter: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     var gradientLayer:CAGradientLayer!
     var currentCalendar = NSCalendar.currentCalendar()
@@ -18,6 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+
     }
 
     override func viewDidAppear(animated: Bool) {

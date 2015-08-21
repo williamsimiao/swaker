@@ -24,6 +24,9 @@ class AlarmsAudioAttemptViewController: UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+        AudioDAO.sharedInstance().loadAudiosFromAlarm(self.alarm)
+        self.audioAttemptArray = AudioDAO.sharedInstance().audioTemporaryArray
+        
         // Do any additional setup after loading the view.
     }
     
