@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //acao de parar o som do alarme
         case stop = "STOP_ACTION"
     }
-
+    
     
     //--------------------------------------
     // MARK: - UIApplicationDelegate
@@ -143,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //actions para notification na lockscreen
             proposalCategory.setActions([acceptAction, refuseAction], forContext: UIUserNotificationActionContext.Minimal)
             
-            //setando a cateria de alarm recebido, nao tem action mas preciso da categorie 
+            //setando a cateria de alarm recebido, nao tem action mas preciso da categorie
             //pra identificar a notificacao
             let newAlarmCategory = UIMutableUserNotificationCategory()
             newAlarmCategory.identifier = categoriesIdentifiers.newAlarm.rawValue
@@ -164,10 +164,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println(PFInstallation.currentInstallation().objectId)
             }
         }
-        
-        //////////////////
-                //////////////////
-        
         return true
     }
     
@@ -200,19 +196,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
         }
     }
-    
-//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-//        PFPush.handlePush(userInfo)
-//        if application.applicationState == UIApplicationState.Inactive {
-//            PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-//
-//            }
-//
-//        }
-//    }
-    
     /*
-        Metodo para receber notificacoes quando amigos setarem novo alarme
+    Metodo para receber notificacoes quando amigos setarem novo alarme
     */
     
     func getRecordViewControllerforAlarmId(alarmId: String) {
@@ -227,17 +212,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let record = navigationVCs[0] as! FriendsViewController
         let theAlarmQuery = PFQuery(className: "Alarm").whereKey("objectId", equalTo: alarmId).findObjects()
         let theAlarm = Alarm(PFAlarm: theAlarmQuery?.first as! PFObject)
-//        record.alarm = theAlarm
+        //        record.alarm = theAlarm
         
         frindsNavigation.presentViewController(record, animated: true, completion: nil)
-
-
-        
-        
-        
     }
     
-     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
         let notificationPayload = userInfo["aps"] as! NSDictionary
         
@@ -247,10 +227,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let inAppNotification = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             let message = notificationPayload["alert"] as! String
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
-                inAppNotification.title = "New alarm from\(message))"
+                inAppNotification.title = String(format: NSLocalizedString("New Alarm %@", comment: "Alarms"), message)
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-                inAppNotification.title = "New audio from\(message))"
+                inAppNotification.title = String(format: NSLocalizedString("New Audio %@", comment: "Audios"), message)
             }
             self.window?.rootViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
         }
@@ -258,58 +238,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("active")
             let inAppNotification = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             let message = notificationPayload["alert"] as! String
-            
             if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
-                inAppNotification.title = "New alarm from\(message))"
-                println("\(userInfo)")
-                NSNotificationCenter.defaultCenter().postNotificationName("RecebeuInAppNotification", object: nil, userInfo: userInfo)
+                inAppNotification.title = String(format: NSLocalizedString("New Alarm %@", comment: "Alarms"), message)
             }
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-                inAppNotification.title = "New audio from\(message))"
+                inAppNotification.title = String(format: NSLocalizedString("New Audio %@", comment: "Audios"), message)
             }
-//            let tabbar = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
-//            tabbar.selectedViewController?.presentViewController(inAppNotification, animated: true, completion: nil)
         }
-     }
+    }
     
     @objc func handleInAppNotification(notification: NSNotification){
         
     }
-     
-        
+    
+    
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
-            let notificationPayload = userInfo["aps"] as! NSDictionary
+        let notificationPayload = userInfo["aps"] as! NSDictionary
+        
+        // Create a pointer to the audio object
+        let audioId = userInfo["a"] as! String
+        if identifier == ActionsIdentifiers.accept.rawValue {
             
-            // Create a pointer to the audio object
-            let audioId = userInfo["a"] as! String
-            if identifier == ActionsIdentifiers.accept.rawValue {
-                
-                let audioQuery = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audioId)
-                let audioLoco = audioQuery.findObjects()?.first as! PFObject
-                let myAttemp = AudioAttempt(PFAudioAttempt: audioLoco)
-                AudioDAO.sharedInstance().acceptAudioAttempt(myAttemp)
-
-            }
-            if identifier == ActionsIdentifiers.refuse.rawValue {
-                //deletando o audio do audio attempt
-                //AudioDAO.sharedInstance().deleteAudioAttempt(<#audioObject: PFObject#>)
-                
-            }
-
-            completionHandler()
+            let audioQuery = PFQuery(className: "AudioAttempt").whereKey("objectId", equalTo: audioId)
+            let audioLoco = audioQuery.findObjects()?.first as! PFObject
+            let myAttemp = AudioAttempt(PFAudioAttempt: audioLoco)
+            AudioDAO.sharedInstance().acceptAudioAttempt(myAttemp)
+            
+        }
+        if identifier == ActionsIdentifiers.refuse.rawValue {
+            //deletando o audio do audio attempt
+            //AudioDAO.sharedInstance().deleteAudioAttempt(<#audioObject: PFObject#>)
+            
+        }
+        
+        completionHandler()
     }
     /*
-        Metodo chamado quando nao usamos
+    Metodo chamado quando nao usamos
     */
     
-//    func application(application: UIApplication, didReceiveLocalNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-//        println("Local")
-//    }
+    //    func application(application: UIApplication, didReceiveLocalNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    //        println("Local")
+    //    }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         
-                
+        
         
     }
     
@@ -323,7 +298,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         //Zerando os Badges
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-
+        
     }
     
     

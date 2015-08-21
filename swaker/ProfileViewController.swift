@@ -59,17 +59,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         imagePicker.delegate = self
         
         if !hasShownAlert {
-            var cameraAction = UIAlertAction(title: "Take Photo", style: .Default) { (cameraAction) -> Void in
+            var cameraAction = UIAlertAction(title: NSLocalizedString("TakePhoto", comment: "Take Photo"), style: .Default) { (cameraAction) -> Void in
                 if UIImagePickerController.isSourceTypeAvailable(.Camera) {
                     imagePicker.sourceType = .Camera
                     self.presentViewController(imagePicker, animated: true, completion: nil)
                 }
             }
-            var libraryAction = UIAlertAction(title: "Choose from Camera Roll", style: .Default) { (libraryAction) -> Void in
+            var libraryAction = UIAlertAction(title: NSLocalizedString("CameraRoll", comment: "Camera Roll"), style: .Default) { (libraryAction) -> Void in
                 imagePicker.sourceType = .PhotoLibrary
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
-            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (cancelAction) -> Void in
+            var cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) { (cancelAction) -> Void in
                 self.alert.dismissViewControllerAnimated(true, completion: nil)
             }
             alert.addAction(cameraAction)

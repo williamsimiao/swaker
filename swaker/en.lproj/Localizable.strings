@@ -22,6 +22,9 @@
 "Email" = "Email";
 /* Password */
 "Password" = "Password";
+"PasswordResetSent" = "Your password reset has been sent to your email address.";
+"CouldntReset" = "Could not reset user password.";
+"TypeSomething" = "Please, type your email.";
 /* Confirm Password */
 "ConfirmPassword" = "Confirm Password";
 /* Photo */
@@ -38,6 +41,8 @@
 "Done" = "Done";
 /* Alarms */
 "Alarms" = "Alarms";
+"NotPossibleSet" = "It was not possible to set the alarm. Try again later.";
+"New Alarm %@" = "New alarm from %@";
 /* Sleep */
 "Sleep" = "Sleep";
 /* Add an Alarm */
@@ -49,6 +54,7 @@
 "Description" = "Description";
 /* Audios */
 "Audios" = "Audios";
+"New Audio %@" = "New audio from %@";
 /* Received */
 "Received" = "Received";
 /* Created */
@@ -79,3 +85,15 @@
 "Cancel" = "Cancel";
 /* Send */
 "Send" = "Send";
+/* Error */
+"Error" = "Error";
+/* Time to wake */
+"WakeTime" = "Time to Wake!";
+/* Stop */
+"Stop" = "Stop";
+/* No audio */
+"NoAudio" = "It looks like no one has sent you an audio =/"
+/* New alarm */
+"NewAlarm" = "New Alarm"
+/* New audio */
+"NewAudio" = "New audio proposal"

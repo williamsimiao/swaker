@@ -46,8 +46,8 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
             AVAudioSession.sharedInstance().overrideOutputAudioPort(
                 AVAudioSessionPortOverride.Speaker, error: nil)
             audioPlayer.play()
-            let AcordaAlert = UIAlertController(title: "Time to Wake", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            let stopAction = UIAlertAction(title: "Stop", style: UIAlertActionStyle.Destructive, handler: { (AcordaAlert) -> Void in
+            let AcordaAlert = UIAlertController(title: NSLocalizedString("WakeTime", comment: "Time to wake"), message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            let stopAction = UIAlertAction(title: NSLocalizedString("Stop", comment: "Stop"), style: UIAlertActionStyle.Destructive, handler: { (AcordaAlert) -> Void in
                 self.audioPlayer.pause()
             })
             AcordaAlert.addAction(stopAction)
@@ -77,7 +77,7 @@ class RingViewController: UIViewController, AVAudioPlayerDelegate {
             }
         }
         else {
-            let alertController = UIAlertController(title: "Alarm without Audio", message: "Looks like no one send you an audio", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: nil, message: NSLocalizedString("NoAudio", comment: "No audio"), preferredStyle: .Alert)
             let OKaction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (OKaction) -> Void in
                 self.dismissViewControllerAnimated(true, completion: nil)
             })

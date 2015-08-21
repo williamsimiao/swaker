@@ -60,6 +60,7 @@ class ForgotPasswordViewController: UIViewController {
     @IBAction func submit(sender: AnyObject) {
         var alert = UIAlertController(title: nil, message: nil, preferredStyle:.Alert)
         let action = UIAlertAction(title: "OK", style:.Cancel) { (action) -> Void in
+            self.emailTextField.text = ""
         }
         alert.addAction(action)
         if (count(emailTextField.text) > 4) {
@@ -68,21 +69,21 @@ class ForgotPasswordViewController: UIViewController {
                 let resetPasswordResult = UserDAO.sharedInstance().resetPasswordForEmail(self.emailTextField.text)
                 if resetPasswordResult.success {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        alert.message = "Your password reset has been sent to your email address."
+                        alert.message = NSLocalizedString("PasswordResetSent", comment: "Password")
                         self.presentViewController(alert, animated: true, completion: nil)
                         self.indicator.hidden = true
                     })
                 } else {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        alert.title = "Error"
-                        alert.message = "Could not reset user password."
+                        alert.title = NSLocalizedString("Error", comment: "Error")
+                        alert.message = NSLocalizedString("CouldntReset", comment: "Password")
                         self.presentViewController(alert, animated: true, completion: nil)
                         self.indicator.hidden = true
                     })
                 }
             })
         } else {
-            alert.message = "Type something, you bastard."
+            alert.message = NSLocalizedString("TypeSomething", comment: "Password")
             presentViewController(alert, animated: true, completion: nil)
         }
     }

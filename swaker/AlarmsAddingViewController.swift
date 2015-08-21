@@ -72,7 +72,7 @@ class AlarmsAddingViewController: UIViewController, UIPickerViewDataSource, UIPi
             navigationController?.popViewControllerAnimated(true)
         }
         else {
-            let alert = UIAlertController(title: "Error", message: "It was not possible to set the alarm. Try again later.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: NSLocalizedString("NotPossibleSet", comment: "Alarms"), preferredStyle: UIAlertControllerStyle.Alert)
             let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
                 self.navigationController?.popViewControllerAnimated(true)
             })

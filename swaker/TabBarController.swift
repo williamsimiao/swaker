@@ -57,11 +57,11 @@ class TabBarController: UITabBarController {
         let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
         if notificationPayload["category"] as! String == categoriesIdentifiers.newAlarm.rawValue {
-            alert.title = "New Alarm"
+            alert.title = NSLocalizedString("NewAlarm", comment: "New alarm")
             alert.message = notificationPayload["alert"] as? String
         } else {
             if notificationPayload["category"] as! String == categoriesIdentifiers.proposal.rawValue {
-                alert.title = "New audio proposal"
+                alert.title = NSLocalizedString("NewAudio", comment: "New audio")
                 alert.message = notificationPayload["alert"] as? String
             }
         }

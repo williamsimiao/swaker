@@ -22,6 +22,9 @@
 "Email" = "Email";
 /* Password */
 "Password" = "Senha";
+"PasswordResetSent" = "A redefinição da sua senha foi enviada para o seu endereço de email.";
+"CouldntReset" = "Não foi possível redefinir sua senha.";
+"TypeSomething" = "Por favor, digite o seu email.";
 /* Confirm Password */
 "ConfirmPassword" = "Confirme a Senha";
 /* Photo */
@@ -38,6 +41,8 @@
 "Internet" = "Conexão não está disponível.";
 /* Alarms */
 "Alarms" = "Alarmes";
+"NotPossibleSet" = "Não foi possível adicionar o alarme. Tente novamente mais tarde.";
+"New Alarm %@" = "Novo alarme de %@";
 /* Sleep */
 "Sleep" = "Dormir";
 /* Add an Alarm */
@@ -49,6 +54,7 @@
 "Description" = "Descrição";
 /* Audios */
 "Audios" = "Áudios";
+"New Audio %@" = "Novo audio de %@";
 /* Received */
 "Received" = "Recebidos";
 /* Created */
@@ -79,3 +85,15 @@
 "Cancel" = "Cancelar";
 /* Send */
 "Send" = "Enviar";
+/* Error */
+"Error" = "Erro";
+/* Time to wake */
+"WakeTime" = "Hora de acordar!";
+/* Stop */
+"Stop" = "Parar";
+/* No audio */
+"NoAudio" = "Parece que ninguém te enviou um audio =/"
+/* New alarm */
+"NewAlarm" = "Novo alarme"
+/* New audio */
+"NewAudio" = "Nova proposta de áudio"
