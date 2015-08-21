@@ -15,6 +15,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     var indicator: UIActivityIndicatorView!
     var nomeTextField: UITextField!
     var emailTextField: UITextField!
+    var email2TextField: UITextField!
     var senhaTextField: UITextField!
     var senha2TextField: UITextField!
     var pictureImageView: UIImageView!
@@ -73,7 +74,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         let cancelAction = UIAlertAction(title: "OK", style: .Cancel) { (cancelAction) -> Void in
         }
         
-        if (senhaTextField.text == senha2TextField.text) && (senha2TextField.text != "") && (senhaTextField.text != "") && (emailTextField.text != "") && (nomeTextField.text != "") {
+        if (senhaTextField.text == senha2TextField.text) && (emailTextField.text == email2TextField.text) && (senha2TextField.text != "") && (senhaTextField.text != "") && (emailTextField.text != "") && (nomeTextField.text != "") {
             let indicator = self.indicator
             indicator.startAnimating()
             var image: UIImage!
@@ -160,7 +161,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -181,16 +182,22 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
+            emailTextField = cell.textField
+            emailTextField.placeholder = NSLocalizedString("ConfirmEmail", comment: "Confirm Email")
+            emailTextField.delegate = self
+        case 3:
+            cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
+            let cell = cell as! TextFieldCell
             senhaTextField = cell.textField
             senhaTextField.placeholder = NSLocalizedString("Password", comment: "Password")
             senhaTextField.delegate = self
-        case 3:
+        case 4:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
             senha2TextField = cell.textField
             senha2TextField.placeholder = NSLocalizedString("ConfirmPassword", comment: "ConfirmPassword")
             senha2TextField.delegate = self
-        case 4:
+        case 5:
             cell = tableView.dequeueReusableCellWithIdentifier("imageViewCell") as! ImageViewCell
             let cell = cell as! ImageViewCell
             editButton = cell.editButton
@@ -206,7 +213,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 4 {
+        if indexPath.section == 5 {
             return 140
         }
         return 44
@@ -220,10 +227,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         case 1:
             title = NSLocalizedString("Email", comment: "Email")
         case 2:
-            title = NSLocalizedString("Password", comment: "Password")
+            title = NSLocalizedString("ConfirmEmail" , comment: "Confirm Email")
         case 3:
-            title = NSLocalizedString("ConfirmPassword", comment: "ConfirmPassword")
+            title = NSLocalizedString("Password", comment: "Password")
         case 4:
+            title = NSLocalizedString("ConfirmPassword", comment: "ConfirmPassword")
+        case 5:
             title = NSLocalizedString("Photo", comment: "Photo")
         default:
             title = ""

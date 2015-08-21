@@ -20,6 +20,8 @@
 "Name" = "Nome";
 /* Email */
 "Email" = "Email";
+/* Confirm Email */
+"ConfirmEmail" = "Confirme o Email";
 /* Password */
 "Password" = "Senha";
 "PasswordResetSent" = "A redefinição da sua senha foi enviada para o seu endereço de email.";
