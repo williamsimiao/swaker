@@ -25,6 +25,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameTextField.placeholder = NSLocalizedString("Email", comment: "Email")
+        passwordTextField.placeholder = NSLocalizedString("Password", comment: "Password")
+        logInButton.setTitle(NSLocalizedString("Login", comment: "Login"), forState: UIControlState.Normal)
+        signUpButton.setTitle(NSLocalizedString("Signup", comment: "Signup"), forState: .Normal)
+        //signUpButton.setNeedsLayout()
+        //signUpButton.layoutIfNeeded()
+        forgotPasswordButton.setTitle(NSLocalizedString("ForgotPassword", comment: "Forgot Password"), forState: .Normal)
         setUpViews()
         indicator.hidden = true
         indicator.startAnimating()
@@ -69,7 +76,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
         indicator.hidden = false
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            if UserDAO.sharedInstance().login(user) {
+            let loginResult = UserDAO.sharedInstance().login(user)
+            if loginResult.success {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.performSegueWithIdentifier("loginSucceeded", sender: self)
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
@@ -81,7 +89,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 })
             } else {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let alert = UIAlertController(title: "Could not Log In", message: "Email and/or password is incorrect.", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: NSLocalizedString("CouldntLogin", comment: "Couldnt Login"), message: loginResult.errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
                     let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
                     })
                     alert.addAction(action)

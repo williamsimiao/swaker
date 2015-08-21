@@ -12,16 +12,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var editButton: UIButton!
     var backgroundView: UIView!
     var alert: UIAlertController!
     var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         setUpViews()
         instantiateAlertController()
-        navigationItem.title = "Profile"
+        navigationItem.title = NSLocalizedString("Profile", comment: "Profile")
+        editButton.setTitle(NSLocalizedString("Edit", comment: "edit"), forState: .Normal)
         photoImageView.layer.cornerRadius = photoImageView.frame.height / 2
         photoImageView.clipsToBounds = true
         if let photo = UserDAO.sharedInstance().currentUser!.photo {
@@ -41,7 +42,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = UIScreen.mainScreen().bounds
         let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
-        let index = Int(round(Float(comps.hour) / 3) - 1)
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
         gradientLayer.colors = mainColors[index]
         gradientLayer.locations = mainLocations[index] as! [AnyObject]
         self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)

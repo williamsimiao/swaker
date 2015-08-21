@@ -42,7 +42,7 @@ class UserDAO: NSObject {
         Parâmetros: Usuário com username e senha
         Retorno   : true = login sucesso ou false = login falhou
     ****************************************************************************************************/
-    func login(user:User!) -> Bool {
+    func login(user:User!) -> (success: Bool, errorMessage: String?) {
             var error:NSError?
             if let userDAO = PFUser.logInWithUsername(user.username, password: user.password, error: &error) {
                 if currentUser == nil {
@@ -50,9 +50,16 @@ class UserDAO: NSObject {
                     PFInstallation.currentInstallation().setObject(userDAO, forKey: "user")
                     PFInstallation.currentInstallation().saveInBackground()
                 }
-                return true
+                return (true, nil)
             }
-        return false
+        let errorUserInfo = error!.userInfo as! [String: AnyObject]
+        var errorMessage = ""
+        if errorUserInfo["code"] as! Int == 101 {
+            errorMessage = NSLocalizedString("Incorrect", comment: "Couldnt Login")
+        } else if errorUserInfo["code"] as! Int == 100 {
+            errorMessage = NSLocalizedString("Internet", comment: "Couldnt Login")
+        }
+        return (false, errorMessage)
     }
     
     /****************************************************************************************************
@@ -131,9 +138,6 @@ class UserDAO: NSObject {
     func loadFriendsForCurrentUser() {
         println("Loading friends")
         var friendsIds = [String]()
-        for friend in currentUser!.friends {
-            friendsIds.append(friend.objectId)
-        }
         let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: currentUser!.objectId)
         query.findObjectsInBackgroundWithBlock { (friendListObjects, error) -> Void in
             if error == nil {
@@ -144,7 +148,7 @@ class UserDAO: NSObject {
                     let friend = PFUser(withoutDataWithObjectId: friendId)
                     friend.fetch()
                     friends.append(User(user: friend))
-                    if let channels = PFInstallation.currentInstallation().objectForKey("channels") {
+                    if let channels: AnyObject = PFInstallation.currentInstallation().objectForKey("channels") {
                     } else {
                         PFInstallation.currentInstallation().setObject([], forKey: "channels")
                     }
@@ -152,8 +156,10 @@ class UserDAO: NSObject {
                         PFInstallation.currentInstallation().addObject("f"+friend.objectId!, forKey: "channels")
                     }
                 }
+                for friend in friends {
+                    friendsIds.append(friend.objectId)
+                }
                 var channels = PFInstallation.currentInstallation().objectForKey("channels") as! [String]
-                
                 for sub in channels {
                     let range = Range<String.Index>(start: advance(sub.startIndex, 1), end: sub.endIndex)
                     let subb = sub.substringWithRange(range)
@@ -166,6 +172,7 @@ class UserDAO: NSObject {
                 PFInstallation.currentInstallation().saveInBackground()
             }
         }
+        AlarmDAO.sharedInstance().loadFriendsAlarms()
     }
     
     /****************************************************************************************************

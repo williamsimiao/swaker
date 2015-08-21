@@ -1,0 +1,126 @@
+
+/* Class = "UIButton"; normalTitle = "Aceita"; ObjectID = "0g1-rv-MHa"; */
+"0g1-rv-MHa.normalTitle" = "Aceita";
+
+/* Class = "UITabBarItem"; title = "Audios"; ObjectID = "1V2-VV-g3Y"; */
+"1V2-VV-g3Y.title" = "Áudios";
+
+/* Class = "UITextField"; placeholder = "Description"; ObjectID = "3AO-6d-3UH"; */
+"3AO-6d-3UH.placeholder" = "Descrição";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3Fw-hX-oQF"; */
+"3Fw-hX-oQF.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4Ij-iH-VU5"; */
+"4Ij-iH-VU5.text" = "Label";
+
+/* Class = "UISegmentedControl"; 740-M5-rzw.segmentTitles[0] = "First"; ObjectID = "740-M5-rzw"; */
+"740-M5-rzw.segmentTitles[0]" = "First";
+
+/* Class = "UISegmentedControl"; 740-M5-rzw.segmentTitles[1] = "Second"; ObjectID = "740-M5-rzw"; */
+"740-M5-rzw.segmentTitles[1]" = "Second";
+
+/* Class = "UIButton"; normalTitle = "Accept"; ObjectID = "8JZ-ds-exb"; */
+"8JZ-ds-exb.normalTitle" = "Aceitar";
+
+/* Class = "UIButton"; normalTitle = "Profile"; ObjectID = "8hx-oc-Xy8"; */
+"8hx-oc-Xy8.normalTitle" = "Perfil";
+
+/* Class = "UILabel"; text = "Desc"; ObjectID = "8vI-IB-rL0"; */
+"8vI-IB-rL0.text" = "Desc";
+
+/* Class = "UIButton"; normalTitle = "edit"; ObjectID = "ALo-xj-zjn"; */
+"ALo-xj-zjn.normalTitle" = "edit";
+
+/* Class = "UISegmentedControl"; Bhh-f1-de3.segmentTitles[0] = "First"; ObjectID = "Bhh-f1-de3"; */
+"Bhh-f1-de3.segmentTitles[0]" = "First";
+
+/* Class = "UISegmentedControl"; Bhh-f1-de3.segmentTitles[1] = "Second"; ObjectID = "Bhh-f1-de3"; */
+"Bhh-f1-de3.segmentTitles[1]" = "Second";
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "CA6-YZ-6ds"; */
+"CA6-YZ-6ds.title" = "Amigos";
+
+/* Class = "UILabel"; text = "Connecting..."; ObjectID = "CnX-qL-KTn"; */
+"CnX-qL-KTn.text" = "Conectando...";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "DKg-6s-qZ0"; */
+"DKg-6s-qZ0.text" = "1";
+
+/* Class = "UINavigationItem"; title = "Add a Friend"; ObjectID = "EL4-aA-XdN"; */
+"EL4-aA-XdN.title" = "Adicionar um Amigo";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "EyY-4s-b6U"; */
+"EyY-4s-b6U.normalTitle" = "Criar uma conta";
+
+/* Class = "UILabel"; text = "Desc"; ObjectID = "Gzb-5C-5hb"; */
+"Gzb-5C-5hb.text" = "Desc";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "He5-WL-7k9"; */
+"He5-WL-7k9.normalTitle" = "OK";
+
+/* Class = "UIBarButtonItem"; title = "Set"; ObjectID = "Iwq-yW-2x8"; */
+"Iwq-yW-2x8.title" = "Adicionar";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "RUT-yb-gA8"; */
+"RUT-yb-gA8.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "VB2-xk-kXy"; */
+"VB2-xk-kXy.normalTitle" = "Enviar";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VFr-bY-8de"; */
+"VFr-bY-8de.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "YVL-y9-rbo"; */
+"YVL-y9-rbo.normalTitle" = "Esqueceu sua senha?";
+
+/* Class = "UIBarButtonItem"; title = "Sleep"; ObjectID = "ZZ7-yf-MjU"; */
+"ZZ7-yf-MjU.title" = "Dormir";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "azQ-XJ-qX6"; */
+"azQ-XJ-qX6.text" = "Tempo";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "bpe-aB-MIC"; */
+"bpe-aB-MIC.placeholder" = "Email";
+
+/* Class = "UITabBarItem"; title = "Alarms"; ObjectID = "h2A-5p-uQW"; */
+"h2A-5p-uQW.title" = "Alarmes";
+
+/* Class = "UITabBarItem"; title = "Audios"; ObjectID = "hXY-kN-VFD"; */
+"hXY-kN-VFD.title" = "Áudios";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "i2d-ZA-9OK"; */
+"i2d-ZA-9OK.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "jSi-tj-luJ"; */
+"jSi-tj-luJ.normalTitle" = "Log In";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "jdq-9j-DJD"; */
+"jdq-9j-DJD.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Log Out"; ObjectID = "kCm-QA-hzp"; */
+"kCm-QA-hzp.normalTitle" = "Log Out";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "meR-Lt-zxn"; */
+"meR-Lt-zxn.text" = "Tempo";
+
+/* Class = "UIButton"; normalTitle = "edit"; ObjectID = "nmJ-gP-Ddh"; */
+"nmJ-gP-Ddh.normalTitle" = "edit";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "pa4-wR-sH8"; */
+"pa4-wR-sH8.normalTitle" = "Enviar";
+
+/* Class = "UIButton"; normalTitle = "Adicionar"; ObjectID = "q3h-jQ-piA"; */
+"q3h-jQ-piA.normalTitle" = "Adicionar";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "qkb-hy-Kqd"; */
+"qkb-hy-Kqd.placeholder" = "Senha";
+
+/* Class = "UIBarButtonItem"; title = "Sign Up"; ObjectID = "swk-KO-JuW"; */
+"swk-KO-JuW.title" = "Criar conta";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "tpq-Jh-Yjs"; */
+"tpq-Jh-Yjs.title" = "Configurações";
+
+/* Class = "UITextField"; placeholder = "Friend's email"; ObjectID = "wGW-1D-URR"; */
+"wGW-1D-URR.placeholder" = "Email do amigo";

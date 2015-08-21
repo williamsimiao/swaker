@@ -1,4 +1,4 @@
-//
+  //
 //  ViewController.swift
 //  swaker
 //
@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println(PFInstallation.currentInstallation().objectId)
         setUpViews()
     }
 

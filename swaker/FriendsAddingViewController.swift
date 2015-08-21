@@ -18,6 +18,8 @@ class FriendsAddingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = NSLocalizedString("AddFriend", comment: "AddFriend")
+        friendsEmailTextField.placeholder = NSLocalizedString("FriendsEmail", comment: "Friends Email")
         indicator.hidden = true
         setUpViews()
         // Do any additional setup after loading the view.

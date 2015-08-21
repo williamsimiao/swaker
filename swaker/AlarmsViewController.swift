@@ -19,17 +19,14 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if AlarmDAO.sharedInstance().userAlarms.count == 0 {
             sleepButton.enabled = false;
         }
         else{
             sleepButton.enabled = true;
         }
-        
-        
-        
-        navigationItem.title = "Alarms"
+        navigationItem.title = NSLocalizedString("Alarms", comment: "Alarms")
+        sleepButton.title = NSLocalizedString("Sleep", comment: "Sleep")
         tabBarController?.tabBar.tintColor = selectedTintColor
         setUpViews()
         currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)

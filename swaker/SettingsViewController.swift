@@ -10,13 +10,17 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var profileButton: UIButton!
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
     var currentCalendar = NSCalendar.currentCalendar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Settings"
+        navigationItem.title = NSLocalizedString("Settings", comment: "Settings")
+        logoutButton.setTitle(NSLocalizedString("Logout", comment: "Log Out"), forState: .Normal)
+        profileButton.setTitle(NSLocalizedString("Profile", comment: "Profile"), forState: .Normal)
         setUpViews()
         // Do any additional setup after loading the view.
     }

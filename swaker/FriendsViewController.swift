@@ -29,13 +29,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Friends"
+        navigationItem.title = NSLocalizedString("Friends", comment: "Friends")
         friends = UserDAO.sharedInstance().currentUser!.friends
         UserDAO.sharedInstance().currentUser!.friendsDelegate.append(self)
         AlarmDAO.sharedInstance().friendsAlarmsDelegate.append(self)
         setUpViews()
-        
-        println("ARRRRRRRRAAAY:\(self.navigationController?.viewControllers.count)     ")
     }
     
     func setUpViews() {

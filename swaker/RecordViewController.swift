@@ -50,10 +50,11 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
         //Mudando o botao de send
+        sendButton.setTitle(NSLocalizedString("Send", comment: "Send"), forState: .Normal)
         sendButton.backgroundColor = UIColor.clearColor()
         sendButton.layer.cornerRadius = 5
         sendButton.layer.borderWidth = 1
-        sendButton.layer.borderColor = UIColor.blackColor().CGColor
+        sendButton.layer.borderColor = navBarTintColor.CGColor
         
         setUpViews()
         sendButton.alpha = 0
@@ -143,17 +144,17 @@ class RecordViewController: UIViewController, AVAudioPlayerDelegate, UITextField
     
     @IBAction func send(sender: AnyObject) {
         
-        let alert = UIAlertController(title: nil, message: "Type a description for your audio.", preferredStyle: .Alert)
+        let alert = UIAlertController(title: nil, message: NSLocalizedString("TypeDescription", comment: "Description"), preferredStyle: .Alert)
         var textField = UITextField()
         //actions
-        let cancel = UIAlertAction(title: "Cancel", style: .Destructive) { (cancel) -> Void in
+        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Destructive) { (cancel) -> Void in
             //nothing?
         }
         alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
-            textField.placeholder = "Description"
+            textField.placeholder = NSLocalizedString("Description", comment: "Description")
         }
         
-        let action = UIAlertAction(title: "Send", style: .Default) { (action) -> Void in
+        let action = UIAlertAction(title: NSLocalizedString("Send", comment: "Send"), style: .Default) { (action) -> Void in
             let theAttemp = self.sendPushOfAudioAttemptWithDescription((alert.textFields!.first as! UITextField).text)
             if self.isRecordingNewAudio == true {
                 let audioSavedFromRecording = AudioSaved(myAudioAttempt: theAttemp)

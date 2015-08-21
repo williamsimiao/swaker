@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var signUpButton: UIBarButtonItem!
     var indicator: UIActivityIndicatorView!
     var nomeTextField: UITextField!
     var emailTextField: UITextField!
@@ -27,7 +28,10 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         navigationItem.titleView = indicator
         tableView.backgroundColor = UIColor.whiteColor()
+        signUpButton.title = NSLocalizedString("Signup", comment: "Signup")
         setUpViews()
+        let tapGR = UITapGestureRecognizer(target: self, action: Selector("backgroundTap:"))
+        tableView.addGestureRecognizer(tapGR)
     }
     
     func setUpViews() {
@@ -72,7 +76,13 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         if (senhaTextField.text == senha2TextField.text) && (senha2TextField.text != "") && (senhaTextField.text != "") && (emailTextField.text != "") && (nomeTextField.text != "") {
             let indicator = self.indicator
             indicator.startAnimating()
-            if let img = pictureImageView.image {
+            var image: UIImage!
+            if pictureImageView != nil {
+                image = pictureImageView.image
+            } else {
+                image = UIImage(named: "userDefault.png")
+            }
+            if let img = image {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                     let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: UIImagePNGRepresentation(self.pictureImageView.image))
                     let signUpResult = UserDAO.sharedInstance().signup(user)
@@ -85,14 +95,14 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                     } else {
                         let userInfo = signUpResult.error!.userInfo as! [String:AnyObject]
                         if userInfo["code"] as! Int == 202 {
-                            alert.title = "Could not Sign Up"
-                            alert.message = "Username already taken."
+                            alert.title = NSLocalizedString("CouldntSignup", comment: "CouldntSignup")
+                            alert.message = NSLocalizedString("UsernameTaken", comment: "CouldntSignup")
                             alert.addAction(cancelAction)
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 self.presentViewController(alert, animated: true, completion: nil)
                             })
                         } else {
-                            alert.message = "Could not Sign Up."
+                            alert.message = NSLocalizedString("CouldntSignup", comment: "CouldntSignup")
                             alert.addAction(cancelAction)
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 self.presentViewController(alert, animated: true, completion: nil)
@@ -103,10 +113,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                         self.indicator.stopAnimating()
                     })
                 })
-            } else {
-                alert.message = "Pick an image."
-                alert.addAction(cancelAction)
-                presentViewController(alert, animated: true, completion: nil)
             }
         }
     }
@@ -121,19 +127,19 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         imagePicker.delegate = self
         
         var alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        var cameraAction = UIAlertAction(title: "Take Photo", style: .Default) { (cameraAction) -> Void in
+        var cameraAction = UIAlertAction(title: NSLocalizedString("TakePhoto", comment: "Take Photo"), style: .Default) { (cameraAction) -> Void in
             if UIImagePickerController.isSourceTypeAvailable(.Camera) {
                 imagePicker.sourceType = .Camera
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
         }
-        var libraryAction = UIAlertAction(title: "Choose from Camera Roll", style: .Default) { (libraryAction) -> Void in
+        var libraryAction = UIAlertAction(title: NSLocalizedString("CameraRoll", comment: "Camera Roll"), style: .Default) { (libraryAction) -> Void in
             if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
                 imagePicker.sourceType = .PhotoLibrary
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
         }
-        var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (cancelAction) -> Void in
+        var cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) { (cancelAction) -> Void in
             alert.dismissViewControllerAnimated(true, completion: nil)
         }
         alert.addAction(cameraAction)
@@ -164,27 +170,32 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
             nomeTextField = cell.textField
-            nomeTextField.placeholder = "Name"
+            nomeTextField.placeholder = NSLocalizedString("Name", comment: "Name")
+            nomeTextField.delegate = self
         case 1:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
             emailTextField = cell.textField
-            emailTextField.placeholder = "Email"
+            emailTextField.placeholder = NSLocalizedString("Email", comment: "Email")
+            emailTextField.delegate = self
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
             senhaTextField = cell.textField
-            senhaTextField.placeholder = "Password"
+            senhaTextField.placeholder = NSLocalizedString("Password", comment: "Password")
+            senhaTextField.delegate = self
         case 3:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
             senha2TextField = cell.textField
-            senha2TextField.placeholder = "Confirm Password"
+            senha2TextField.placeholder = NSLocalizedString("ConfirmPassword", comment: "ConfirmPassword")
+            senha2TextField.delegate = self
         case 4:
             cell = tableView.dequeueReusableCellWithIdentifier("imageViewCell") as! ImageViewCell
             let cell = cell as! ImageViewCell
             editButton = cell.editButton
             editButton.addTarget(self, action: "pickAnImage:", forControlEvents: UIControlEvents.TouchUpInside)
+            editButton.setTitle(NSLocalizedString("Edit", comment: "Edit"), forState: .Normal)
             pictureImageView = cell.theImageView
             pictureImageView.layer.cornerRadius = pictureImageView.frame.height / 2
             pictureImageView.clipsToBounds = true
@@ -205,15 +216,15 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         var title: String!
         switch section {
         case 0:
-            title = "NAME"
+            title = NSLocalizedString("Name", comment: "Name")
         case 1:
-            title = "EMAIL"
+            title = NSLocalizedString("Email", comment: "Email")
         case 2:
-            title = "PASSWORD"
+            title = NSLocalizedString("Password", comment: "Password")
         case 3:
-            title = "CONFIRM PASSWORD"
+            title = NSLocalizedString("ConfirmPassword", comment: "ConfirmPassword")
         case 4:
-            title = "PHOTO"
+            title = NSLocalizedString("Photo", comment: "Photo")
         default:
             title = ""
         }
@@ -224,6 +235,24 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         view.tintColor = navBarTintColor
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        tableView.contentSize = CGSize(width: tableView.frame.width, height: tableView.frame.height + 250)
+    }
+    
+    func dismissKeyboard() {
+        nomeTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+        senha2TextField.resignFirstResponder()
+        senhaTextField.resignFirstResponder()
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.tableView.contentSize = CGSize(width: self.tableView.frame.width, height: self.tableView.frame.height)
+        })
+        
+    }
+    
+    func backgroundTap(sender: AnyObject) {
+        dismissKeyboard()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

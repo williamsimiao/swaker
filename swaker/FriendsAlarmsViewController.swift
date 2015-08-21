@@ -21,7 +21,8 @@ class FriendsAlarmsViewController: UIViewController, UITableViewDataSource, UITa
         tableView.backgroundColor = UIColor.whiteColor()
         currentCalendar.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         setUpViews()
-        navigationItem.title = "\(friend.name)'s Alarms"
+        
+        navigationItem.title = String(format: NSLocalizedString("FriendsAlarms %@", comment: "Friends Alarms"), friend.name)
         friendsAlarms.removeAll(keepCapacity: false)
         for alarm in AlarmDAO.sharedInstance().friendsAlarms {
             if alarm.setterId == friend.objectId {

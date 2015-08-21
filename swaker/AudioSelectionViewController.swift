@@ -24,8 +24,8 @@ class AudioSelectionViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        segmentControl.setTitle("Received", forSegmentAtIndex: 0)
-        segmentControl.setTitle("Created", forSegmentAtIndex: 1)
+        segmentControl.setTitle(NSLocalizedString("Received", comment: "Received"), forSegmentAtIndex: 0)
+        segmentControl.setTitle(NSLocalizedString("Created", comment: "Created"), forSegmentAtIndex: 1)
         // Do any additional setup after loading the view.
     }
     

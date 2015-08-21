@@ -12,6 +12,7 @@ class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var textFieldView: UIView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     var gradientLayer:CAGradientLayer!
@@ -22,6 +23,8 @@ class ForgotPasswordViewController: UIViewController {
         indicator.hidden = true
         textFieldView.layer.cornerRadius = 4
         submitButton.layer.cornerRadius = 4
+        submitButton.setTitle(NSLocalizedString("Submit", comment: "Submit"), forState: .Normal)
+        doneButton.setTitle(NSLocalizedString("Done", comment: "Done"), forState: .Normal)
         setUpViews()
         // Do any additional setup after loading the view.
     }
@@ -82,6 +85,10 @@ class ForgotPasswordViewController: UIViewController {
             alert.message = "Type something, you bastard."
             presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction func backgroundTap(sender: AnyObject) {
+        emailTextField.resignFirstResponder()
     }
     
     @IBAction func done(sender:AnyObject) {

@@ -28,10 +28,10 @@
 		4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111B21B66C32200163A05 /* AlarmDAO.swift */; };
 		4C13ECD11B6C0759002E1B21 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */; };
 		4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ECE1B695CFA00E08424 /* LoginViewController.swift */; };
-		4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */; };
 		4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */; };
 		4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */; };
 		4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6137B11B75FEFF004E147B /* FriendsViewController.swift */; };
+		4C7990831B866BB20011003F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C7990851B866BB20011003F /* Localizable.strings */; };
 		4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021011B7609A8006CDA10 /* FriendsCell.swift */; };
 		4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */; };
 		4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021071B76225D006CDA10 /* AlarmCell.swift */; };
@@ -98,10 +98,12 @@
 		4C1111B21B66C32200163A05 /* AlarmDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmDAO.swift; sourceTree = "<group>"; };
 		4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		4C217ECE1B695CFA00E08424 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAddingViewController.swift; sourceTree = "<group>"; };
 		4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		4C6137B11B75FEFF004E147B /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		4C7990841B866BB20011003F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C7990861B866BB50011003F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C79908B1B8673430011003F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4C9021011B7609A8006CDA10 /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsViewController.swift; sourceTree = "<group>"; };
 		4C9021071B76225D006CDA10 /* AlarmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
+				4C7990801B866B390011003F /* Internationalization */,
 				4CCB8D791B700DF0005B243C /* userDefault.png */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
@@ -278,6 +281,14 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		4C7990801B866B390011003F /* Internationalization */ = {
+			isa = PBXGroup;
+			children = (
+				4C7990851B866BB20011003F /* Localizable.strings */,
+			);
+			name = Internationalization;
+			sourceTree = "<group>";
+		};
 		4C8153841B747409002BB7F3 /* Before LogIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,7 +296,6 @@
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
 				4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */,
 				4CC05BE51B782F2400BAA6FD /* SignUpViewController.swift */,
-				4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */,
 			);
 			name = "Before LogIn";
 			sourceTree = "<group>";
@@ -398,6 +408,7 @@
 			knownRegions = (
 				en,
 				Base,
+				pt,
 			);
 			mainGroup = 3DB058CD1B62B0D800DEC2CB;
 			productRefGroup = 3DB058D71B62B0D800DEC2CB /* Products */;
@@ -418,6 +429,7 @@
 				3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */,
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
+				4C7990831B866BB20011003F /* Localizable.strings in Resources */,
 				3D58CAEC1B8501A10064C0B0 /* alarm clock beeps.mp3 in Resources */,
 				3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */,
 				4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */,
@@ -457,7 +469,6 @@
 				4C92CC651B784188006DEC9E /* ImageViewCell.swift in Sources */,
 				4CC11C7A1B76D95D0052B120 /* AudioSelectionViewController.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
-				4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */,
 				4CE2AC961B76FCE600CFB656 /* AudioAttemptCell.swift in Sources */,
 				4CD6A3F41B75EDA60049EE20 /* Colors.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
@@ -510,6 +521,16 @@
 				3DB058E51B62B0D800DEC2CB /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		4C7990851B866BB20011003F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C7990841B866BB20011003F /* Base */,
+				4C7990861B866BB50011003F /* en */,
+				4C79908B1B8673430011003F /* pt */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

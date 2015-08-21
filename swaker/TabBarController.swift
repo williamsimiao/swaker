@@ -34,7 +34,18 @@ class TabBarController: UITabBarController {
             item.setTitleTextAttributes([NSForegroundColorAttributeName:navBarTintColor], forState: UIControlState.Normal)
             item.setTitleTextAttributes([NSForegroundColorAttributeName:selectedTintColor], forState: UIControlState.Highlighted)
         }
+        setItemTitles()
         // Do any additional setup after loading the view.
+    }
+    
+    func setItemTitles() {
+        let titleArray = [NSLocalizedString("Alarms", comment: "Alarms"), NSLocalizedString("Audios", comment: "Audios"), NSLocalizedString("Friends", comment: "Friends"), NSLocalizedString("Settings", comment: "Settings")]
+        var count = 0
+        for item in tabBar.items! {
+            let item = item as! UITabBarItem
+            item.title = titleArray[count]
+            count++
+        }
     }
     
     func presentAlert(sender: AnyObject) {
