@@ -1,0 +1,81 @@
+/*
+ Localizable.strings
+ tapChallenge
+ 
+ Created by Marcus Fonseca on 4/14/15.
+ Copyright (c) 2015 Tappers. All rights reserved.
+ 
+ Aqui devem ser colocadas as strings localizadas (na linguagem base).
+ */
+/* Login */
+"Login" = "Log In";
+/* Signup */
+"Signup" = "Registrar";
+/* Couldnt Signup */
+"CouldntSignup" = "Não foi possível registrar";
+"UsernameTaken" = "Email já registrado.";
+/* Forgot Password */
+"ForgotPassword" = "Esqueceu sua senha?";
+/* Name */
+"Name" = "Nome";
+/* Email */
+"Email" = "Email";
+/* Password */
+"Password" = "Senha";
+/* Confirm Password */
+"ConfirmPassword" = "Confirme a Senha";
+/* Photo */
+"Photo" = "Foto";
+/* Signup Succeeded */
+"SignUpSucceeded" = "Registro Sucedido.";
+/* Submit */
+"Submit" = "Enviar";
+/* Done */
+"Done" = "Voltar";
+/* Could Not Login */
+"CouldntLogin" = "Não foi possível logar";
+"Incorrect" = "Email e/ou senha incorretos.";
+"Internet" = "Conexão não está disponível.";
+/* Alarms */
+"Alarms" = "Alarmes";
+/* Sleep */
+"Sleep" = "Dormir";
+/* Add an Alarm */
+"AddAlarm" = "Adicionar um Alarme";
+/* Set */
+"Set" = "Adicionar";
+/* Description */
+"TypeDescription" = "Digite uma descrição para o seu áudio.";
+"Description" = "Descrição";
+/* Audios */
+"Audios" = "Áudios";
+/* Received */
+"Received" = "Recebidos";
+/* Created */
+"Created" = "Criados";
+/* Friends */
+"Friends" = "Amigos";
+/* Add a Friend */
+"AddFriend" = "Adicionar um Amigo";
+/* Friends Alarms */
+"FriendsAlarms %@" = "Alarmes de %@";
+/* Friends Email */
+"FriendsEmail" = "Email do Amigo";
+/* Add */
+"Add" = "Adicionar";
+/* Settings */
+"Settings" = "Configurações";
+/* Log Out */
+"Logout" = "Encerrar sessão";
+/* Profile */
+"Profile" = "Perfil";
+/* edit */
+"Edit" = "editar";
+/* Take Photo */
+"TakePhoto" = "Tirar Foto";
+/* Camera Roll */
+"CameraRoll" = "Escolher do rolo da câmera";
+/* Cancel */
+"Cancel" = "Cancelar";
+/* Send */
+"Send" = "Enviar";
