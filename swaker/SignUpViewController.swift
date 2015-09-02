@@ -23,6 +23,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     var backgroundView: UIView!
     var naviBackgroundView: UIView!
     var currentCalendar = NSCalendar.currentCalendar()
+    var tableViewHeight: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,10 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         setUpViews()
         let tapGR = UITapGestureRecognizer(target: self, action: Selector("backgroundTap:"))
         tableView.addGestureRecognizer(tapGR)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        tableViewHeight = tableView.contentSize.height
     }
     
     func setUpViews() {
@@ -187,9 +192,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
-            emailTextField = cell.textField
-            emailTextField.placeholder = NSLocalizedString("ConfirmEmail", comment: "Confirm Email")
-            emailTextField.delegate = self
+            email2TextField = cell.textField
+            email2TextField.placeholder = NSLocalizedString("ConfirmEmail", comment: "Confirm Email")
+            email2TextField.delegate = self
         case 3:
             cell = tableView.dequeueReusableCellWithIdentifier("textFieldCell") as! TextFieldCell
             let cell = cell as! TextFieldCell
@@ -250,16 +255,18 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        tableView.contentSize = CGSize(width: tableView.frame.width, height: tableView.frame.height + 250)
+        tableView.contentSize = CGSize(width: tableView.frame.width, height: tableView.frame.height + 320)
     }
     
     func dismissKeyboard() {
         nomeTextField.resignFirstResponder()
         emailTextField.resignFirstResponder()
+        email2TextField.resignFirstResponder()
         senha2TextField.resignFirstResponder()
         senhaTextField.resignFirstResponder()
+        
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.tableView.contentSize = CGSize(width: self.tableView.frame.width, height: self.tableView.frame.height)
+            self.tableView.contentSize = CGSize(width: self.tableView.frame.width, height: self.tableViewHeight)
         })
         
     }
