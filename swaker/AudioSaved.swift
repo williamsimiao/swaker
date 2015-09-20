@@ -16,7 +16,7 @@ class AudioSaved: Audio {
     init(receiverId:String!, audio:NSData!, audioDescription:String?, senderId:String!) {
         super.init(audio: audio, audioDescription: audioDescription, senderId: senderId)
         self.receiverId = receiverId
-        var audioSufix = checkAudioSufix()
+//        var audioSufix = checkAudioSufix()
 //        self.audioName = "AUD_" + audioSufix
 //        audioSufix = ("\(audioSufix.toInt()!+1)")
 //        audioSufix.writeToFile(checkDirectory(""), atomically: true, encoding: NSUTF8StringEncoding, error: nil)
@@ -59,23 +59,7 @@ class AudioSaved: Audio {
         aCoder.encodeObject(audioName, forKey: "audioName")
     }
     
-    /*
-    
-        Gera um sufixo a partir do numero lido no arquivo 'AudioSufixCounter'
-        Esse sufixo sera o nome do arquivo de audio
-    */
-    func checkAudioSufix() -> String {
-        let path = AudioDAO.sharedInstance().checkDirectory("").stringByAppendingPathComponent("AudioSufixCounter")
-        
-        if (!NSFileManager.defaultManager().fileExistsAtPath(path)) {
-            let audioSufixCounter = "1"
-            audioSufixCounter.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
-        }
-        let audioSufix = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
-        return audioSufix!
-    }
-    
-    /*
+        /*
         Convertedo para PFObject
     */
     func toPFObject() -> PFObject {
@@ -92,24 +76,28 @@ class AudioSaved: Audio {
 
     
     /*
-        Salva um audio saved no diretorio passado
+        Salva um audio saved no diretorio received
         Retorno: booleano de sucesso
         OBS: esse metodo deveria ficar na AudioDAO
     */
-    func SaveAudioInToDirectoy(directory: String) -> Bool {
-        //tirei a extensao auf
-        let manager = NSFileManager.defaultManager()
-        //aqui ja faz a checagem se o path existe, se nao existir cria
-        var path = AudioDAO.sharedInstance().checkDirectory(directory) as String
-//        var error:NSError?
-//        if !manager.fileExistsAtPath(path) {
-//            manager.createDirectoryAtPath(path, withIntermediateDirectories: false, attributes: nil, error: &error)        }
-        path.stringByAppendingPathComponent(self.audioName)
-        println("SALVANDO tipo SAVED: \(self.audioName)")
-        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path, atomically: true)
+    func saveAudioInToReceivedDir() -> Bool {
+        let path = AudioDAO.sharedInstance().receivedPath.stringByAppendingPathComponent(self.audioName)
+        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
+        self.audio.writeToFile(path + ".caf", atomically: true)
         return success
     }
     
+    /*
+        Salva um audio saved no diretorio created
+        Retorno: booleano de sucesso
+        OBS: esse metodo deveria ficar na AudioDAO
+    */
+    func saveAudioInToCreatedDir() -> Bool {
+        let path = AudioDAO.sharedInstance().createdPath.stringByAppendingPathComponent(self.audioName)
+        let success = NSKeyedArchiver.archivedDataWithRootObject(self).writeToFile(path + ".auf", atomically: true)
+        //self.audio.writeToFile(path + ".caf", atomically: true)
+        return success
+    }
     /*
         Detela audio da pasta Library
         Retorno: booleano de sucesso

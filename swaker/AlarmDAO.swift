@@ -9,10 +9,11 @@
 import UIKit
 import Parse
 
-class AlarmDAO: NSObject {
+class AlarmDAO: NSObject, FriendsDataUpdating {
     
 /*//////////////////////////////CLASS ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     //MARK: Class atts and functions
+    
     static let friendsAlarmsUpdated = "friendsAlarmsUpdated"
     static var instance:AlarmDAO?
     static func sharedInstance() -> AlarmDAO {
@@ -24,7 +25,9 @@ class AlarmDAO: NSObject {
             if let idsToDelete = NSKeyedUnarchiver.unarchiveObjectWithFile(instance!.idsPath) as? [String] {
                 instance?.userAlarmsIdsToDelete = idsToDelete
             }
-            println(instance?.alarmsPath)
+            if let user = UserDAO.sharedInstance().currentUser {
+                user.friendsDelegate.append(instance!)
+            }
         }
         return instance!
     }
@@ -38,8 +41,8 @@ class AlarmDAO: NSObject {
     /*//////////////////////////////INSTANCE ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
     
     //MARK: Properties
-    var friendsAlarmsDelegate: AlarmDAODataUpdating?
-    
+    var friendsAlarmsDelegate = [AlarmDAODataUpdating]()
+    var hasLoaded: Bool = true
     //MARK: Paths
     let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
     var idsPath:String!
@@ -60,8 +63,8 @@ class AlarmDAO: NSObject {
     var userAlarms = [Alarm]()
     var friendsAlarms = [Alarm]() {
         didSet {
-            if friendsAlarmsDelegate != nil {
-                friendsAlarmsDelegate!.reloadData()
+            for delegate in friendsAlarmsDelegate {
+                delegate.reloadData()
             }
         }
     }
@@ -85,8 +88,12 @@ class AlarmDAO: NSObject {
                     if (Int(anAlarm.fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
                         userAlarms.append(anAlarm)
                     } else {
-                        // Move os audios ja tocados pra pasta certa
-                        self.deleteAlarm(anAlarm)
+                  // Move os audios ja tocados pra pasta certa
+                        if anAlarm.audioId != nil {
+                            //passando o objectId do alarm pq esse é o nome do audio no arquivo, o motivo disso é para que so haja um audio por alarme
+                            AudioDAO.sharedInstance().moveToReceivedDir(anAlarm.objectId!)
+                            self.deleteAlarm(anAlarm)
+                        }
                     }
                 }
             }
@@ -112,6 +119,7 @@ class AlarmDAO: NSObject {
                 }
             }
         }
+        
         deletePendingAlarms()
     }
     
@@ -124,8 +132,9 @@ class AlarmDAO: NSObject {
                     let info = error!.userInfo as! [String:AnyObject]
                     let code = info["code"] as! Int
                     if code == 101 {
-                        let index = find(self.userAlarmsIdsToDelete, alarmId)!
-                        self.userAlarmsIdsToDelete.removeAtIndex(index)
+                        if let index = find(self.userAlarmsIdsToDelete, alarmId) {
+                            self.userAlarmsIdsToDelete.removeAtIndex(index)
+                        }
                     }
                 }
                 NSKeyedArchiver.archiveRootObject(self.userAlarmsIdsToDelete, toFile: self.idsPath)
@@ -140,6 +149,7 @@ class AlarmDAO: NSObject {
         Retorno: Void
     ***************************************************************************/
     func loadFriendsAlarms() {
+        println("CARREGANDO ALARMES DOS AMIGOS")
         self.friendsAlarms.removeAll(keepCapacity: false)
         
         let user = UserDAO.sharedInstance().currentUser!
@@ -152,13 +162,23 @@ class AlarmDAO: NSObject {
         query.findObjectsInBackgroundWithBlock({ (alarms, error) -> Void in
             if error == nil {
                 var fAlarms = [Alarm]()
-                let alarms = alarms as! [PFObject]
-                for alarm in alarms {
-                    fAlarms.append(Alarm(PFAlarm: alarm))
+//                let alarms = alarms as! [PFObject]
+                for alarm in alarms! {
+                    //ALTERADO
+                    let anAlarm = Alarm(PFAlarm: alarm as! PFObject)
+                    if (Int(anAlarm.fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
+                        fAlarms.append(anAlarm)
+                    }
                 }
                 self.friendsAlarms = fAlarms
+                println("\(fAlarms.count) ALARMES ACHADOS")
             }
         })
+    }
+
+    
+    func reloadData() {
+        loadFriendsAlarms()
     }
     
     /***************************************************************************
@@ -166,17 +186,18 @@ class AlarmDAO: NSObject {
         Parâmetro: o alarme a ser salvo: Alarm
         Retorno: Void
     ***************************************************************************/
-    func addAlarm(alarm:Alarm) -> Bool {
+    func addAlarm(alarm:Alarm) -> (success:Bool, error:NSError?) {
         let PFAlarm = alarm.toPFObject()
-        if PFAlarm.save() {
+        var error:NSError?
+        if PFAlarm.save(&error) {
             alarm.objectId = PFAlarm.objectId
             alarm.save()
             PFInstallation.currentInstallation().addObject("a"+alarm.objectId, forKey: "channels")
             PFInstallation.currentInstallation().save()
             alarm.schedule()
-            return true
+            return (true, error)
         }
-        return false
+        return (false, error)
     }
     
     /***************************************************************************
@@ -191,7 +212,15 @@ class AlarmDAO: NSObject {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 if let objects = PFQuery(className: "AudioAttempt").whereKey("alarmId", equalTo: alarm.objectId).findObjects() {
                     for obj in objects {
-                        (obj as! PFObject).deleteEventually()
+                        println(obj.objectId)
+                        let parseObject = obj as! PFObject
+                        var error: NSError?
+                        println("obj:\(obj.delete())")
+                        let success = parseObject.delete(&error)
+                        if success == false {
+                            println(error)
+                            println(PFObject(withoutDataWithClassName: "AudioAttempt", objectId: obj.objectId).delete())
+                        }
                     }
                 }
             })
@@ -211,6 +240,20 @@ class AlarmDAO: NSObject {
             PFInstallation.currentInstallation().addObject("a"+alarm.objectId, forKey: "channels")
         }
         PFInstallation.currentInstallation().save()
+    }
+    
+    //MARK: Mudanca de ultimahora
+    
+    func nextAlarmTofire() -> Alarm {
+        var smallerAlarm : Alarm!
+        var currentSmallerDate = self.userAlarms[0].fireDate
+        for(var i = 0; i < self.userAlarms.count ; i++) {
+            if (Int(self.userAlarms[i].fireDate.timeIntervalSinceNow) - NSTimeZone.localTimeZone().secondsFromGMT) > 0 {
+                currentSmallerDate = self.userAlarms[i].fireDate
+                smallerAlarm = self.userAlarms[i]
+            }
+        }
+        return smallerAlarm
     }
 }
 

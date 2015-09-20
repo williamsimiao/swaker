@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D07BBFE1B69D29500FD5620 /* propostaSound.caf */; };
-		3D90402B1B6EBA35005E9991 /* AudioLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */; };
+		3D07DBAF1B783C5F00C4C94B /* RingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07DBAE1B783C5F00C4C94B /* RingViewController.swift */; };
+		3D26C0651B8003D700B9CD2F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26C0641B8003D700B9CD2F /* Reachability.swift */; };
+		3D58CAEC1B8501A10064C0B0 /* alarm clock beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D58CAEB1B8501A10064C0B0 /* alarm clock beeps.mp3 */; };
 		3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90402E1B6EC4E5005E9991 /* AudioCell.swift */; };
 		3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */; };
 		3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058DD1B62B0D800DEC2CB /* ViewController.swift */; };
@@ -18,7 +20,7 @@
 		3DB058F21B62B0D800DEC2CB /* swakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB058F11B62B0D800DEC2CB /* swakerTests.swift */; };
 		45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E824D61B66B72100F0F404 /* UserDAO.swift */; };
 		45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */; };
-		45ED4CB21B6ABECD00F07C6F /* RequestPermissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */; };
+		45EE48FE1B87C50300EBDDD7 /* logo_wakeU.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EE48FD1B87C50300EBDDD7 /* logo_wakeU.png */; };
 		4C1111A91B66AE6500163A05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111A81B66AE6500163A05 /* User.swift */; };
 		4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AA1B66AFE400163A05 /* Audio.swift */; };
 		4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111AC1B66B08200163A05 /* Alarm.swift */; };
@@ -27,13 +29,19 @@
 		4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1111B21B66C32200163A05 /* AlarmDAO.swift */; };
 		4C13ECD11B6C0759002E1B21 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */; };
 		4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ECE1B695CFA00E08424 /* LoginViewController.swift */; };
-		4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */; };
-		4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */; };
 		4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */; };
-		4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C217ED61B69868500E08424 /* SettingsTableViewController.swift */; };
-		4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */; };
 		4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */; };
-		4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */; };
+		4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6137B11B75FEFF004E147B /* FriendsViewController.swift */; };
+		4C7990831B866BB20011003F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C7990851B866BB20011003F /* Localizable.strings */; };
+		4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021011B7609A8006CDA10 /* FriendsCell.swift */; };
+		4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */; };
+		4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9021071B76225D006CDA10 /* AlarmCell.swift */; };
+		4C92CC631B784109006DEC9E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92CC621B784109006DEC9E /* TextFieldCell.swift */; };
+		4C92CC651B784188006DEC9E /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92CC641B784188006DEC9E /* ImageViewCell.swift */; };
+		4CBDECEB1B762CAC00428AE3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */; };
+		4CC05BE61B782F2400BAA6FD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC05BE51B782F2400BAA6FD /* SignUpViewController.swift */; };
+		4CC11C7A1B76D95D0052B120 /* AudioSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC11C791B76D95D0052B120 /* AudioSelectionViewController.swift */; };
+		4CC11C7C1B76EB3A0052B120 /* AudioLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC11C7B1B76EB3A0052B120 /* AudioLibraryViewController.swift */; };
 		4CC5F0F31B62B3C200ADEC8B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */; };
 		4CC5F0F41B62B3C200ADEC8B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */; };
 		4CC5F0F51B62B3C200ADEC8B /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */; };
@@ -44,9 +52,14 @@
 		4CC5F0FC1B62B52500ADEC8B /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FB1B62B52500ADEC8B /* libstdc++.6.dylib */; };
 		4CC5F0FE1B62B53700ADEC8B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FD1B62B53700ADEC8B /* AudioToolbox.framework */; };
 		4CC5F1001B62B53F00ADEC8B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */; };
-		4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */; };
-		4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */; };
 		4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCB8D791B700DF0005B243C /* userDefault.png */; };
+		4CD6A3EF1B75C3570049EE20 /* AlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */; };
+		4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */; };
+		4CD6A3F41B75EDA60049EE20 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6A3F31B75EDA60049EE20 /* Colors.swift */; };
+		4CE2AC941B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC931B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift */; };
+		4CE2AC961B76FCE600CFB656 /* AudioAttemptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC951B76FCE600CFB656 /* AudioAttemptCell.swift */; };
+		4CE2AC991B7709AD00CFB656 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC981B7709AD00CFB656 /* SettingsViewController.swift */; };
+		4CE2AC9B1B770C5C00CFB656 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2AC9A1B770C5C00CFB656 /* ProfileViewController.swift */; };
 		4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE549C81B6917B600CDB267 /* AudioDAO.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +75,9 @@
 
 /* Begin PBXFileReference section */
 		3D07BBFE1B69D29500FD5620 /* propostaSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = propostaSound.caf; sourceTree = "<group>"; };
-		3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLibraryTableViewController.swift; sourceTree = "<group>"; };
+		3D07DBAE1B783C5F00C4C94B /* RingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingViewController.swift; sourceTree = "<group>"; };
+		3D26C0641B8003D700B9CD2F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		3D58CAEB1B8501A10064C0B0 /* alarm clock beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "alarm clock beeps.mp3"; sourceTree = "<group>"; };
 		3D90402E1B6EC4E5005E9991 /* AudioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
 		3DB058D61B62B0D800DEC2CB /* swaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB058DA1B62B0D800DEC2CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,7 +91,7 @@
 		3DB058F11B62B0D800DEC2CB /* swakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swakerTests.swift; sourceTree = "<group>"; };
 		45E824D61B66B72100F0F404 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPTableViewCell.swift; sourceTree = "<group>"; };
-		45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPermissionTableViewController.swift; sourceTree = "<group>"; };
+		45EE48FD1B87C50300EBDDD7 /* logo_wakeU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_wakeU.png; path = Imagens/logo_wakeU.png; sourceTree = "<group>"; };
 		4C1111A81B66AE6500163A05 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4C1111AA1B66AFE400163A05 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		4C1111AC1B66B08200163A05 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -85,13 +100,21 @@
 		4C1111B21B66C32200163A05 /* AlarmDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmDAO.swift; sourceTree = "<group>"; };
 		4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		4C217ECE1B695CFA00E08424 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
-		4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAddingViewController.swift; sourceTree = "<group>"; };
-		4C217ED61B69868500E08424 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsTableViewController.swift; sourceTree = "<group>"; };
 		4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
-		4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		4C6137B11B75FEFF004E147B /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		4C7990841B866BB20011003F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C7990861B866BB50011003F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C79908B1B8673430011003F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C9021011B7609A8006CDA10 /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
+		4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsAlarmsViewController.swift; sourceTree = "<group>"; };
+		4C9021071B76225D006CDA10 /* AlarmCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		4C92CC621B784109006DEC9E /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		4C92CC641B784188006DEC9E /* ImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
+		4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		4CC05BE51B782F2400BAA6FD /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		4CC11C791B76D95D0052B120 /* AudioSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSelectionViewController.swift; sourceTree = "<group>"; };
+		4CC11C7B1B76EB3A0052B120 /* AudioLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLibraryViewController.swift; sourceTree = "<group>"; };
 		4CC5F0ED1B62B3C200ADEC8B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4CC5F0EE1B62B3C200ADEC8B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		4CC5F0EF1B62B3C200ADEC8B /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -102,9 +125,14 @@
 		4CC5F0FB1B62B52500ADEC8B /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		4CC5F0FD1B62B53700ADEC8B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4CC5F0FF1B62B53F00ADEC8B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsTableViewController.swift; sourceTree = "<group>"; };
-		4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAddingTableViewController.swift; sourceTree = "<group>"; };
 		4CCB8D791B700DF0005B243C /* userDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userDefault.png; sourceTree = "<group>"; };
+		4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsViewController.swift; sourceTree = "<group>"; };
+		4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAddingViewController.swift; sourceTree = "<group>"; };
+		4CD6A3F31B75EDA60049EE20 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		4CE2AC931B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmsAudioAttemptViewController.swift; sourceTree = "<group>"; };
+		4CE2AC951B76FCE600CFB656 /* AudioAttemptCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioAttemptCell.swift; sourceTree = "<group>"; };
+		4CE2AC981B7709AD00CFB656 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4CE2AC9A1B770C5C00CFB656 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4CE549C81B6917B600CDB267 /* AudioDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioDAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +167,7 @@
 		3D07BBFD1B69D24600FD5620 /* Default Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				3D58CAEB1B8501A10064C0B0 /* alarm clock beeps.mp3 */,
 				3D07BBFE1B69D29500FD5620 /* propostaSound.caf */,
 			);
 			name = "Default Sounds";
@@ -166,16 +195,19 @@
 		3DB058D81B62B0D800DEC2CB /* swaker */ = {
 			isa = PBXGroup;
 			children = (
-				4CCB8D791B700DF0005B243C /* userDefault.png */,
+				45EE48FC1B87C4E500EBDDD7 /* Imagens */,
+				4C7990801B866B390011003F /* Internationalization */,
 				45EBA0AC1B6BBA9800CAC235 /* CustomCells */,
 				4C217ECD1B695CB800E08424 /* ViewControllers */,
+				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
+				3D26C0641B8003D700B9CD2F /* Reachability.swift */,
 				45E824D51B66B5D500F0F404 /* DAO */,
 				45E824D41B66B55F00F0F404 /* Entities */,
 				3DB058DB1B62B0D800DEC2CB /* AppDelegate.swift */,
-				3DB058DF1B62B0D800DEC2CB /* Main.storyboard */,
 				3DB058E21B62B0D800DEC2CB /* Images.xcassets */,
 				3DB058E41B62B0D800DEC2CB /* LaunchScreen.xib */,
 				3DB058D91B62B0D800DEC2CB /* Supporting Files */,
+				4CD6A3F31B75EDA60049EE20 /* Colors.swift */,
 			);
 			path = swaker;
 			sourceTree = "<group>";
@@ -231,31 +263,72 @@
 		45EBA0AC1B6BBA9800CAC235 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */,
+				4CE2AC971B77005F00CFB656 /* Former */,
 				3D90402E1B6EC4E5005E9991 /* AudioCell.swift */,
+				4C9021011B7609A8006CDA10 /* FriendsCell.swift */,
+				4C9021071B76225D006CDA10 /* AlarmCell.swift */,
+				4CE2AC951B76FCE600CFB656 /* AudioAttemptCell.swift */,
+				4C92CC621B784109006DEC9E /* TextFieldCell.swift */,
+				4C92CC641B784188006DEC9E /* ImageViewCell.swift */,
 			);
 			name = CustomCells;
+			sourceTree = "<group>";
+		};
+		45EE48FC1B87C4E500EBDDD7 /* Imagens */ = {
+			isa = PBXGroup;
+			children = (
+				45EE48FD1B87C50300EBDDD7 /* logo_wakeU.png */,
+				4CCB8D791B700DF0005B243C /* userDefault.png */,
+			);
+			name = Imagens;
 			sourceTree = "<group>";
 		};
 		4C217ECD1B695CB800E08424 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3D90402A1B6EBA35005E9991 /* AudioLibraryTableViewController.swift */,
-				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
+				4C8153841B747409002BB7F3 /* Before LogIn */,
+				4C8153851B747771002BB7F3 /* After LogIn */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4C7990801B866B390011003F /* Internationalization */ = {
+			isa = PBXGroup;
+			children = (
+				4C7990851B866BB20011003F /* Localizable.strings */,
+			);
+			name = Internationalization;
+			sourceTree = "<group>";
+		};
+		4C8153841B747409002BB7F3 /* Before LogIn */ = {
+			isa = PBXGroup;
+			children = (
 				3DB058DD1B62B0D800DEC2CB /* ViewController.swift */,
 				4C217ECE1B695CFA00E08424 /* LoginViewController.swift */,
 				4C3B667D1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift */,
-				4C217ED01B695FA100E08424 /* SignUpTableViewController.swift */,
-				4C217ED21B6962BB00E08424 /* FriendsTableViewController.swift */,
-				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
-				4C217ED61B69868500E08424 /* SettingsTableViewController.swift */,
-				4CC646C91B69BFD7009B972D /* AlarmsTableViewController.swift */,
-				4CC646CB1B69C5D3009B972D /* AlarmsAddingTableViewController.swift */,
-				4C232A181B6ABB1B008187FB /* FriendsAlarmsTableViewController.swift */,
-				45ED4CB11B6ABECD00F07C6F /* RequestPermissionTableViewController.swift */,
-				4CC295251B71B08F00CB6FB5 /* ProfileTableViewController.swift */,
+				4CC05BE51B782F2400BAA6FD /* SignUpViewController.swift */,
 			);
-			name = ViewControllers;
+			name = "Before LogIn";
+			sourceTree = "<group>";
+		};
+		4C8153851B747771002BB7F3 /* After LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				3D07DBAE1B783C5F00C4C94B /* RingViewController.swift */,
+				4CD6A3EE1B75C3570049EE20 /* AlarmsViewController.swift */,
+				4CD6A3F11B75D5680049EE20 /* AlarmsAddingViewController.swift */,
+				4CE2AC931B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift */,
+				4C6137B11B75FEFF004E147B /* FriendsViewController.swift */,
+				4C217ED41B696D6200E08424 /* FriendsAddingViewController.swift */,
+				4C9021031B761AF8006CDA10 /* FriendsAlarmsViewController.swift */,
+				4CC11C7B1B76EB3A0052B120 /* AudioLibraryViewController.swift */,
+				4CC11C791B76D95D0052B120 /* AudioSelectionViewController.swift */,
+				4C13ECD01B6C0759002E1B21 /* RecordViewController.swift */,
+				4CE2AC981B7709AD00CFB656 /* SettingsViewController.swift */,
+				4CE2AC9A1B770C5C00CFB656 /* ProfileViewController.swift */,
+				4CBDECEA1B762CAC00428AE3 /* TabBarController.swift */,
+			);
+			name = "After LogIn";
 			sourceTree = "<group>";
 		};
 		4CC5F1011B62B5AF00ADEC8B /* Frameworks */ = {
@@ -273,6 +346,14 @@
 				4CC5F0F21B62B3C200ADEC8B /* ParseUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4CE2AC971B77005F00CFB656 /* Former */ = {
+			isa = PBXGroup;
+			children = (
+				45EBA0AD1B6BBD0A00CAC235 /* RequestPTableViewCell.swift */,
+			);
+			name = Former;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +400,7 @@
 		3DB058CE1B62B0D800DEC2CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = William;
 				TargetAttributes = {
@@ -338,6 +420,7 @@
 			knownRegions = (
 				en,
 				Base,
+				pt,
 			);
 			mainGroup = 3DB058CD1B62B0D800DEC2CB;
 			productRefGroup = 3DB058D71B62B0D800DEC2CB /* Products */;
@@ -358,7 +441,10 @@
 				3DB058E11B62B0D800DEC2CB /* Main.storyboard in Resources */,
 				3D07BC001B69D2DF00FD5620 /* propostaSound.caf in Resources */,
 				3DB058E61B62B0D800DEC2CB /* LaunchScreen.xib in Resources */,
+				4C7990831B866BB20011003F /* Localizable.strings in Resources */,
+				3D58CAEC1B8501A10064C0B0 /* alarm clock beeps.mp3 in Resources */,
 				3DB058E31B62B0D800DEC2CB /* Images.xcassets in Resources */,
+				45EE48FE1B87C50300EBDDD7 /* logo_wakeU.png in Resources */,
 				4CCB8D7A1B700DF0005B243C /* userDefault.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,29 +463,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CC646CC1B69C5D3009B972D /* AlarmsAddingTableViewController.swift in Sources */,
-				4CC295261B71B08F00CB6FB5 /* ProfileTableViewController.swift in Sources */,
+				4CBDECEB1B762CAC00428AE3 /* TabBarController.swift in Sources */,
 				4C1111AB1B66AFE400163A05 /* Audio.swift in Sources */,
+				4CD6A3F21B75D5680049EE20 /* AlarmsAddingViewController.swift in Sources */,
+				4C9021021B7609A8006CDA10 /* FriendsCell.swift in Sources */,
+				4CE2AC991B7709AD00CFB656 /* SettingsViewController.swift in Sources */,
 				4C3B667E1B6DAAD1007B1DFD /* ForgotPasswordViewController.swift in Sources */,
-				4CC646CA1B69BFD7009B972D /* AlarmsTableViewController.swift in Sources */,
+				4C6137B21B75FEFF004E147B /* FriendsViewController.swift in Sources */,
 				4C13ECD11B6C0759002E1B21 /* RecordViewController.swift in Sources */,
 				3DB058DE1B62B0D800DEC2CB /* ViewController.swift in Sources */,
-				4C217ED31B6962BB00E08424 /* FriendsTableViewController.swift in Sources */,
-				45ED4CB21B6ABECD00F07C6F /* RequestPermissionTableViewController.swift in Sources */,
+				4CE2AC941B76FC3700CFB656 /* AlarmsAudioAttemptViewController.swift in Sources */,
 				4C1111AF1B66B18400163A05 /* AudioAttempt.swift in Sources */,
 				45E824D71B66B72100F0F404 /* UserDAO.swift in Sources */,
+				3D26C0651B8003D700B9CD2F /* Reachability.swift in Sources */,
 				4C1111AD1B66B08200163A05 /* Alarm.swift in Sources */,
+				4C9021041B761AF8006CDA10 /* FriendsAlarmsViewController.swift in Sources */,
 				4CE549C91B6917B600CDB267 /* AudioDAO.swift in Sources */,
-				4C232A191B6ABB1C008187FB /* FriendsAlarmsTableViewController.swift in Sources */,
+				4C92CC651B784188006DEC9E /* ImageViewCell.swift in Sources */,
+				4CC11C7A1B76D95D0052B120 /* AudioSelectionViewController.swift in Sources */,
 				4C1111B11B66B19000163A05 /* AudioSaved.swift in Sources */,
-				4C217ED11B695FA100E08424 /* SignUpTableViewController.swift in Sources */,
+				4CE2AC961B76FCE600CFB656 /* AudioAttemptCell.swift in Sources */,
+				4CD6A3F41B75EDA60049EE20 /* Colors.swift in Sources */,
 				3DB058DC1B62B0D800DEC2CB /* AppDelegate.swift in Sources */,
 				4C1111B31B66C32200163A05 /* AlarmDAO.swift in Sources */,
-				4C217ED71B69868500E08424 /* SettingsTableViewController.swift in Sources */,
+				4CD6A3EF1B75C3570049EE20 /* AlarmsViewController.swift in Sources */,
+				4C9021081B76225D006CDA10 /* AlarmCell.swift in Sources */,
+				4C92CC631B784109006DEC9E /* TextFieldCell.swift in Sources */,
 				4C1111A91B66AE6500163A05 /* User.swift in Sources */,
+				4CC11C7C1B76EB3A0052B120 /* AudioLibraryViewController.swift in Sources */,
+				3D07DBAF1B783C5F00C4C94B /* RingViewController.swift in Sources */,
+				4CC05BE61B782F2400BAA6FD /* SignUpViewController.swift in Sources */,
 				4C217ECF1B695CFA00E08424 /* LoginViewController.swift in Sources */,
 				3D90402F1B6EC4E5005E9991 /* AudioCell.swift in Sources */,
-				3D90402B1B6EBA35005E9991 /* AudioLibraryTableViewController.swift in Sources */,
+				4CE2AC9B1B770C5C00CFB656 /* ProfileViewController.swift in Sources */,
 				45EBA0AE1B6BBD0A00CAC235 /* RequestPTableViewCell.swift in Sources */,
 				4C217ED51B696D6200E08424 /* FriendsAddingViewController.swift in Sources */,
 			);
@@ -440,6 +536,16 @@
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
+		4C7990851B866BB20011003F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C7990841B866BB20011003F /* Base */,
+				4C7990861B866BB50011003F /* en */,
+				4C79908B1B8673430011003F /* pt */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -460,6 +566,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: William Simiao (QJXXZFMD29)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -505,6 +612,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: William Simiao (QJXXZFMD29)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

@@ -10,6 +10,7 @@ import UIKit
 import Parse
 
 class User: NSObject {
+    
     var objectId:String!
     var username:String!
     var password:String!
@@ -17,28 +18,50 @@ class User: NSObject {
     var name:String!
     var photo:NSData?
     var submissionDate:NSDate?
-    var friends = [User]()
     
+    var hasLoadedFriends = false {
+        didSet {
+            for delegate in friendsDelegate {
+                delegate.hasLoaded = hasLoadedFriends
+            }
+        }
+    }
     
+    var friends = [User]() {
+        didSet {
+            hasLoadedFriends = true
+            for delegate in friendsDelegate {
+                delegate.reloadData()
+            }
+        }
+    }
+    
+    var friendsDelegate = [FriendsDataUpdating]() {
+        didSet {
+            for delegate in friendsDelegate {
+                delegate.hasLoaded = hasLoadedFriends
+            }
+        }
+    }
     
     init(username:String!, password:String!) {
-        self.username = username
+        self.username = username.lowercaseString
         self.password = password
     }
     
     init(objectId:String!, username:String!, password:String?, email:String!, name:String!, photo:NSData?) {
         self.objectId = objectId
-        self.username = username
+        self.username = username.lowercaseString
         self.password = password
-        self.email = email
+        self.email = email.lowercaseString
         self.name = name
         self.photo = photo
     }
     
     init(username:String!, password:String?, email:String!, name:String!, photo:NSData?) {
-        self.username = username
+        self.username = username.lowercaseString
         self.password = password
-        self.email = email
+        self.email = email.lowercaseString
         self.name = name
         self.photo = photo
     }
@@ -53,7 +76,17 @@ class User: NSObject {
         }
     }
     
-    init(userId:String!) {
-        self.objectId = userId
+    func friendWithObjectId(objectId:String!) -> User? {
+        for friend in friends {
+            if friend.objectId == objectId {
+                return friend
+            }
+        }
+        return nil
     }
+}
+
+protocol FriendsDataUpdating: class {
+    var hasLoaded: Bool {get set}
+    func reloadData()
 }

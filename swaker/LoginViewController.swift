@@ -18,25 +18,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var textFieldsView: UIView!
     var gradientLayer:CAGradientLayer!
+    var currentCalendar = NSCalendar.currentCalendar()
     
     @IBOutlet weak var loginButtonYConstraint: NSLayoutConstraint!
     @IBOutlet weak var forgotPasswordButtonYConstraint: NSLayoutConstraint!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNeedsStatusBarAppearanceUpdate()
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor(red: 76/255, green: 187/255, blue: 255/255, alpha: 1.0).CGColor, UIColor(red: 255/255, green: 129/255, blue: 129/255, alpha: 1.0).CGColor]
-        view.layer.insertSublayer(gradientLayer, atIndex: 0)
-        logInButton.layer.cornerRadius = 4
-        logInButton.clipsToBounds = true
-        textFieldsView.layer.cornerRadius = 4
-        textFieldsView.clipsToBounds = true
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
-        // Do any additional setup after loading the view.
+        usernameTextField.placeholder = NSLocalizedString("Email", comment: "Email")
+        passwordTextField.placeholder = NSLocalizedString("Password", comment: "Password")
+        logInButton.setTitle(NSLocalizedString("Login", comment: "Login"), forState: UIControlState.Normal)
+        signUpButton.setTitle(NSLocalizedString("Signup", comment: "Signup"), forState: .Normal)
+        //signUpButton.setNeedsLayout()
+        //signUpButton.layoutIfNeeded()
+        forgotPasswordButton.setTitle(NSLocalizedString("ForgotPassword", comment: "Forgot Password"), forState: .Normal)
+        setUpViews()
         indicator.hidden = true
         indicator.startAnimating()
     }
@@ -48,9 +44,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.signUpButton.alpha = 1
 
     }
-
-    override func viewDidAppear(animated: Bool) {
-        println(logInButton.frame)
+    
+    func setUpViews() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        let comps = currentCalendar.components(.CalendarUnitHour, fromDate: NSDate())
+        let index = Int(round(Float(comps.hour == 0 ? 24 : comps.hour) / 3) - 1)
+        gradientLayer.colors = mainColor()
+        gradientLayer.locations = mainLocation()
+        view.layer.insertSublayer(gradientLayer, atIndex: 0)
+        logInButton.layer.cornerRadius = 4
+        logInButton.clipsToBounds = true
+        textFieldsView.layer.cornerRadius = 4
+        textFieldsView.clipsToBounds = true
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,24 +71,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func login(sender: AnyObject) {
-        usernameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
+        lowerViews()
         let indicator = self.indicator
         let user = User(username: usernameTextField.text, password: passwordTextField.text)
         indicator.hidden = false
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            if UserDAO.sharedInstance().login(user) {
+            let loginResult = UserDAO.sharedInstance().login(user)
+            if loginResult.success {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.performSegueWithIdentifier("loginSucceeded", sender: self)
                     UserDAO.sharedInstance().loadFriendsForCurrentUser()
                     AlarmDAO.sharedInstance().loadUserAlarms()
+                    AlarmDAO.sharedInstance().loadFriendsAlarms()
                     AlarmDAO.sharedInstance().deleteCloudAlarmsIfNeeded()
                     AlarmDAO.sharedInstance().subscribeToAlarms()
                     self.clearTextFields()
                 })
             } else {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let alert = UIAlertController(title: "Could not Log In", message: "Email and/or password is incorrect.", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: NSLocalizedString("CouldntLogin", comment: "Couldnt Login"), message: loginResult.errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
                     let action = UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
                     })
                     alert.addAction(action)
@@ -121,20 +130,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    @IBAction func clickOnBackground(sender:AnyObject) {
+        lowerViews()
+    }
+    
+    func lowerViews() {
+        if usernameTextField.isFirstResponder() || passwordTextField.isFirstResponder() {
+            forgotPasswordButtonYConstraint.constant -= view.frame.height * 2/5
+        }
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
         loginButtonYConstraint.constant = 0
-        forgotPasswordButtonYConstraint.constant -= view.frame.height * 2/5
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }
     
-    @IBAction func clickOnBackground(sender:AnyObject) {
-        if usernameTextField.isFirstResponder() {
-            usernameTextField.resignFirstResponder()
-        } else if passwordTextField.isFirstResponder() {
-            passwordTextField.resignFirstResponder()
-        }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK: - Navigation

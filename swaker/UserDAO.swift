@@ -28,7 +28,7 @@ class UserDAO: NSObject {
         self.instance = nil
         PFInstallation.currentInstallation().setObject([], forKey: "channels")
         PFInstallation.currentInstallation().removeObjectForKey("user")
-        PFInstallation.currentInstallation().save()
+        PFInstallation.currentInstallation().saveInBackground()
     }
     
     /*//////////////////////////////INSTANCE ATTS AND FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
@@ -42,7 +42,7 @@ class UserDAO: NSObject {
         Parâmetros: Usuário com username e senha
         Retorno   : true = login sucesso ou false = login falhou
     ****************************************************************************************************/
-    func login(user:User!) -> Bool {
+    func login(user:User!) -> (success: Bool, errorMessage: String?) {
             var error:NSError?
             if let userDAO = PFUser.logInWithUsername(user.username, password: user.password, error: &error) {
                 if currentUser == nil {
@@ -50,9 +50,16 @@ class UserDAO: NSObject {
                     PFInstallation.currentInstallation().setObject(userDAO, forKey: "user")
                     PFInstallation.currentInstallation().saveInBackground()
                 }
-                return true
+                return (true, nil)
             }
-        return false
+        let errorUserInfo = error!.userInfo as! [String: AnyObject]
+        var errorMessage = ""
+        if errorUserInfo["code"] as! Int == 101 {
+            errorMessage = NSLocalizedString("Incorrect", comment: "Couldnt Login")
+        } else if errorUserInfo["code"] as! Int == 100 {
+            errorMessage = NSLocalizedString("Internet", comment: "Couldnt Login")
+        }
+        return (false, errorMessage)
     }
     
     /****************************************************************************************************
@@ -60,19 +67,19 @@ class UserDAO: NSObject {
         Parâmetros : Usuario com username, password e email
         Retorno    : true = cadastrou ou false = não cadastrou
     ****************************************************************************************************/
-    func signup(user:User!) -> Bool {   
+    func signup(user:User!) -> (success:Bool, error:NSError?) {
+        var error:NSError?
         var userDAO = PFUser()
-        
         userDAO.username = user.username
         userDAO.password = user.password
         userDAO.email = user.email
         userDAO.setObject(user.name, forKey: "name")
         userDAO.setObject(PFFile(data:user.photo!), forKey: "photo")
-        if userDAO.signUp() {
+        if userDAO.signUp(&error) {
             self.logout()
-            return true
+            return (true, error)
         }
-        return false
+        return (false, error)
     }
     
     /****************************************************************************************************
@@ -104,12 +111,11 @@ class UserDAO: NSObject {
         Retorno    : True ou false para o update dos dados
     ****************************************************************************************************/
     func updateUser(user:User!) {
-        
         var sucess = Bool()
         let userDAO = PFUser.currentUser()!
         userDAO.setObject(user.name, forKey: "name")
         userDAO.setObject(PFFile(data: user.photo!), forKey: "photo")
-        userDAO.saveEventually()
+        userDAO.save()
     }
     
     /****************************************************************************************************
@@ -117,8 +123,10 @@ class UserDAO: NSObject {
     Parâmetros : email do usuário
     Retorno    : true = resetado, false = não resetado
     ****************************************************************************************************/
-    func resetPasswordForEmail(email:String!) -> Bool {
-        return PFUser.requestPasswordResetForEmail(email)
+    func resetPasswordForEmail(email:String!) -> (success:Bool, error:NSError?) {
+        var error:NSError?
+        let success = PFUser.requestPasswordResetForEmail(email, error: &error)
+        return (success, error)
     }
     
     //MARK: Friends Functions
@@ -129,18 +137,42 @@ class UserDAO: NSObject {
     ****************************************************************************************************/
     func loadFriendsForCurrentUser() {
         println("Loading friends")
-        var friends = [User]()
+        var friendsIds = [String]()
         let query = PFQuery(className: "FriendList").whereKey("userId", equalTo: currentUser!.objectId)
-        let anyObjects = query.findObjects()
-        let objects = anyObjects as? [PFObject]
-        if objects != nil {
-            for obj in objects! {
-                let user = PFUser.query()?.whereKey("objectId", equalTo: obj["friendId"] as! String).findObjects()!.first as! PFUser
-                friends.append(User(user: user))
-                PFInstallation.currentInstallation().addObject("f" + (user.objectId!), forKey: "channels")
+        query.findObjectsInBackgroundWithBlock { (friendListObjects, error) -> Void in
+            if error == nil {
+                var friends = [User]()
+                let friendListObjects = friendListObjects as! [PFObject]
+                for object in friendListObjects {
+                    let friendId = object["friendId"] as! String
+                    let friend = PFUser(withoutDataWithObjectId: friendId)
+                    friend.fetch()
+                    friends.append(User(user: friend))
+                    if let channels: AnyObject = PFInstallation.currentInstallation().objectForKey("channels") {
+                    } else {
+                        PFInstallation.currentInstallation().setObject([], forKey: "channels")
+                    }
+                    if !PFInstallation.currentInstallation().objectForKey("channels")!.containsObject("f"+friend.objectId!) {
+                        PFInstallation.currentInstallation().addObject("f"+friend.objectId!, forKey: "channels")
+                    }
+                }
+                for friend in friends {
+                    friendsIds.append(friend.objectId)
+                }
+                var channels = PFInstallation.currentInstallation().objectForKey("channels") as! [String]
+                for sub in channels {
+                    let range = Range<String.Index>(start: advance(sub.startIndex, 1), end: sub.endIndex)
+                    let subb = sub.substringWithRange(range)
+                    if !contains(friendsIds, subb) {
+                        PFInstallation.currentInstallation().removeObject(sub, forKey: "channels")
+                    }
+                }
+                self.currentUser!.friends = friends
+                
+                PFInstallation.currentInstallation().saveInBackground()
             }
         }
-        currentUser!.friends = friends
+        AlarmDAO.sharedInstance().loadFriendsAlarms()
     }
     
     /****************************************************************************************************
@@ -200,6 +232,7 @@ class UserDAO: NSObject {
             PFObject(className: "FriendList", dictionary: ["userId":currentUser!.objectId, "friendId":friend.objectId]).saveEventually()
             return false
         }
+        currentUser!.friends.removeAtIndex(find(currentUser!.friends, friend)!)
         return true
     }
 }
