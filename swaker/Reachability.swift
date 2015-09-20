@@ -27,7 +27,7 @@ public class Reachability {
                 Status = true
             }
         }
-        
+        println("Reach blergh")
         return Status
     }
 }

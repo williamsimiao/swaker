@@ -90,7 +90,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
             if let img = image {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                    let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: UIImagePNGRepresentation(self.pictureImageView.image))
+                    let user = User(username: self.emailTextField.text, password: self.senhaTextField.text, email: self.emailTextField.text, name: self.nomeTextField.text, photo: UIImagePNGRepresentation(img))
                     let signUpResult = UserDAO.sharedInstance().signup(user)
                     if signUpResult.success {
                         alert.message = "Sign Up succeeded."
